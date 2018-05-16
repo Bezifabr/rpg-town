@@ -14,7 +14,7 @@ Mood:
 It depends on weather, the situation in which the player is and on the future development of the game.
 
 Graphics:
-2D sketches.
+Pixelart supported with sketches.
 Realistic as far as possible.
 Based on SFML
 
