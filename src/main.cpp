@@ -1,5 +1,5 @@
 #include <SFML/Graphics.hpp>
-#include "UI\Button.h"
+#include "Button.h"
 
 int main()
 {
