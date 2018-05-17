@@ -11,7 +11,7 @@ UI::Button::Button(const std::string string, sf::Font & font, sf::Vector2f posit
 	setString(string);
 	setFont(font);
 	setPosition(position);
-
+	init();
 }
 
 bool UI::Button::isPressed()
@@ -48,6 +48,7 @@ void UI::Button::setPosition(sf::Vector2f position)
 void UI::Button::setPosition(float x, float y)
 {
 	sprite.setPosition(x, y);
+	setTextPosition();
 }
 
 void UI::Button::setTexture(const sf::Texture& texture)
@@ -78,6 +79,7 @@ void UI::Button::draw(sf::RenderTarget & target, sf::RenderStates states) const
 void UI::Button::init()
 {
 	text.setString("Sample text");
+	setTextPosition();
 }
 
 void UI::Button::setTextPosition()
