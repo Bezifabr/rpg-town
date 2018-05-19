@@ -11,10 +11,15 @@ public:
 	StatesMachine();
 
 	void setCurrent(State* s);
-
+	void handleEvent(sf::Event event, const sf::Window& window);
+	void render(sf::RenderTarget& renderTarget);
 
 	void Update(sf::Time deltaTime);
 
+	bool IsRunning();
+
+private:
+	bool isRunning;
 };
 
 

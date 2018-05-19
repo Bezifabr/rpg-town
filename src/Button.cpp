@@ -16,7 +16,12 @@ UI::Button::Button(const std::string string, sf::Font & font, sf::Vector2f posit
 
 bool UI::Button::isPressed()
 {
-	return buttonPressed;
+	if(buttonPressed)
+	{
+		buttonPressed = false;
+		return true;
+	}
+	return false;
 }
 
 void UI::Button::setColor(sf::Color color)
@@ -56,10 +61,14 @@ void UI::Button::setTexture(const sf::Texture& texture)
 	sprite.setTexture(texture);;
 }
 
-void UI::Button::update(sf::Event & event, sf::Vector2i mousePosition)
+void UI::Button::update()
 {
 	setTextPosition();
-	buttonPressed = false;
+
+}
+
+void UI::Button::handleEvent(sf::Event & event, sf::Vector2i mousePosition)
+{	
 
 	bool mouseInSprite = sprite.getGlobalBounds().contains(mousePosition.x,mousePosition.y);
 
