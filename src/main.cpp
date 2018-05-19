@@ -1,10 +1,15 @@
 #include <SFML/Graphics.hpp>
 #include "Button.h"
+#include "StatesMachine.h"
+#include "MenuState.h"
 
 int main()
 {
+	StatesMachine statesMachine;
 	sf::RenderWindow window(sf::VideoMode(1000, 800), "RPG Town project");
 	window.setFramerateLimit(60);
+
+	statesMachine.setCurrent(new MenuState);
 
 	sf::Font titleFont;
 	sf::Font textFont;
