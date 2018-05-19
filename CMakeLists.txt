@@ -12,11 +12,10 @@ add_compile_options(-std=c++11)
 include_directories(${SFML_DIR}/include)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-file(GLOB_RECURSE HS_FILES
-	"${CMAKE_CURRENT_SOURCE_DIR}/include/*.h"
-	"${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp"
+file(GLOB_RECURSE HS_FILES	
+	GLOB_CPP_PATTERNS src/*.cpp */states/*.cpp
+	GLOB_H_PATTERNS include/*.h */states/*.h RECURSE GROUP
 )
-
 
 add_executable(game ${HS_FILES})
 

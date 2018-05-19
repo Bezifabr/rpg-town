@@ -1,4 +1,4 @@
-#include "MenuState.h"
+#include "states/MenuState.h"
 #include "StatesMachine.h"
 #include <iostream>
 

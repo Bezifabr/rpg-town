@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "Button.h"
 #include "StatesMachine.h"
-#include "MenuState.h"
+#include "states/MenuState.h"
 
 int main()
 {
