@@ -2,6 +2,8 @@ cmake_minimum_required (VERSION 2.8.12)
 
 project(Game)
 
+set(SOURCE_FILES main.cpp)
+
 add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/ext/sfml")
 
 # add c++11 standard to compiler
