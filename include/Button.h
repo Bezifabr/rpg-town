@@ -32,7 +32,7 @@ namespace UI
 		void setPosition(float x, float y);
 		void setTexture(const sf::Texture& texture);
 
-		void update(sf::Event& event, sf::RenderWindow& window);
+		void update(sf::Event& event, sf::Vector2i mousePosition);
 
 		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 

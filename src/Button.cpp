@@ -56,12 +56,11 @@ void UI::Button::setTexture(const sf::Texture& texture)
 	sprite.setTexture(texture);;
 }
 
-void UI::Button::update(sf::Event & event, sf::RenderWindow & window)
+void UI::Button::update(sf::Event & event, sf::Vector2i mousePosition)
 {
 	setTextPosition();
 	buttonPressed = false;
 
-	sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
 	bool mouseInSprite = sprite.getGlobalBounds().contains(mousePosition.x,mousePosition.y);
 
 	if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left && mouseInSprite == true)
