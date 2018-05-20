@@ -3,6 +3,7 @@
 
 #include "State.h"
 #include "Button.h"
+#include "Town.h"
 
 class GameState : public State 
 {
@@ -12,6 +13,8 @@ class GameState : public State
 
     sf::View camera;
 
+    Town town;
+    
 public:
 
     virtual void HandleEvent(sf::Event event, const sf::Window& window);

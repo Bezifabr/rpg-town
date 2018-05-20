@@ -18,10 +18,20 @@ void GameState::OnLoad()
     exit.setPosition(50,50);
 
     // Camera Settings
-   // camera.setViewport(sf::FloatRect(0,0,1000,800));
     camera.setCenter(200,200);
     camera.setSize(1000,800);
     statesMachine->setView(camera);
+
+    // Town Settings
+    town.addResource("Iron", 1000);
+    town.addResource("Wood", 1000);
+    town.addResource("Stone", 1000);
+
+    Building build;
+    build.loadTexture("resources/Test/House.png");
+    build.getTranformable().setPosition(500,500);
+
+    town.addBuilding(build);;
 
     cout << "Game loaded" << endl;
 }
@@ -36,6 +46,8 @@ void GameState::HandleEvent(sf::Event event, const sf::Window& window)
     sf::Vector2f mousePos = 
     statesMachine->ConvertToCoordinate(sf::Mouse::getPosition(window));
 
+    if(event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
+        cout << mousePos.x << " " << mousePos.y << "\n";
 
     exit.handleEvent(event, mousePos);
 }
@@ -61,6 +73,10 @@ void GameState::OnUpdate()
 void GameState::Render(sf::RenderTarget& renderTarget)
 {
     renderTarget.setView(camera);
+
+    for(auto b : town.getBuildings())
+        renderTarget.draw(b.getDrawable());
+
     renderTarget.draw(exit);
 }  
 
