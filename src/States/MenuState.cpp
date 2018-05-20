@@ -59,7 +59,6 @@ void MenuState::OnUpdate()
 	if (btnExit.isPressed())
 	{	
 		isGameFinished = true;
-		cout << "TEST" << endl;
 	}
 
 	btnPlay.update();

@@ -7,13 +7,29 @@ StatesMachine::StatesMachine()
 
 }
 
+StatesMachine::~StatesMachine()
+{
+    shutdown();
+}
+
+void StatesMachine::init(State * s)
+{
+    setCurrent(s);
+    isRunning = true;
+}
+
+void StatesMachine::shutdown()
+{
+    if(isRunning)
+        current->Unload();
+}
+
 void StatesMachine::setCurrent(State * s)
 {
- //  if(this->current)
-     //   current->Unload();
+   if(isRunning == true)
+        current->Unload();
     this->current = s;
     this->current->Load(this);
-    isRunning = true;
 }
 
 void StatesMachine::Update(sf::Time deltaTime)

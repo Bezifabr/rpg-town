@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "Button.h"
 #include "StatesMachine.h"
-#include "states/MenuState.h"
+#include "states/IntroState.h"
 
 int main()
 {
@@ -9,7 +9,7 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(1000, 800), "RPG Town project");
 	window.setFramerateLimit(60);
 
-	statesMachine.setCurrent(new MenuState);
+	statesMachine.init(new IntroState);
 
 
 
@@ -34,6 +34,8 @@ int main()
 		statesMachine.render(window);
 		window.display();
 	}
+
+	statesMachine.shutdown();
 
 	return 0;
 }

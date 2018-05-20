@@ -9,6 +9,10 @@ class StatesMachine {
 	State* current;
 public:
 	StatesMachine();
+	~StatesMachine();
+
+	void init(State* s);
+	void shutdown();
 
 	void setCurrent(State* s);
 	void handleEvent(sf::Event event, const sf::Window& window);
@@ -19,7 +23,7 @@ public:
 	bool IsRunning();
 
 private:
-	bool isRunning;
+	bool isRunning = false;
 };
 
 
