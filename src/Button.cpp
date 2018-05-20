@@ -67,10 +67,10 @@ void UI::Button::update()
 
 }
 
-void UI::Button::handleEvent(sf::Event & event, sf::Vector2i mousePosition)
+void UI::Button::handleEvent(sf::Event & event, sf::Vector2f mousePosition)
 {	
 
-	bool mouseInSprite = sprite.getGlobalBounds().contains(mousePosition.x,mousePosition.y);
+	bool mouseInSprite = sprite.getGlobalBounds().contains(mousePosition);
 
 	if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left && mouseInSprite == true)
 	{
