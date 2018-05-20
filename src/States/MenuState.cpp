@@ -1,4 +1,5 @@
 #include "states/MenuState.h"
+#include "states/GameState.h"
 #include "StatesMachine.h"
 #include <iostream>
 
@@ -61,6 +62,11 @@ void MenuState::OnUpdate()
 		isGameFinished = true;
 	}
 
+	if (btnPlay.isPressed())
+	{
+		statesMachine->setCurrent(new GameState);
+	}
+
 	btnPlay.update();
 	btnLoad.update();
 	btnExit.update();
@@ -74,9 +80,11 @@ void MenuState::HandleEvent(sf::Event event, const sf::Window& window)
 		if (event.key.code == sf::Keyboard::Escape)
 			isGameFinished = true;
 	}
-		btnPlay.handleEvent(event, sf::Mouse::getPosition(window));
-		btnLoad.handleEvent(event, sf::Mouse::getPosition(window));
-		btnExit.handleEvent(event, sf::Mouse::getPosition(window));
+
+	sf::Vector2f mousePos = statesMachine->ConvertToCoordinate(sf::Mouse::getPosition(window));
+		btnLoad.handleEvent(event, mousePos);
+		btnExit.handleEvent(event, mousePos);
+		btnPlay.handleEvent(event, mousePos);
 
 }
 

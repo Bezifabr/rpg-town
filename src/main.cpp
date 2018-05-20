@@ -8,8 +8,9 @@ int main()
 	StatesMachine statesMachine;
 	sf::RenderWindow window(sf::VideoMode(1000, 800), "RPG Town project");
 	window.setFramerateLimit(60);
+	window.setKeyRepeatEnabled(false);
 
-	statesMachine.init(new IntroState);
+	statesMachine.init(new IntroState, &window);
 
 
 

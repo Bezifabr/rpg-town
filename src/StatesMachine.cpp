@@ -12,8 +12,9 @@ StatesMachine::~StatesMachine()
     shutdown();
 }
 
-void StatesMachine::init(State * s)
+void StatesMachine::init(State * s, sf::RenderWindow* window)
 {
+    this->window = window;
     setCurrent(s);
     isRunning = true;
 }
@@ -26,10 +27,13 @@ void StatesMachine::shutdown()
 
 void StatesMachine::setCurrent(State * s)
 {
+    window->setView(window->getDefaultView());
    if(isRunning == true)
-        current->Unload();
+           current->Unload();
+
     this->current = s;
     this->current->Load(this);
+    current->Update(sf::Time::Zero);
 }
 
 void StatesMachine::Update(sf::Time deltaTime)
@@ -52,4 +56,14 @@ void StatesMachine::handleEvent(sf::Event event, const sf::Window& window)
 bool StatesMachine::IsRunning()
 {
     return isRunning;
+}
+
+void StatesMachine::setView(const sf::View& view)
+{
+    window->setView(view);
+}
+
+sf::Vector2f StatesMachine::ConvertToCoordinate(sf::Vector2i position)
+{
+    return window->mapPixelToCoords(position);
 }

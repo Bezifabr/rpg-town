@@ -7,11 +7,12 @@ class State;
 
 class StatesMachine {
 	State* current;
+	sf::RenderWindow* window;
 public:
 	StatesMachine();
 	~StatesMachine();
 
-	void init(State* s);
+	void init(State* s, sf::RenderWindow* window);
 	void shutdown();
 
 	void setCurrent(State* s);
@@ -22,8 +23,11 @@ public:
 
 	bool IsRunning();
 
+	void setView(const sf::View& view);
+	sf::Vector2f ConvertToCoordinate(sf::Vector2i position);
 private:
 	bool isRunning = false;
+
 };
 
 
