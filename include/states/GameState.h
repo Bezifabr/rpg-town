@@ -7,9 +7,11 @@
 
 class GameState : public State 
 {
-    UI::Button exit;   
+    UI::Button btnMenu;
+    UI::Button btnQuests;
+    UI::Button btnStats;
     sf::Font font;
-    sf::Texture texture;
+    sf::Texture hudButtonTexture;
 
     sf::View camera;
 

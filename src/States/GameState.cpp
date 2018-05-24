@@ -8,14 +8,26 @@ using std::endl;
 
 void GameState::OnLoad()
 {
-    texture.loadFromFile("resources/btnText.png");
+    hudButtonTexture.loadFromFile("resources/HUDButton.png");
 
     font.loadFromFile("resources/Text font.ttf");
 
-    exit.setTexture(texture);
-    exit.setFont(font);
-    exit.setString("Close game");
-    exit.setPosition(50,50);
+    btnMenu.setTexture(hudButtonTexture);
+    btnMenu.setFont(font);
+    btnMenu.setString("Menu");
+    btnMenu.setPosition(5,5);
+
+    btnQuests.setTexture(hudButtonTexture);
+    btnQuests.setFont(font);
+    btnQuests.setString("Missions");
+    btnQuests.setPosition(btnMenu.getPosition().x 
+    + btnMenu.getGlobalBounds().width + 5 ,5);
+
+    btnStats.setTexture(hudButtonTexture);
+    btnStats.setFont(font);
+    btnStats.setString("Statistics");
+    btnStats.setPosition(btnQuests.getPosition().x
+     + btnQuests.getGlobalBounds().width + 5 ,5);
 
     // Camera Settings
     camera.setCenter(200,200);
@@ -49,13 +61,20 @@ void GameState::HandleEvent(sf::Event event, const sf::Window& window)
     if(event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
         cout << mousePos.x << " " << mousePos.y << "\n";
 
-    exit.handleEvent(event, mousePos);
+    btnMenu.handleEvent(event, mousePos);
+    btnQuests.handleEvent(event, mousePos);
+    btnStats.handleEvent(event, mousePos);
 }
 
 void GameState::OnUpdate()
 {
-    if(exit.isPressed())
-        statesMachine->setCurrent(new MenuState);
+    if(btnMenu.isPressed())
+        cout << "Menu window opened" << endl;
+    if(btnQuests.isPressed())
+        cout << "Missions window opened" << endl;
+    if(btnStats.isPressed())
+        cout << "Statistics window opened" << endl;
+
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
         camera.move(-5,0);
@@ -66,7 +85,9 @@ void GameState::OnUpdate()
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
         camera.move(0,5);
 
-    exit.update();
+    btnMenu.update();
+    btnQuests.update();
+    btnStats.update();
 }
 
 
@@ -79,7 +100,9 @@ void GameState::Render(sf::RenderTarget& renderTarget)
 
     renderTarget.setView(renderTarget.getDefaultView());
 
-    renderTarget.draw(exit);
+    renderTarget.draw(btnMenu);
+    renderTarget.draw(btnQuests);
+    renderTarget.draw(btnStats);
 }  
 
 
