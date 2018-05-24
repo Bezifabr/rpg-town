@@ -95,3 +95,8 @@ void UI::Button::setTextPosition()
 	text.setOrigin(text.getGlobalBounds().width / 2, text.getGlobalBounds().height / 2);
 	text.setPosition(sprite.getPosition().x + sprite.getGlobalBounds().width / 2, sprite.getPosition().y + sprite.getGlobalBounds().height / 2 - 10);
 }
+
+sf::Vector2f UI::Button::getPosition()
+{
+	return sprite.getPosition();
+}
