@@ -77,6 +77,8 @@ void GameState::Render(sf::RenderTarget& renderTarget)
     for(auto b : town.getBuildings())
         renderTarget.draw(b.getDrawable());
 
+    renderTarget.setView(renderTarget.getDefaultView());
+
     renderTarget.draw(exit);
 }  
 
