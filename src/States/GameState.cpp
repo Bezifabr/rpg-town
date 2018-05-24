@@ -61,6 +61,9 @@ void GameState::HandleEvent(sf::Event event, const sf::Window& window)
     if(event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
         cout << mousePos.x << " " << mousePos.y << "\n";
 
+    if(event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape)
+        statesMachine->setCurrent(new MenuState);
+
     btnMenu.handleEvent(event, mousePos);
     btnQuests.handleEvent(event, mousePos);
     btnStats.handleEvent(event, mousePos);
@@ -74,7 +77,6 @@ void GameState::OnUpdate()
         cout << "Missions window opened" << endl;
     if(btnStats.isPressed())
         cout << "Statistics window opened" << endl;
-
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
         camera.move(-5,0);
