@@ -32,6 +32,7 @@ namespace UI
 		void setPosition(float x, float y);
 
 		sf::Vector2f getPosition();
+		sf::FloatRect getGlobalBounds();
 
 		void setTexture(const sf::Texture& texture);
 

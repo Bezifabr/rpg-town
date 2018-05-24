@@ -100,3 +100,8 @@ sf::Vector2f UI::Button::getPosition()
 {
 	return sprite.getPosition();
 }
+
+sf::FloatRect UI::Button::getGlobalBounds()
+{
+	return sprite.getGlobalBounds();
+}
