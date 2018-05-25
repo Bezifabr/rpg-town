@@ -3,7 +3,7 @@
 
 #include "State.h"
 #include <iostream>
-#include "Button.h"
+#include "HUD/Button.h"
 
 class MenuState : public State {
 
@@ -12,9 +12,9 @@ class MenuState : public State {
 	sf::Text title;
 	sf::Text author;
 	sf::Text TBC;
-	UI::Button btnPlay;
-	UI::Button btnLoad;
-	UI::Button btnExit;
+	HUD::Button btnPlay;
+	HUD::Button btnLoad;
+	HUD::Button btnExit;
 	sf::Texture texture;
 	sf::Texture buttonTexture;
 public:

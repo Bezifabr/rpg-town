@@ -1,5 +1,5 @@
 #include <SFML/Graphics.hpp>
-#include "Button.h"
+#include "HUD/Button.h"
 #include "StatesMachine.h"
 #include "states/IntroState.h"
 

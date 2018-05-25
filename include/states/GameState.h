@@ -2,14 +2,14 @@
 #define GAME_STATE_H
 
 #include "State.h"
-#include "Button.h"
+#include "HUD/Button.h"
 #include "Town.h"
 
 class GameState : public State 
 {
-    UI::Button btnMenu;
-    UI::Button btnQuests;
-    UI::Button btnStats;
+    HUD::Button btnMenu;
+    HUD::Button btnQuests;
+    HUD::Button btnStats;
     sf::Font font;
     sf::Texture hudButtonTexture;
 
