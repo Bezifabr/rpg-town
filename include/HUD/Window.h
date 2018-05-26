@@ -25,9 +25,7 @@ namespace HUD
         bool isOpened();
         void setOpened(bool value);
 
-        std::map<std::string, bool> isPressed();
     protected:
-        std::map<std::string, HUD::Button> buttons;
 
         
         virtual void OnDraw(sf::RenderTarget& target, sf::RenderStates states) const = 0;

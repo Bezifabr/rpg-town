@@ -57,18 +57,3 @@ sf::Vector2f HUD::Window::getCenterPosition()
         background.getGlobalBounds().left + background.getGlobalBounds().width/2,
         background.getGlobalBounds().top + background.getGlobalBounds().height/2);
 }
-
-std::map<std::string, bool> HUD::Window::isPressed()
-{
-    std::map<std::string, bool> m1;
-    
-    for(auto x: buttons)
-    {
-        m1[x.first] = buttons[x.first].isPressed();
-    }
-
-    if(m1.size() <= 0)
-        cout << "Error: Window.cpp isPressed() //m1 is empty" << endl;
-
-    return m1;
-}
