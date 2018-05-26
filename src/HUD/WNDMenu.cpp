@@ -32,6 +32,12 @@ void HUD::WNDMenu::OnInitialize()
     menu.setOriginToCenter();
     back.setOriginToCenter();
 
+    // GM1 <=> Game Menu 1
+    save.setCode("GM1_save");
+    load.setCode("GM1_load");
+    menu.setCode("GM1_menu");
+    back.setCode("GM1_back");
+
     save.setPosition(getCenterPosition().x, convertToWindowPosition(200,100).y);
     load.setPosition(getCenterPosition().x, convertToWindowPosition(200,200).y);
     menu.setPosition(getCenterPosition().x, convertToWindowPosition(200,300).y);
@@ -44,6 +50,27 @@ void HUD::WNDMenu::update()
     if(close.isPressed())
         setOpened(false);
         
+    if(save.isPressed())
+        {
+            lastActionButton = &save;
+            lastButtonPressed = true;
+        }
+    if(load.isPressed())
+        {
+            lastActionButton = &load;
+            lastButtonPressed = true;
+        }
+    if(menu.isPressed())
+        {
+            lastActionButton = &menu;
+            lastButtonPressed = true;
+        }
+    if(back.isPressed())
+        {
+            lastActionButton = &back;
+            lastButtonPressed = true;
+        }
+
 
     save.update();
     load.update();

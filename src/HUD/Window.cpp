@@ -57,3 +57,19 @@ sf::Vector2f HUD::Window::getCenterPosition()
         background.getGlobalBounds().left + background.getGlobalBounds().width/2,
         background.getGlobalBounds().top + background.getGlobalBounds().height/2);
 }
+
+bool HUD::Window::isButtonPressed()
+{
+    bool buffer = lastButtonPressed;
+    lastButtonPressed = false;
+    return buffer;
+}
+
+std::string HUD::Window::getPressedButtonCode()
+{
+    if(lastActionButton)
+        return lastActionButton->getCode();
+
+    cout << "Error: HUD::Window::getPressedButtonCode() -> There is no lastActionButton" << endl;
+    return "Error code";
+}

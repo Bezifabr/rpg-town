@@ -28,7 +28,7 @@ public:
     virtual void Render(sf::RenderTarget& renderTarget);
 
 private:
-
+    void m_CheckCodes(std::string code);
     void m_CloseWindow();
 
     virtual void OnUpdate();

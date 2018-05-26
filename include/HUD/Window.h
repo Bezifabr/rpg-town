@@ -13,6 +13,7 @@ namespace HUD
         bool opened;
         sf::Sprite background;
         sf::Texture texture;
+
     public:
 
         void setBackground(const std::string& source);
@@ -25,8 +26,11 @@ namespace HUD
         bool isOpened();
         void setOpened(bool value);
 
+        bool isButtonPressed();
+        std::string getPressedButtonCode();
     protected:
-
+        bool lastButtonPressed = false;
+        HUD::Button* lastActionButton;
         
         virtual void OnDraw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
         virtual void OnInitialize() = 0;

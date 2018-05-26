@@ -114,3 +114,13 @@ void HUD::Button::setOriginToCenter()
 		sprite.getLocalBounds().top + sprite.getLocalBounds().height/2);
 	sprite.setOrigin(center);
 }
+
+const std::string& HUD::Button::getCode()
+{
+	return code;
+}
+
+void HUD::Button::setCode(const std::string& code)
+{
+	this->code = code;
+}

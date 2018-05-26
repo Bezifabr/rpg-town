@@ -14,6 +14,7 @@ namespace HUD
 		sf::Text text;
 		sf::Font font;
 		sf::Sprite sprite;
+		std::string code;
 
 		bool buttonPressed = false;
 
@@ -22,6 +23,9 @@ namespace HUD
 		Button(const std::string string, sf::Font& font, sf::Vector2f position);
 
 		bool isPressed();
+
+		const std::string& getCode();
+		void setCode (const std::string& code);
 
 		void setOriginToCenter();
 

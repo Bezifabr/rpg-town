@@ -111,6 +111,13 @@ void GameState::OnUpdate()
     if(currentWindow)
         {
             currentWindow->update();
+
+            if(currentWindow->isButtonPressed())
+                {
+                    cout << currentWindow->getPressedButtonCode() << endl;
+                    m_CheckCodes(currentWindow->getPressedButtonCode());
+                }
+
             if(currentWindow->isOpened() == false)
                 m_CloseWindow();
         }
@@ -143,4 +150,12 @@ void GameState::m_CloseWindow()
     delete currentWindow;
     currentWindow = nullptr;
     windowOpened = false;
+}
+
+void GameState::m_CheckCodes(std::string code)
+{    
+    if(code == "GM1_back")
+        currentWindow->setOpened(false);
+    if(code == "GM1_menu")
+        statesMachine->setCurrent(new MenuState);
 }
