@@ -1,6 +1,7 @@
 #include "states/GameState.h"
 #include "states/MenuState.h"
 #include "StatesMachine.h"
+#include "HUD/WNDMenu.h"
 #include <iostream>
 
 using std::cout;
@@ -43,7 +44,8 @@ void GameState::OnLoad()
     build.loadTexture("resources/Test/House.png");
     build.getTranformable().setPosition(500,500);
 
-    town.addBuilding(build);;
+    town.addBuilding(build);
+
 
     cout << "Game loaded" << endl;
 }
@@ -62,17 +64,29 @@ void GameState::HandleEvent(sf::Event event, const sf::Window& window)
         cout << mousePos.x << " " << mousePos.y << "\n";
 
     if(event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape)
-        statesMachine->setCurrent(new MenuState);
+        {
+            if(windowOpened == false)
+                statesMachine->setCurrent(new MenuState);
+            else
+                m_CloseWindow();
+        }
 
     btnMenu.handleEvent(event, mousePos);
     btnQuests.handleEvent(event, mousePos);
     btnStats.handleEvent(event, mousePos);
+
+    if(windowOpened)
+        currentWindow->handleEvent(event,mousePos);
 }
 
 void GameState::OnUpdate()
 {
     if(btnMenu.isPressed())
-        cout << "Menu window opened" << endl;
+        {
+            currentWindow = new HUD::WNDMenu;
+            currentWindow->initialize();
+            windowOpened = true;
+        }
     if(btnQuests.isPressed())
         cout << "Missions window opened" << endl;
     if(btnStats.isPressed())
@@ -90,6 +104,14 @@ void GameState::OnUpdate()
     btnMenu.update();
     btnQuests.update();
     btnStats.update();
+
+    if(currentWindow)
+        {
+            currentWindow->update();
+            if(currentWindow->isOpened() == false)
+                m_CloseWindow();
+        }
+
 }
 
 
@@ -105,6 +127,15 @@ void GameState::Render(sf::RenderTarget& renderTarget)
     renderTarget.draw(btnMenu);
     renderTarget.draw(btnQuests);
     renderTarget.draw(btnStats);
+
+    if(windowOpened)
+        renderTarget.draw((*currentWindow));
 }  
 
 
+void GameState::m_CloseWindow()
+{
+    delete currentWindow;
+    currentWindow = nullptr;
+    windowOpened = false;
+}

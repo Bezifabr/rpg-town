@@ -4,6 +4,7 @@
 #include "State.h"
 #include "HUD/Button.h"
 #include "Town.h"
+#include "HUD/Window.h"
 
 class GameState : public State 
 {
@@ -13,9 +14,13 @@ class GameState : public State
     sf::Font font;
     sf::Texture hudButtonTexture;
 
+    HUD::Window* currentWindow = nullptr;
+
     sf::View camera;
 
     Town town;
+
+    bool windowOpened = false;
     
 public:
 
@@ -23,6 +28,8 @@ public:
     virtual void Render(sf::RenderTarget& renderTarget);
 
 private:
+
+    void m_CloseWindow();
 
     virtual void OnUpdate();
     virtual void OnLoad();
