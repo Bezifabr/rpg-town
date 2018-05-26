@@ -8,6 +8,10 @@
 
 class GameState : public State 
 {
+
+    sf::Sprite topBar;
+    sf::Texture topBarTexture;
+
     HUD::Button btnMenu;
     HUD::Button btnQuests;
     HUD::Button btnStats;

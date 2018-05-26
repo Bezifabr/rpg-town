@@ -16,19 +16,22 @@ void GameState::OnLoad()
     btnMenu.setTexture(hudButtonTexture);
     btnMenu.setFont(font);
     btnMenu.setString("Menu");
-    btnMenu.setPosition(5,5);
+    btnMenu.setPosition(5,1);
 
     btnQuests.setTexture(hudButtonTexture);
     btnQuests.setFont(font);
     btnQuests.setString("Missions");
     btnQuests.setPosition(btnMenu.getPosition().x 
-    + btnMenu.getGlobalBounds().width + 5 ,5);
+    + btnMenu.getGlobalBounds().width +1,1);
 
     btnStats.setTexture(hudButtonTexture);
     btnStats.setFont(font);
     btnStats.setString("Statistics");
     btnStats.setPosition(btnQuests.getPosition().x
-     + btnQuests.getGlobalBounds().width + 5 ,5);
+     + btnQuests.getGlobalBounds().width +1,1);
+
+    topBarTexture.loadFromFile("resources/Top Bar.png");
+    topBar.setTexture(topBarTexture);
 
     // Camera Settings
     camera.setCenter(200,200);
@@ -42,7 +45,7 @@ void GameState::OnLoad()
 
     Building build;
     build.loadTexture("resources/Test/House.png");
-    build.getTranformable().setPosition(500,500);
+    build.getTranformable().setPosition(400,375);
 
     town.addBuilding(build);
 
@@ -99,10 +102,10 @@ void GameState::OnUpdate()
         camera.move(-5,0);
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
         camera.move(5,0);
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-        camera.move(0,-5);
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-        camera.move(0,5);
+  //  if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+ //       camera.move(0,-5);
+ //   if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+ //       camera.move(0,5);
 
     btnMenu.update();
     btnQuests.update();
@@ -135,6 +138,8 @@ void GameState::Render(sf::RenderTarget& renderTarget)
         renderTarget.draw(b.getDrawable());
 
     renderTarget.setView(renderTarget.getDefaultView());
+
+    renderTarget.draw(topBar);
 
     renderTarget.draw(btnMenu);
     renderTarget.draw(btnQuests);

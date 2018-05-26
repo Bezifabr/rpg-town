@@ -16,6 +16,7 @@ namespace HUD
         sf::Font font;
         HUD::Button save;
         HUD::Button load;
+        HUD::Button options;
         HUD::Button menu;
         HUD::Button back;
 
