@@ -92,6 +92,9 @@ void GameState::OnUpdate()
     if(btnStats.isPressed())
         cout << "Statistics window opened" << endl;
 
+
+        
+
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
         camera.move(-5,0);
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
@@ -111,6 +114,8 @@ void GameState::OnUpdate()
             if(currentWindow->isOpened() == false)
                 m_CloseWindow();
         }
+
+
 
 }
 

@@ -12,6 +12,13 @@ namespace HUD
         sf::Texture closeBTN;
         HUD::Button close;
 
+        sf::Texture textureBTN;
+        sf::Font font;
+        HUD::Button save;
+        HUD::Button load;
+        HUD::Button menu;
+        HUD::Button back;
+
     public:
 		virtual void update();
 		virtual void handleEvent(sf::Event& event, sf::Vector2f mousePosition);

@@ -23,6 +23,8 @@ namespace HUD
 
 		bool isPressed();
 
+		void setOriginToCenter();
+
 		void setColor(sf::Color color);
 		void setSize(unsigned int size);
 		void setString(std::string text);

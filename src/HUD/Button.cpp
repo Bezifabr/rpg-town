@@ -93,7 +93,8 @@ void HUD::Button::init()
 void HUD::Button::setTextPosition()
 {
 	text.setOrigin(text.getGlobalBounds().width / 2, text.getGlobalBounds().height / 2);
-	text.setPosition(sprite.getPosition().x + sprite.getGlobalBounds().width / 2, sprite.getPosition().y + sprite.getGlobalBounds().height / 2 - 10);
+	text.setPosition(sprite.getGlobalBounds().left + sprite.getGlobalBounds().width / 2,
+	 sprite.getGlobalBounds().top + sprite.getGlobalBounds().height / 2 - 10);
 }
 
 sf::Vector2f HUD::Button::getPosition()
@@ -104,4 +105,12 @@ sf::Vector2f HUD::Button::getPosition()
 sf::FloatRect HUD::Button::getGlobalBounds()
 {
 	return sprite.getGlobalBounds();
+}
+
+void HUD::Button::setOriginToCenter()
+{
+	sf::Vector2f center = sf::Vector2f(
+		sprite.getLocalBounds().left + sprite.getLocalBounds().width/2, 
+		sprite.getLocalBounds().top + sprite.getLocalBounds().height/2);
+	sprite.setOrigin(center);
 }

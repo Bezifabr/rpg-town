@@ -2,6 +2,8 @@
 #define HUD_WINDOW_H
 
 #include <SFML/Graphics.hpp>
+#include <map>
+#include "HUD/Button.h"
 
 namespace HUD
 {
@@ -11,7 +13,6 @@ namespace HUD
         bool opened;
         sf::Sprite background;
         sf::Texture texture;
-
     public:
 
         void setBackground(const std::string& source);
@@ -23,12 +24,19 @@ namespace HUD
 
         bool isOpened();
         void setOpened(bool value);
+
+        std::map<std::string, bool> isPressed();
     protected:
+        std::map<std::string, HUD::Button> buttons;
+
+        
         virtual void OnDraw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
         virtual void OnInitialize() = 0;
 
         sf::Vector2f convertToWindowPosition(sf::Vector2f position);
         sf::Vector2f convertToWindowPosition(float posX, float posY);
+
+        sf::Vector2f getCenterPosition();
     };
 
 }
