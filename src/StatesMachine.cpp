@@ -65,5 +65,10 @@ void StatesMachine::setView(const sf::View& view)
 
 sf::Vector2f StatesMachine::ConvertToCoordinate(sf::Vector2i position)
 {
-    return window->mapPixelToCoords(position);
+    return window->mapPixelToCoords(position, window->getView());
+}
+
+sf::Vector2i StatesMachine::ConvertToPixels(sf::Vector2f position)
+{
+    return window->mapCoordsToPixel(position);
 }
