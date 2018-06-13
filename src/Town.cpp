@@ -48,3 +48,30 @@ void Town::addBuilding(Building building)
 {
     buildings.push_back(building);
 }
+
+void Town::setLevel(int level)
+{
+    this->level = level;
+
+    fixToLevel();
+}
+
+int Town::getLevel()
+{
+    return level;
+}
+
+void Town::fixToLevel()
+{
+    setMaxAmountOfBuildings();
+}
+
+void Town::setMaxAmountOfBuildings()
+{
+    maxNumberOfBuildings = 3 + level * 2;
+}
+
+int Town::getMaxAmountOfBuildings()
+{
+    return maxNumberOfBuildings;
+}

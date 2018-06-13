@@ -9,6 +9,10 @@
 class Town
 {
 std::string name;
+int maxNumberOfBuildings;
+
+int level = 1;
+
 
 std::map<std::string, int> resources;
 std::vector<Building> buildings;
@@ -24,7 +28,15 @@ public:
     const std::vector<Building>& getBuildings();
     void addBuilding(Building building);
 
+    void setLevel(int level);
+    int getLevel();
 
+    int getMaxAmountOfBuildings();
+
+private:
+
+    void fixToLevel();
+    void setMaxAmountOfBuildings();
 };
 
 #endif // TOWN_H
