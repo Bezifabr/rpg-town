@@ -60,11 +60,14 @@ void GameState::OnUnload()
 
 void GameState::HandleEvent(sf::Event event, const sf::Window& window)
 {
-    sf::Vector2f mousePos = 
-    statesMachine->ConvertToCoordinate(sf::Mouse::getPosition(window));
+    sf::Vector2f globalMousePos = statesMachine->ConvertToCoordinate(sf::Mouse::getPosition(window));
+    sf::Vector2f localMousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(window));
 
     if(event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
-        cout << mousePos.x << " " << mousePos.y << "\n";
+       {
+            cout << localMousePos.x << ", " << localMousePos.y << "\n";
+            cout << globalMousePos.x << " " << globalMousePos.y << "\n";
+       }
 
     if(event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape)
         {
@@ -74,12 +77,12 @@ void GameState::HandleEvent(sf::Event event, const sf::Window& window)
                 m_CloseWindow();
         }
 
-    btnMenu.handleEvent(event, mousePos);
-    btnQuests.handleEvent(event, mousePos);
-    btnStats.handleEvent(event, mousePos);
+    btnMenu.handleEvent(event, localMousePos);
+    btnQuests.handleEvent(event, localMousePos);
+    btnStats.handleEvent(event, localMousePos);
 
     if(windowOpened)
-        currentWindow->handleEvent(event,mousePos);
+        currentWindow->handleEvent(event,localMousePos);
 }
 
 void GameState::OnUpdate()
@@ -147,6 +150,8 @@ void GameState::Render(sf::RenderTarget& renderTarget)
 
     if(windowOpened)
         renderTarget.draw((*currentWindow));
+
+    renderTarget.setView(camera);
 }  
 
 
