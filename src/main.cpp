@@ -1,5 +1,3 @@
-#include <SFML/Graphics.hpp>
-#include "HUD/Button.h"
 #include "StatesMachine.h"
 #include "states/IntroState.h"
 
