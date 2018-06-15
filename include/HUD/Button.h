@@ -51,6 +51,10 @@ namespace HUD
 		void init();
 
 		void setTextPosition();
+
+	protected:
+		virtual void OnDraw(sf::RenderTarget& target, sf::RenderStates states) const {}
+
 	};
 }
 
