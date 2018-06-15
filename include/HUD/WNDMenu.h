@@ -2,7 +2,6 @@
 #define HUD_WINDOW_MENU_H
 
 #include "Window.h"
-#include "Button.h"
 
 namespace HUD
 {
