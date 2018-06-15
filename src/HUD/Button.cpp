@@ -82,6 +82,7 @@ void HUD::Button::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	target.draw(sprite, states);
 	target.draw(text,states);
+	OnDraw(target,states);
 }
 
 void HUD::Button::init()

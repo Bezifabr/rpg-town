@@ -2,6 +2,7 @@
 #include "states/MenuState.h"
 #include "StatesMachine.h"
 #include "HUD/WNDMenu.h"
+#include "HUD/WNDBuild.h"
 #include <iostream>
 
 using std::cout;
@@ -76,6 +77,13 @@ void GameState::HandleEvent(sf::Event event, const sf::Window& window)
             else
                 m_CloseWindow();
         }
+
+    if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::T)
+    {
+        currentWindow = new HUD::WNDBuild;
+        currentWindow->initialize();
+        windowOpened = true;
+    }
 
     btnMenu.handleEvent(event, localMousePos);
     btnQuests.handleEvent(event, localMousePos);
