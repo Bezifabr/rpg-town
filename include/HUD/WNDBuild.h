@@ -3,6 +3,7 @@
 
 #include "Window.h"
 #include "HUD/BuildingIcon.h"
+#include <vector>
 
 namespace HUD
 {
@@ -16,6 +17,7 @@ namespace HUD
 
         HUD::BuildingIcon test;
 
+        std::vector<HUD::BuildingIcon> options;
 
         public:
 	    	virtual void update();
