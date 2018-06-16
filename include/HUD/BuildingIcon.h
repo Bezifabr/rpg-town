@@ -15,7 +15,7 @@ namespace HUD
 
     private:
         virtual void OnDraw(sf::RenderTarget& target, sf::RenderStates states) const;
-        void setBuildingPosition();
+        virtual void OnSetPosition();
     };
 }
 

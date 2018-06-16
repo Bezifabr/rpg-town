@@ -54,7 +54,7 @@ namespace HUD
 
 	protected:
 		virtual void OnDraw(sf::RenderTarget& target, sf::RenderStates states) const {}
-
+		virtual void OnSetPosition() {}
 	};
 }
 

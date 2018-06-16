@@ -96,6 +96,8 @@ void HUD::Button::setTextPosition()
 	text.setOrigin(text.getGlobalBounds().width / 2, text.getGlobalBounds().height / 2);
 	text.setPosition(sprite.getGlobalBounds().left + sprite.getGlobalBounds().width / 2,
 	 sprite.getGlobalBounds().top + sprite.getGlobalBounds().height / 2 - 10);
+
+	OnSetPosition();
 }
 
 sf::Vector2f HUD::Button::getPosition()
