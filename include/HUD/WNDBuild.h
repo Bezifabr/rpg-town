@@ -22,8 +22,8 @@ namespace HUD
         HUD::Button right;
         HUD::Button left;
 
-        HUD::BuildingIcon test;
-        
+        HUD::BuildingIcon buildingPress;
+
         std::vector<HUD::BuildingIcon> options;
 
         public:
