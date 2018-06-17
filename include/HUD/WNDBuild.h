@@ -9,14 +9,21 @@ namespace HUD
 {
     class WNDBuild : public Window
     {
-        sf::Texture closeBTN;
+        int maxNumberOfOptions = 10;
+        int currentPage = 0;
+
+        sf::Texture closeTXT;
         HUD::Button close;
 
-        sf::Texture textureBTN;
+        sf::Texture optionTXT;
         sf::Font font;
 
-        HUD::BuildingIcon test;
+        sf::Texture changeTXT;
+        HUD::Button right;
+        HUD::Button left;
 
+        HUD::BuildingIcon test;
+        
         std::vector<HUD::BuildingIcon> options;
 
         public:
