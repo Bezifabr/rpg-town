@@ -113,10 +113,6 @@ void GameState::OnUpdate()
         camera.move(-5,0);
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
         camera.move(5,0);
-  //  if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
- //       camera.move(0,-5);
- //   if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
- //       camera.move(0,5);
 
     btnMenu.update();
     btnQuests.update();
