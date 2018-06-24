@@ -3,12 +3,12 @@
 void HUD::WNDBuild::OnInitialize()
 {
     optionTXT.loadFromFile("resources/BuildingSlot 64.png");
-    changeTXT.loadFromFile("resources/btnText.png");
+    changeTXT.loadFromFile("resources/WNDButton.png");
 
     left.setTexture(changeTXT);
     right.setTexture(changeTXT);
 
-    right.setPosition(convertToWindowPosition(425,400));
+    right.setPosition(convertToWindowPosition(350,400));
     left.setPosition(convertToWindowPosition(25,400));
 
 
@@ -69,6 +69,7 @@ void HUD::WNDBuild::OnInitialize()
 
 void HUD::WNDBuild::update()
 {
+
     int limit = maxNumberOfOptions + maxNumberOfOptions * currentPage;
 
     if(limit > options.size())
@@ -84,6 +85,9 @@ void HUD::WNDBuild::update()
 
     if(right.isPressed())
         currentPage++;
+
+    left.update();
+    right.update();
 }
 
 void HUD::WNDBuild::handleEvent(sf::Event& event, sf::Vector2f mousePosition)
