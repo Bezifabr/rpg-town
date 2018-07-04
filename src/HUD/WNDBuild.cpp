@@ -80,10 +80,12 @@ void HUD::WNDBuild::update()
         options[i].update();
     }
 
-    if(left.isPressed())
+    int pagesNumber = options.size()/maxNumberOfOptions;
+
+    if(left.isPressed() && currentPage != 0)
         currentPage--;
 
-    if(right.isPressed())
+    if(right.isPressed() && currentPage != pagesNumber)
         currentPage++;
 
     left.update();
@@ -102,10 +104,14 @@ void HUD::WNDBuild::handleEvent(sf::Event& event, sf::Vector2f mousePosition)
         options[i].handleEvent(event,mousePosition);
     }
 
+    int pagesNumber = options.size()/maxNumberOfOptions;
+
     if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::D)
-        currentPage++;
+        if(currentPage != pagesNumber)
+            currentPage++;
     if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::A)
-        currentPage--;
+        if(currentPage != 0)
+            currentPage--;
 
     left.handleEvent(event,mousePosition);
     right.handleEvent(event,mousePosition);
