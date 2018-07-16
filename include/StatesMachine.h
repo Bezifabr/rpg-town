@@ -1,7 +1,7 @@
 #ifndef STATE_MACHINE_H
 #define STATE_MACHINE_H
 
-#include <SFML\Graphics.hpp>
+#include "SFML/Graphics.hpp"
 
 class State;
 

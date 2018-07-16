@@ -3,7 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 
-class Building 
+class Building
 {
     sf::Sprite sprite;
     sf::Texture texture;
@@ -16,7 +16,7 @@ public:
     sf::Transformable& getTranformable();
 
     void loadTexture(const std::string& source);
-    
+
 
 };
 

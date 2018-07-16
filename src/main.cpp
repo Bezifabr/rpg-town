@@ -22,17 +22,17 @@ int main()
 	file.open("libgcc_s_dw2-1.dll");
 	if(!file.good())
 		error << "Error: Missing file 'libgcc_s_dw2-1.dll'\n";
-	file.close();	
+	file.close();
 
 	file.open("libstdc++-6.dll");
 	if(!file.good())
 		error << "Error: Missing file 'libstdc++-6.dll'\n";
-	file.close();	
+	file.close();
 
 	file.open("sfml-graphics-2.dll");
 	if(!file.good())
 		error << "Error: Missing file 'sfml-graphics-2.dll'\n";
-	file.close();	
+	file.close();
 
 	file.open("sfml-system-2.dll");
 	if(!file.good())
@@ -43,7 +43,7 @@ int main()
 	if(!file.good())
 		error << "Error: Missing file 'sfml-window-2.dll'\n";
 	file.close();
-	
+
 	error.close();
 
 	ifstream errorFile("startup-error.txt");
