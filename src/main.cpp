@@ -1,5 +1,6 @@
 #include "StatesMachine.h"
 #include "states/IntroState.h"
+#include "config.h"
 #include <fstream>
 
 using namespace std;
