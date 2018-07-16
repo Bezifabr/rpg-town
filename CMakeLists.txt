@@ -1,10 +1,10 @@
-cmake_minimum_required (VERSION 2.8.12)
+cmake_minimum_required (VERSION 3.0.0)
 
 project(Game)
 
 set(SOURCE_FILES main.cpp)
 
-add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/ext/sfml")
+add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/ext/SFML")
 
 # add c++11 standard to compiler
 add_compile_options(-std=c++11)
@@ -23,7 +23,7 @@ add_executable(game ${HS_FILES})
 target_link_libraries(game sfml-system sfml-window sfml-graphics sfml-audio)
 
 target_include_directories(game PRIVATE
-    "${CMAKE_CURRENT_SOURCE_DIR}/ext/sfml/include"
+    "${CMAKE_CURRENT_SOURCE_DIR}/ext/SFML/include"
  #   "${CMAKE_CURRENT_SOURCE_DIR}/ext"
  #   "${CMAKE_CURRENT_SOURCE_DIR}/include"
 )
