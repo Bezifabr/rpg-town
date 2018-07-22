@@ -12,7 +12,7 @@ StatesMachine::~StatesMachine()
     shutdown();
 }
 
-void StatesMachine::init(State * s, sf::RenderWindow* window)
+void StatesMachine::init(std::shared_ptr<State> s, sf::RenderWindow* window)
 {
     this->window = window;
     setCurrent(s);
@@ -25,7 +25,7 @@ void StatesMachine::shutdown()
         current->Unload();
 }
 
-void StatesMachine::setCurrent(State * s)
+void StatesMachine::setCurrent(std::shared_ptr<State> s)
 {
     window->setView(window->getDefaultView());
    if(isRunning == true)

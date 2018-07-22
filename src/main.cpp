@@ -12,7 +12,7 @@ int main()
 	window.setFramerateLimit(60);
 	window.setKeyRepeatEnabled(false);
 
-	statesMachine.init(new IntroState, &window);
+	statesMachine.init(std::shared_ptr<State>(new IntroState), &window);
 
 
 	ifstream file;

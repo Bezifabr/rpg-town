@@ -57,6 +57,10 @@ void MenuState::OnUnload()
 
 void MenuState::OnUpdate()
 {
+	btnPlay.update();
+	btnLoad.update();
+	btnExit.update();
+
 	if (btnExit.isPressed())
 	{	
 		isGameFinished = true;
@@ -64,12 +68,8 @@ void MenuState::OnUpdate()
 
 	if (btnPlay.isPressed())
 	{
-		statesMachine->setCurrent(new GameState);
+		statesMachine->setCurrent(std::shared_ptr<State>(new GameState));
 	}
-
-	btnPlay.update();
-	btnLoad.update();
-	btnExit.update();
 
 }
 

@@ -14,7 +14,7 @@ void IntroState::OnLoad()
 
 void IntroState::OnUpdate()
 {
-    statesMachine->setCurrent(new MenuState);
+    statesMachine->setCurrent(std::shared_ptr<State>(new MenuState));
 }
 
 void IntroState::OnUnload()

@@ -2,20 +2,21 @@
 #define STATE_MACHINE_H
 
 #include "SFML/Graphics.hpp"
+#include <memory>
 
 class State;
 
 class StatesMachine {
-	State* current;
+	std::shared_ptr<State> current;
 	sf::RenderWindow* window;
 public:
 	StatesMachine();
 	~StatesMachine();
 
-	void init(State* s, sf::RenderWindow* window);
+	void init(std::shared_ptr<State> s, sf::RenderWindow* window);
 	void shutdown();
 
-	void setCurrent(State* s);
+	void setCurrent(std::shared_ptr<State> s);
 	void handleEvent(sf::Event event, const sf::Window& window);
 	void render(sf::RenderTarget& renderTarget);
 

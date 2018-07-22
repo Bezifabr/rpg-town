@@ -73,7 +73,7 @@ void GameState::HandleEvent(sf::Event event, const sf::Window& window)
     if(event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape)
         {
             if(windowOpened == false)
-                statesMachine->setCurrent(new MenuState);
+                statesMachine->setCurrent(std::shared_ptr<State>(new MenuState));
             else
                 m_CloseWindow();
         }
@@ -101,13 +101,12 @@ void GameState::OnUpdate()
             currentWindow->initialize();
             windowOpened = true;
         }
+    
     if(btnQuests.isPressed())
         cout << "Missions window opened" << endl;
     if(btnStats.isPressed())
         cout << "Statistics window opened" << endl;
 
-
-        
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
         camera.move(-5,0);
@@ -131,7 +130,6 @@ void GameState::OnUpdate()
             if(currentWindow->isOpened() == false)
                 m_CloseWindow();
         }
-
 
 
 }
@@ -171,5 +169,5 @@ void GameState::m_CheckCodes(std::string code)
     if(code == "GM1_back")
         currentWindow->setOpened(false);
     if(code == "GM1_menu")
-        statesMachine->setCurrent(new MenuState);
+        statesMachine->setCurrent(std::shared_ptr<State>(new MenuState));
 }
