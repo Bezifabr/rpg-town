@@ -121,14 +121,14 @@ void GameState::OnUpdate()
         {
             currentWindow->update();
 
+            if(currentWindow->isOpened() == false)
+                m_CloseWindow();
+
             if(currentWindow->isButtonPressed())
                 {
                     cout << currentWindow->getPressedButtonCode() << endl;
                     m_CheckCodes(currentWindow->getPressedButtonCode());
                 }
-
-            if(currentWindow->isOpened() == false)
-                m_CloseWindow();
         }
 
 
