@@ -51,6 +51,7 @@ int main()
 	if(errorFile.peek() == std::ifstream::traits_type::eof())
 		remove("startup-error.txt");
 
+
 	while (window.isOpen())
 	{
 		if(!statesMachine.IsRunning())

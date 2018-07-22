@@ -3,12 +3,15 @@
 
 #include "SFML/Graphics.hpp"
 #include <memory>
+#include <stack>
 
 class State;
 
-class StatesMachine {
-	std::shared_ptr<State> current;
+class StatesMachine
+{
+	std::stack<std::shared_ptr<State>> states;
 	sf::RenderWindow* window;
+	bool isRunning = false;
 public:
 	StatesMachine();
 	~StatesMachine();
@@ -16,10 +19,14 @@ public:
 	void init(std::shared_ptr<State> s, sf::RenderWindow* window);
 	void shutdown();
 
-	void setCurrent(std::shared_ptr<State> s);
+	void Push(std::shared_ptr<State> s);
+	void Switch(std::shared_ptr<State> s);
+	void Pop();
+
+	std::shared_ptr<State> Peek();
+
 	void handleEvent(sf::Event event, const sf::Window& window);
 	void render(sf::RenderTarget& renderTarget);
-
 	void Update(sf::Time deltaTime);
 
 	bool IsRunning();
@@ -27,9 +34,6 @@ public:
 	void setView(const sf::View& view);
 	sf::Vector2f ConvertToCoordinate(sf::Vector2i position);
 	sf::Vector2i ConvertToPixels(sf::Vector2f position);
-private:
-	bool isRunning = false;
-
 };
 
 

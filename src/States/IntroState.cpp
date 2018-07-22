@@ -14,7 +14,7 @@ void IntroState::OnLoad()
 
 void IntroState::OnUpdate()
 {
-    statesMachine->setCurrent(std::shared_ptr<State>(new MenuState));
+    statesMachine->Switch(std::shared_ptr<State>(new MenuState));
 }
 
 void IntroState::OnUnload()
@@ -24,7 +24,6 @@ void IntroState::OnUnload()
 
 void IntroState::HandleEvent(sf::Event event, const sf::Window& window)
 {
-
 }
 
 void IntroState::Render(sf::RenderTarget& renderTarget)

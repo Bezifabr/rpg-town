@@ -70,6 +70,13 @@ void GameState::HandleEvent(sf::Event event, const sf::Window& window)
             cout << globalMousePos.x << " " << globalMousePos.y << "\n";
        }
 
+    if(event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape)
+        {
+            if(windowOpened == false)
+                statesMachine->Switch(std::shared_ptr<State>(new MenuState));
+            else
+                m_CloseWindow();
+        }
 
     if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::T)
     {
@@ -84,14 +91,6 @@ void GameState::HandleEvent(sf::Event event, const sf::Window& window)
 
     if(windowOpened)
         currentWindow->handleEvent(event,localMousePos);
-        
-    if(event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape)
-        {
-            if(windowOpened == false)
-                statesMachine->setCurrent(std::shared_ptr<State>(new MenuState));
-            else
-                m_CloseWindow();
-        }
 }
 
 void GameState::OnUpdate()
@@ -170,5 +169,5 @@ void GameState::m_CheckCodes(std::string code)
     if(code == "GM1_back")
         currentWindow->setOpened(false);
     if(code == "GM1_menu")
-        statesMachine->setCurrent(std::shared_ptr<State>(new MenuState));
+        statesMachine->Switch(std::shared_ptr<State>(new MenuState));
 }

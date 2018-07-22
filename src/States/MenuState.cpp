@@ -8,7 +8,6 @@ using std::endl;
 
 void MenuState::OnLoad()
 {
-	cout << "Menu loaded" << endl;
 	titleFont.loadFromFile("resources/Title font.ttf");
 	textFont.loadFromFile("resources/Text font.ttf");
 
@@ -48,6 +47,8 @@ void MenuState::OnLoad()
 	btnPlay.setPosition(350, 200);
 	btnPlay.setFont(textFont);
 	btnPlay.setString("Play");
+	
+	cout << "Menu loaded" << endl;
 }
 
 void MenuState::OnUnload()
@@ -68,7 +69,7 @@ void MenuState::OnUpdate()
 
 	if (btnPlay.isPressed())
 	{
-		statesMachine->setCurrent(std::shared_ptr<State>(new GameState));
+		statesMachine->Switch(std::shared_ptr<State>(new GameState));
 	}
 
 }
