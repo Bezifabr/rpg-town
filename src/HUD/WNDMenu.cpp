@@ -10,7 +10,7 @@ void HUD::WNDMenu::OnInitialize()
     close.setPosition(closePos);
 
     textureBTN.loadFromFile("resources/MenuButton.png");
-    font.loadFromFile("resources/text font.ttf");
+    font.loadFromFile("resources/Text font.ttf");
 
     save.setTexture(textureBTN);
     load.setTexture(textureBTN);

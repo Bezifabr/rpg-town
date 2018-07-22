@@ -15,7 +15,7 @@ void HUD::WNDBuild::OnInitialize()
     buildingPress.setTexture(optionTXT);
     buildingPress.setOriginToCenter();
     buildingPress.setPosition(convertToWindowPosition(100,125));
-    buildingPress.loadBuildingTexture("resources/test/House 64.png");
+    buildingPress.loadBuildingTexture("resources/Test/House 64.png");
     buildingPress.setCode("Build_01");
     options.push_back(buildingPress);
 
