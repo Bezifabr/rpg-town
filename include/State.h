@@ -3,10 +3,10 @@
 
 #include <SFML/Graphics.hpp>
 
-class StatesMachine;
+class StateMachine;
 class State {
 public:
-	virtual void Load(StatesMachine* statesMachine);
+	virtual void Load(StateMachine* stateMachine);
 	virtual void Update(sf::Time deltaTime);
 	virtual void Unload();
 
@@ -20,7 +20,7 @@ protected:
 	virtual void OnUnload() = 0;
 
 	bool isGameFinished = false; 
-	StatesMachine* statesMachine;
+	StateMachine* stateMachine;
 	sf::Time deltaTime;
 };
 

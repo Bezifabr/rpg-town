@@ -1,6 +1,6 @@
 #include "states/GameState.h"
 #include "states/MenuState.h"
-#include "StatesMachine.h"
+#include "StateMachine.h"
 #include "HUD/WNDMenu.h"
 #include "HUD/WNDBuild.h"
 #include <iostream>
@@ -37,7 +37,7 @@ void GameState::OnLoad()
     // Camera Settings
     camera.setCenter(200,200);
     camera.setSize(1000,800);
-    statesMachine->setView(camera);
+    stateMachine->setView(camera);
 
     // Town Settings
     town.addResource("Iron", 1000);
@@ -61,7 +61,7 @@ void GameState::OnUnload()
 
 void GameState::HandleEvent(sf::Event event, const sf::Window& window)
 {
-    sf::Vector2f globalMousePos = statesMachine->ConvertToCoordinate(sf::Mouse::getPosition(window));
+    sf::Vector2f globalMousePos = stateMachine->ConvertToCoordinate(sf::Mouse::getPosition(window));
     sf::Vector2f localMousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(window));
 
     if(event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
@@ -73,7 +73,7 @@ void GameState::HandleEvent(sf::Event event, const sf::Window& window)
     if(event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape)
         {
             if(windowOpened == false)
-                statesMachine->Switch(std::shared_ptr<State>(new MenuState));
+                stateMachine->Switch(std::shared_ptr<State>(new MenuState));
             else
                 m_CloseWindow();
         }
@@ -169,5 +169,5 @@ void GameState::m_CheckCodes(std::string code)
     if(code == "GM1_back")
         currentWindow->setOpened(false);
     if(code == "GM1_menu")
-        statesMachine->Switch(std::shared_ptr<State>(new MenuState));
+        stateMachine->Switch(std::shared_ptr<State>(new MenuState));
 }

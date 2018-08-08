@@ -1,4 +1,4 @@
-#include "StatesMachine.h"
+#include "StateMachine.h"
 #include "states/IntroState.h"
 #include "config.h"
 #include <fstream>
@@ -7,12 +7,12 @@ using namespace std;
 
 int main()
 {
-	StatesMachine statesMachine;
+	StateMachine stateMachine;
 	sf::RenderWindow window(sf::VideoMode(1000, 800), "RPG Town project");
 	window.setFramerateLimit(60);
 	window.setKeyRepeatEnabled(false);
 
-	statesMachine.init(std::shared_ptr<State>(new IntroState), &window);
+	stateMachine.init(std::shared_ptr<State>(new IntroState), &window);
 
 
 	ifstream file;
@@ -54,7 +54,7 @@ int main()
 
 	while (window.isOpen())
 	{
-		if(!statesMachine.IsRunning())
+		if(!stateMachine.IsRunning())
 			window.close();
 
 		sf::Event event;
@@ -63,18 +63,18 @@ int main()
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
-			statesMachine.handleEvent(event, window);
+			stateMachine.handleEvent(event, window);
 		}
 
-		statesMachine.Update(deltaTime);
+		stateMachine.Update(deltaTime);
 		deltaTime = sf::Time::Zero;
 
 		window.clear();
-		statesMachine.render(window);
+		stateMachine.render(window);
 		window.display();
 	}
 
-	statesMachine.shutdown();
+	stateMachine.shutdown();
 
 	return 0;
 }

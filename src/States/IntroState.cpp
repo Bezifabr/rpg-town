@@ -1,5 +1,5 @@
 #include "states/IntroState.h"
-#include "StatesMachine.h"
+#include "StateMachine.h"
 #include "states/MenuState.h"
 #include <iostream>
 
@@ -14,7 +14,7 @@ void IntroState::OnLoad()
 
 void IntroState::OnUpdate()
 {
-    statesMachine->Switch(std::shared_ptr<State>(new MenuState));
+    stateMachine->Switch(std::shared_ptr<State>(new MenuState));
 }
 
 void IntroState::OnUnload()

@@ -1,8 +1,8 @@
 #include "State.h"
 
-void State::Load(StatesMachine * statesMachine)
+void State::Load(StateMachine * stateMachine)
 {
-	this->statesMachine = statesMachine;
+	this->stateMachine = stateMachine;
 	OnLoad();
 }
 
@@ -14,7 +14,7 @@ void State::Update(sf::Time deltaTime)
 
 void State::Unload()
 {
-	statesMachine = nullptr;
+	stateMachine = nullptr;
 	OnUnload();
 }
 

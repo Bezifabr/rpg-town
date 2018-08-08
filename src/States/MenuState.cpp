@@ -1,6 +1,6 @@
 #include "states/MenuState.h"
 #include "states/GameState.h"
-#include "StatesMachine.h"
+#include "StateMachine.h"
 #include <iostream>
 
 using std::cout;
@@ -69,7 +69,7 @@ void MenuState::OnUpdate()
 
 	if (btnPlay.isPressed())
 	{
-		statesMachine->Switch(std::shared_ptr<State>(new GameState));
+		stateMachine->Switch(std::shared_ptr<State>(new GameState));
 	}
 
 }
@@ -82,7 +82,7 @@ void MenuState::HandleEvent(sf::Event event, const sf::Window& window)
 			isGameFinished = true;
 	}
 
-	sf::Vector2f mousePos = statesMachine->ConvertToCoordinate(sf::Mouse::getPosition(window));
+	sf::Vector2f mousePos = stateMachine->ConvertToCoordinate(sf::Mouse::getPosition(window));
 		btnLoad.handleEvent(event, mousePos);
 		btnExit.handleEvent(event, mousePos);
 		btnPlay.handleEvent(event, mousePos);

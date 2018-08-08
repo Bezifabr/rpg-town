@@ -2,26 +2,27 @@
 #define STATE_MACHINE_H
 
 #include "SFML/Graphics.hpp"
+#include "StateTransition.h"
 #include <memory>
 #include <stack>
 
 class State;
 
-class StatesMachine
+class StateMachine : public StatesTransition
 {
 	std::stack<std::shared_ptr<State>> states;
 	sf::RenderWindow* window;
 	bool isRunning = false;
 public:
-	StatesMachine();
-	~StatesMachine();
+	StateMachine();
+	~StateMachine();
 
 	void init(std::shared_ptr<State> s, sf::RenderWindow* window);
 	void shutdown();
 
-	void Push(std::shared_ptr<State> s);
-	void Switch(std::shared_ptr<State> s);
-	void Pop();
+	virtual void Push(std::shared_ptr<State> s) override;
+	virtual void Switch(std::shared_ptr<State> s) override;
+	virtual void Pop() override;
 
 	std::shared_ptr<State> Peek();
 

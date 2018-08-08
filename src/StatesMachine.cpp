@@ -1,21 +1,21 @@
-#include "StatesMachine.h"
+#include "StateMachine.h"
 #include "State.h"
 #include <iostream>
 #include <stdexcept>
 
 using namespace std;
 
-StatesMachine::StatesMachine()
+StateMachine::StateMachine()
 {
 
 }
 
-StatesMachine::~StatesMachine()
+StateMachine::~StateMachine()
 {
     shutdown();
 }
 
-void StatesMachine::init(std::shared_ptr<State> s, sf::RenderWindow* window)
+void StateMachine::init(std::shared_ptr<State> s, sf::RenderWindow* window)
 {
     this->window = window;
     
@@ -25,13 +25,13 @@ void StatesMachine::init(std::shared_ptr<State> s, sf::RenderWindow* window)
     isRunning = true;
 }
 
-void StatesMachine::shutdown()
+void StateMachine::shutdown()
 {
     if(isRunning)
         Peek()->Unload();
 }
 
-void StatesMachine::Update(sf::Time deltaTime)
+void StateMachine::Update(sf::Time deltaTime)
 {
     if(states.empty())
         throw std::runtime_error("Tried to update with empty states stack");
@@ -43,7 +43,7 @@ void StatesMachine::Update(sf::Time deltaTime)
         isRunning = false;
 }
 
-void StatesMachine::render(sf::RenderTarget & renderTarget)
+void StateMachine::render(sf::RenderTarget & renderTarget)
 {
     if(states.empty())
         throw std::runtime_error("Tried to render with empty states stack");
@@ -51,7 +51,7 @@ void StatesMachine::render(sf::RenderTarget & renderTarget)
     Peek()->Render(renderTarget);
 }
 
-void StatesMachine::handleEvent(sf::Event event, const sf::Window& window)
+void StateMachine::handleEvent(sf::Event event, const sf::Window& window)
 {
     if(states.empty())
         throw std::runtime_error("Tried to handle event with empty states stack");
@@ -59,27 +59,27 @@ void StatesMachine::handleEvent(sf::Event event, const sf::Window& window)
     Peek()->HandleEvent(event, window);
 }
 
-bool StatesMachine::IsRunning()
+bool StateMachine::IsRunning()
 {
     return isRunning;
 }
 
-void StatesMachine::setView(const sf::View& view)
+void StateMachine::setView(const sf::View& view)
 {
     window->setView(view);
 }
 
-sf::Vector2f StatesMachine::ConvertToCoordinate(sf::Vector2i position)
+sf::Vector2f StateMachine::ConvertToCoordinate(sf::Vector2i position)
 {
     return window->mapPixelToCoords(position, window->getView());
 }
 
-sf::Vector2i StatesMachine::ConvertToPixels(sf::Vector2f position)
+sf::Vector2i StateMachine::ConvertToPixels(sf::Vector2f position)
 {
     return window->mapCoordsToPixel(position);
 }
 
-void StatesMachine::Push(std::shared_ptr<State> s)
+void StateMachine::Push(std::shared_ptr<State> s)
 {
     std::shared_ptr<State> currentState = Peek();
 
@@ -87,7 +87,7 @@ void StatesMachine::Push(std::shared_ptr<State> s)
     states.top()->Load(this);
 }
 
-void StatesMachine::Pop()
+void StateMachine::Pop()
 {
     if(states.empty())
         throw std::runtime_error("Attempted to pop from an empty game state stack");
@@ -95,7 +95,7 @@ void StatesMachine::Pop()
     states.pop();
 }
 
-void StatesMachine::Switch(std::shared_ptr<State> s)
+void StateMachine::Switch(std::shared_ptr<State> s)
 {
     std::shared_ptr<State> currentState = states.top();
     window->setView(window->getDefaultView());
@@ -106,7 +106,7 @@ void StatesMachine::Switch(std::shared_ptr<State> s)
     Push(s);
 }
 
-std::shared_ptr<State> StatesMachine::Peek()
+std::shared_ptr<State> StateMachine::Peek()
 {
     if(!states.empty())
         return states.top();
