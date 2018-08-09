@@ -26,18 +26,35 @@ file(GLOB_RECURSE HS_FILES
 	GLOB_CPP_PATTERNS src/*.cpp */states/*.cpp
 	GLOB_H_PATTERNS include/*.h */states/*.h RECURSE GROUP
 )
-set(EXECUTABLE_NAME "Rpg_Town")
+set(EXECUTABLE_NAME "rpg-town")
 add_executable(${EXECUTABLE_NAME} ${HS_FILES})
 
+set(GESFML_INCLUDE_DIR & ${CMAKE_CURRENT_SOURCE_DIR}/include/GESFML)
+
+include_directories(${GESFML_INCLUDE_DIR})
+
+include_directories(${SFML_DIR}/include)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
+
+if(UNIX)
 # SFML
 set(CMAKE_MODULE_PATH "${SRCDIR}/cmake_modules" ${CMAKE_MODULE_PATH})
 find_package(SFML 2 REQUIRED network audio graphics window system)
 if(SFML_FOUND)
-	include_directories(${SFML_DIR}/include)
-	include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 	target_link_libraries(${EXECUTABLE_NAME} sfml-system sfml-window sfml-graphics sfml-audio)
-#	target_link_libraries(${EXECUTABLE_NAME} ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
 endif()
+endif(UNIX)
+
+if(WIN32 OR MSVC OR MINGW)
+add_subdirectory("${PROJECT_SOURCE_DIR}/ext/sfml")
+
+# link with SFML library dependiences
+target_link_libraries(${EXECUTABLE_NAME} sfml-system sfml-window sfml-graphics sfml-audio)
+
+target_include_directories(${EXECUTABLE_NAME} PRIVATE
+    "${PROJECT_SOURCE_DIR}/ext/sfml/include"
+)
+endif(WIN32 OR MSVC OR MINGW)
 
 # Install target
 install(TARGETS ${EXECUTABLE_NAME} DESTINATION bin)
