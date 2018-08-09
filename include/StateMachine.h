@@ -3,12 +3,13 @@
 
 #include "SFML/Graphics.hpp"
 #include "StateTransition.h"
+#include "StateAccessor.h"
 #include <memory>
 #include <stack>
 
 class State;
 
-class StateMachine : public StateTransition
+class StateMachine : public StateTransition, public StateAccessor
 {
 	std::stack<std::shared_ptr<State>> states;
 	sf::RenderWindow* window;
@@ -25,7 +26,7 @@ public:
 	virtual void Switch(std::shared_ptr<State> s) override;
 	virtual void Pop() override;
 
-	std::shared_ptr<State> Peek();
+	virtual std::shared_ptr<State> Peek() override;
 
 	void handleEvent(sf::Event event, const sf::Window& window);
 	void render(sf::RenderTarget& renderTarget);
