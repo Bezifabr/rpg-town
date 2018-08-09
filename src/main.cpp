@@ -1,6 +1,7 @@
 #include "StateMachine.h"
 #include "StateUpdater.h"
 #include "states/IntroState.h"
+#include "Game.h"
 #include "config.h"
 #include <fstream>
 
@@ -8,14 +9,6 @@ using namespace std;
 
 int main()
 {
-	StateUpdater updater;
-	StateMachine stateMachine;
-	sf::RenderWindow window(sf::VideoMode(1000, 800), "RPG Town project");
-	window.setFramerateLimit(60);
-	window.setKeyRepeatEnabled(false);
-
-	stateMachine.init(std::shared_ptr<State>(new IntroState), &window);
-	updater.ConnectWithAccessor(stateMachine);
 
 	ifstream file;
 	ofstream error;
@@ -53,30 +46,9 @@ int main()
 	if(errorFile.peek() == std::ifstream::traits_type::eof())
 		remove("startup-error.txt");
 
-
-	while (window.isOpen())
-	{
-		if(!updater.IsRunning())
-			window.close();
-
-		sf::Event event;
-		sf::Time deltaTime;
-		while (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
-				window.close();
-			updater.HandleEvent(event, window);
-		}
-
-		updater.Update(deltaTime);
-		deltaTime = sf::Time::Zero;
-
-		window.clear();
-		updater.Draw(window);
-		window.display();
-	}
-
-	stateMachine.shutdown();
+	Game game;
+	game.Init(std::shared_ptr<State>(new IntroState));
+	game.Start();
 
 	return 0;
 }
