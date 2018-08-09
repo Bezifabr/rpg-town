@@ -23,46 +23,11 @@ void StateMachine::init(std::shared_ptr<State> s, sf::RenderWindow* window)
     Push(s);
 
     window->setView(window->getDefaultView());(s);
-    isRunning = true;
 }
 
 void StateMachine::shutdown()
 {
-    if(isRunning)
-        Peek()->Unload();
-}
-
-void StateMachine::Update(sf::Time deltaTime)
-{
-    if(states.empty())
-        throw std::runtime_error("Tried to update with empty states stack");
-
-
-    Peek()->Update(deltaTime);
-
-    if(Peek()->IsGameFinished() == true)
-        isRunning = false;
-}
-
-void StateMachine::render(sf::RenderTarget & renderTarget)
-{
-    if(states.empty())
-        throw std::runtime_error("Tried to render with empty states stack");
-
-    Peek()->Render(renderTarget);
-}
-
-void StateMachine::handleEvent(sf::Event event, const sf::Window& window)
-{
-    if(states.empty())
-        throw std::runtime_error("Tried to handle event with empty states stack");
-
-    Peek()->HandleEvent(event, window);
-}
-
-bool StateMachine::IsRunning()
-{
-    return isRunning;
+    Peek()->Unload();
 }
 
 

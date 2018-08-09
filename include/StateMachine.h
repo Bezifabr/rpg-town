@@ -14,7 +14,6 @@ class StateMachine : public StateTransition, public StateAccessor
 	std::stack<std::shared_ptr<State>> states;
 	sf::RenderWindow* window;
 	ViewManager view;
-	bool isRunning = false;
 public:
 	StateMachine();
 	~StateMachine();
@@ -28,11 +27,6 @@ public:
 
 	virtual std::shared_ptr<State> Peek() override;
 
-	void handleEvent(sf::Event event, const sf::Window& window);
-	void render(sf::RenderTarget& renderTarget);
-	void Update(sf::Time deltaTime);
-
-	bool IsRunning();
 };
 
 
