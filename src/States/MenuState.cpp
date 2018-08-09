@@ -69,7 +69,7 @@ void MenuState::OnUpdate()
 
 	if (btnPlay.isPressed())
 	{
-		stateMachine->Switch(std::shared_ptr<State>(new GameState));
+		transition->Switch(std::shared_ptr<State>(new GameState));
 	}
 
 }

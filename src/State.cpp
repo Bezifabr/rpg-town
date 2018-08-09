@@ -5,9 +5,9 @@ void State::ConnectWithViewManager(ViewManager& view)
 	this->view = &view;
 }
 
-void State::Load(StateMachine * stateMachine)
+void State::Load(StateTransition * transition)
 {
-	this->stateMachine = stateMachine;
+	this->transition = transition;
 	OnLoad();
 }
 
@@ -19,7 +19,7 @@ void State::Update(sf::Time deltaTime)
 
 void State::Unload()
 {
-	stateMachine = nullptr;
+	transition = nullptr;
 	OnUnload();
 }
 

@@ -1,6 +1,6 @@
 #include "states/GameState.h"
 #include "states/MenuState.h"
-#include "StateMachine.h"
+#include "StateTransition.h"
 #include "HUD/WNDMenu.h"
 #include "HUD/WNDBuild.h"
 #include <iostream>
@@ -73,7 +73,7 @@ void GameState::HandleEvent(sf::Event event, const sf::Window& window)
     if(event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape)
         {
             if(windowOpened == false)
-                stateMachine->Switch(std::shared_ptr<State>(new MenuState));
+                transition->Switch(std::shared_ptr<State>(new MenuState));
             else
                 m_CloseWindow();
         }
@@ -169,5 +169,5 @@ void GameState::m_CheckCodes(std::string code)
     if(code == "GM1_back")
         currentWindow->setOpened(false);
     if(code == "GM1_menu")
-        stateMachine->Switch(std::shared_ptr<State>(new MenuState));
+        transition->Switch(std::shared_ptr<State>(new MenuState));
 }

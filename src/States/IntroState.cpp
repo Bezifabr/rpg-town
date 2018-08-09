@@ -14,7 +14,7 @@ void IntroState::OnLoad()
 
 void IntroState::OnUpdate()
 {
-    stateMachine->Switch(std::shared_ptr<State>(new MenuState));
+    transition->Switch(std::shared_ptr<State>(new MenuState));
 }
 
 void IntroState::OnUnload()

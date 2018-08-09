@@ -4,10 +4,10 @@
 #include <SFML/Graphics.hpp>
 #include "ViewManager.h"
 
-class StateMachine;
+class StateTransition;
 class State {
 public:
-	virtual void Load(StateMachine* stateMachine);
+	virtual void Load(StateTransition* stateMachine);
 	virtual void Update(sf::Time deltaTime);
 	virtual void Unload();
 
@@ -25,7 +25,7 @@ protected:
 	bool isGameFinished = false; 
 
 	ViewManager* view;
-	StateMachine* stateMachine;
+	StateTransition* transition;
 	sf::Time deltaTime;
 };
 
