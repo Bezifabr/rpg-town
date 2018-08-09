@@ -1,5 +1,3 @@
-#include "StateMachine.h"
-#include "StateUpdater.h"
 #include "states/IntroState.h"
 #include "Game.h"
 #include "config.h"
