@@ -4,7 +4,7 @@
 #include "State.h"
 #include <memory>
 
-class StatesTransition
+class StateTransition
 {
 public:
     virtual void Pop() = 0;

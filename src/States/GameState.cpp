@@ -37,7 +37,7 @@ void GameState::OnLoad()
     // Camera Settings
     camera.setCenter(200,200);
     camera.setSize(1000,800);
-    stateMachine->setView(camera);
+    view->setView(camera);
 
     // Town Settings
     town.addResource("Iron", 1000);
@@ -61,7 +61,7 @@ void GameState::OnUnload()
 
 void GameState::HandleEvent(sf::Event event, const sf::Window& window)
 {
-    sf::Vector2f globalMousePos = stateMachine->ConvertToCoordinate(sf::Mouse::getPosition(window));
+    sf::Vector2f globalMousePos = view->ConvertToCoordinate(sf::Mouse::getPosition(window));
     sf::Vector2f localMousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(window));
 
     if(event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)

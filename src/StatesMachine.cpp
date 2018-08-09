@@ -18,6 +18,7 @@ StateMachine::~StateMachine()
 void StateMachine::init(std::shared_ptr<State> s, sf::RenderWindow* window)
 {
     this->window = window;
+    view.ConnectWithRenderWindow((*window));
     
     Push(s);
 
@@ -64,26 +65,13 @@ bool StateMachine::IsRunning()
     return isRunning;
 }
 
-void StateMachine::setView(const sf::View& view)
-{
-    window->setView(view);
-}
-
-sf::Vector2f StateMachine::ConvertToCoordinate(sf::Vector2i position)
-{
-    return window->mapPixelToCoords(position, window->getView());
-}
-
-sf::Vector2i StateMachine::ConvertToPixels(sf::Vector2f position)
-{
-    return window->mapCoordsToPixel(position);
-}
 
 void StateMachine::Push(std::shared_ptr<State> s)
 {
     std::shared_ptr<State> currentState = Peek();
 
     states.push(s);
+    states.top()->ConnectWithViewManager(view);
     states.top()->Load(this);
 }
 

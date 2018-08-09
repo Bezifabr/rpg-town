@@ -8,10 +8,11 @@
 
 class State;
 
-class StateMachine : public StatesTransition
+class StateMachine : public StateTransition
 {
 	std::stack<std::shared_ptr<State>> states;
 	sf::RenderWindow* window;
+	ViewManager view;
 	bool isRunning = false;
 public:
 	StateMachine();
@@ -31,10 +32,6 @@ public:
 	void Update(sf::Time deltaTime);
 
 	bool IsRunning();
-
-	void setView(const sf::View& view);
-	sf::Vector2f ConvertToCoordinate(sf::Vector2i position);
-	sf::Vector2i ConvertToPixels(sf::Vector2f position);
 };
 
 

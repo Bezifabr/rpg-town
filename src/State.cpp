@@ -1,5 +1,10 @@
 #include "State.h"
 
+void State::ConnectWithViewManager(ViewManager& view)
+{
+	this->view = &view;
+}
+
 void State::Load(StateMachine * stateMachine)
 {
 	this->stateMachine = stateMachine;

@@ -82,7 +82,7 @@ void MenuState::HandleEvent(sf::Event event, const sf::Window& window)
 			isGameFinished = true;
 	}
 
-	sf::Vector2f mousePos = stateMachine->ConvertToCoordinate(sf::Mouse::getPosition(window));
+	sf::Vector2f mousePos = view->ConvertToCoordinate(sf::Mouse::getPosition(window));
 		btnLoad.handleEvent(event, mousePos);
 		btnExit.handleEvent(event, mousePos);
 		btnPlay.handleEvent(event, mousePos);
