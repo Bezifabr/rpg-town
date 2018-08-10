@@ -21,7 +21,7 @@ namespace HUD
 
 		virtual void Update() = 0;
 		virtual void HandleEvent(sf::Event& event, sf::Vector2f mousePosition) = 0;
-		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
         bool IsOpened();
         void SetOpened(bool value);
