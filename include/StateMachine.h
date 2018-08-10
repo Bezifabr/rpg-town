@@ -14,7 +14,6 @@ class StateMachine : public StateTransition, public StateAccessor
 	std::stack<std::shared_ptr<State>> states;
 	ViewManager view;
 public:
-	StateMachine();
 	~StateMachine();
 
 	void Init(std::shared_ptr<State> s, sf::RenderWindow* window);

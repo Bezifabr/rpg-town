@@ -5,11 +5,6 @@
 
 using namespace std;
 
-StateMachine::StateMachine()
-{
-
-}
-
 StateMachine::~StateMachine()
 {
     Shutdown();
