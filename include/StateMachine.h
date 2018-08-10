@@ -18,13 +18,15 @@ public:
 	~StateMachine();
 
 	void init(std::shared_ptr<State> s, sf::RenderWindow* window);
-	void shutdown();
 
 	virtual void Push(std::shared_ptr<State> s) override;
 	virtual void Switch(std::shared_ptr<State> s) override;
 	virtual void Pop() override;
 
 	virtual std::shared_ptr<State> Peek() override;
+
+private:
+	void shutdown();
 
 };
 
