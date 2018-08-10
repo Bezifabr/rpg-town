@@ -19,3 +19,8 @@ sf::Vector2i ViewManager::ConvertToPixels(sf::Vector2f position)
 {
     return window->mapCoordsToPixel(position);
 }
+
+void ViewManager::SetDefaultView()
+{
+    window->setView(window->getDefaultView());
+}

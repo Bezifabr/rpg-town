@@ -17,12 +17,11 @@ StateMachine::~StateMachine()
 
 void StateMachine::init(std::shared_ptr<State> s, sf::RenderWindow* window)
 {
-    this->window = window;
     view.ConnectWithRenderWindow((*window));
     
     Push(s);
 
-    window->setView(window->getDefaultView());(s);
+    view.SetDefaultView();
 }
 
 void StateMachine::shutdown()
@@ -51,7 +50,7 @@ void StateMachine::Pop()
 void StateMachine::Switch(std::shared_ptr<State> s)
 {
     std::shared_ptr<State> currentState = states.top();
-    window->setView(window->getDefaultView());
+    view.SetDefaultView();
 
     if(currentState)
         Pop();
