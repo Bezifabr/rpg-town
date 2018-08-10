@@ -22,10 +22,10 @@ namespace HUD
 		Button();
 		Button(const std::string string, sf::Font& font, sf::Vector2f position);
 
-		bool isPressed();
+		bool IsPressed();
 
-		const std::string& getCode();
-		void setCode (const std::string& code);
+		const std::string& GetCode();
+		void SetCode (const std::string& code);
 
 		void setOriginToCenter();
 
@@ -42,15 +42,15 @@ namespace HUD
 
 		void setTexture(const sf::Texture& texture);
 
-		void update();
-		void handleEvent(sf::Event& event, sf::Vector2f mousePosition);
+		void Update();
+		void HandleEvent(sf::Event& event, sf::Vector2f mousePosition);
 
 		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 	private:
-		void init();
+		void Init();
 
-		void setTextPosition();
+		void SetTextPosition();
 
 	protected:
 		virtual void OnDraw(sf::RenderTarget& target, sf::RenderStates states) const {}

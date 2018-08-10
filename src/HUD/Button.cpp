@@ -3,7 +3,7 @@
 
 HUD::Button::Button()
 {
-	init();
+	Init();
 }
 
 HUD::Button::Button(const std::string string, sf::Font & font, sf::Vector2f position)
@@ -11,10 +11,10 @@ HUD::Button::Button(const std::string string, sf::Font & font, sf::Vector2f posi
 	setString(string);
 	setFont(font);
 	setPosition(position);
-	init();
+	Init();
 }
 
-bool HUD::Button::isPressed()
+bool HUD::Button::IsPressed()
 {
 	if(buttonPressed)
 	{
@@ -53,7 +53,7 @@ void HUD::Button::setPosition(sf::Vector2f position)
 void HUD::Button::setPosition(float x, float y)
 {
 	sprite.setPosition(x, y);
-	setTextPosition();
+	SetTextPosition();
 }
 
 void HUD::Button::setTexture(const sf::Texture& texture)
@@ -61,13 +61,13 @@ void HUD::Button::setTexture(const sf::Texture& texture)
 	sprite.setTexture(texture);;
 }
 
-void HUD::Button::update()
+void HUD::Button::Update()
 {
-	setTextPosition();
+	SetTextPosition();
 
 }
 
-void HUD::Button::handleEvent(sf::Event & event, sf::Vector2f mousePosition)
+void HUD::Button::HandleEvent(sf::Event & event, sf::Vector2f mousePosition)
 {	
 
 	bool mouseInSprite = sprite.getGlobalBounds().contains(mousePosition);
@@ -85,13 +85,13 @@ void HUD::Button::draw(sf::RenderTarget & target, sf::RenderStates states) const
 	OnDraw(target,states);
 }
 
-void HUD::Button::init()
+void HUD::Button::Init()
 {
 	text.setString("Sample text");
-	setTextPosition();
+	SetTextPosition();
 }
 
-void HUD::Button::setTextPosition()
+void HUD::Button::SetTextPosition()
 {
 	text.setOrigin(text.getGlobalBounds().width / 2, text.getGlobalBounds().height / 2);
 	text.setPosition(sprite.getGlobalBounds().left + sprite.getGlobalBounds().width / 2,
@@ -118,12 +118,12 @@ void HUD::Button::setOriginToCenter()
 	sprite.setOrigin(center);
 }
 
-const std::string& HUD::Button::getCode()
+const std::string& HUD::Button::GetCode()
 {
 	return code;
 }
 
-void HUD::Button::setCode(const std::string& code)
+void HUD::Button::SetCode(const std::string& code)
 {
 	this->code = code;
 }

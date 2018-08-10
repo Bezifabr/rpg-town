@@ -12,10 +12,10 @@ StateMachine::StateMachine()
 
 StateMachine::~StateMachine()
 {
-    shutdown();
+    Shutdown();
 }
 
-void StateMachine::init(std::shared_ptr<State> s, sf::RenderWindow* window)
+void StateMachine::Init(std::shared_ptr<State> s, sf::RenderWindow* window)
 {
     view.ConnectWithRenderWindow((*window));
     
@@ -24,7 +24,7 @@ void StateMachine::init(std::shared_ptr<State> s, sf::RenderWindow* window)
     view.SetDefaultView();
 }
 
-void StateMachine::shutdown()
+void StateMachine::Shutdown()
 {
     Peek()->Unload();
 }

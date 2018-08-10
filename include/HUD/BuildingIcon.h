@@ -11,7 +11,7 @@ namespace HUD
         sf::Texture texture;
 
     public:
-        void loadBuildingTexture(const std::string& source);
+        void LoadBuildingTexture(const std::string& source);
 
     private:
         virtual void OnDraw(sf::RenderTarget& target, sf::RenderStates states) const;

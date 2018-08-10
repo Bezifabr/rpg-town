@@ -58,16 +58,16 @@ void MenuState::OnUnload()
 
 void MenuState::OnUpdate()
 {
-	btnPlay.update();
-	btnLoad.update();
-	btnExit.update();
+	btnPlay.Update();
+	btnLoad.Update();
+	btnExit.Update();
 
-	if (btnExit.isPressed())
+	if (btnExit.IsPressed())
 	{	
 		isGameFinished = true;
 	}
 
-	if (btnPlay.isPressed())
+	if (btnPlay.IsPressed())
 	{
 		transition->Switch(std::shared_ptr<State>(new GameState));
 	}
@@ -83,9 +83,9 @@ void MenuState::HandleEvent(sf::Event event, const sf::Window& window)
 	}
 
 	sf::Vector2f mousePos = view->ConvertToCoordinate(sf::Mouse::getPosition(window));
-		btnLoad.handleEvent(event, mousePos);
-		btnExit.handleEvent(event, mousePos);
-		btnPlay.handleEvent(event, mousePos);
+		btnLoad.HandleEvent(event, mousePos);
+		btnExit.HandleEvent(event, mousePos);
+		btnPlay.HandleEvent(event, mousePos);
 
 }
 

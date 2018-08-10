@@ -5,7 +5,7 @@ void ViewManager::ConnectWithRenderWindow(sf::RenderWindow& rWindow)
     window = &rWindow;
 }
 
-void ViewManager::setView(const sf::View& view)
+void ViewManager::SetView(const sf::View& view)
 {
     window->setView(view);
 }

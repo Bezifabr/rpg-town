@@ -37,18 +37,18 @@ void GameState::OnLoad()
     // Camera Settings
     camera.setCenter(200,200);
     camera.setSize(1000,800);
-    view->setView(camera);
+    view->SetView(camera);
 
     // Town Settings
-    town.addResource("Iron", 1000);
-    town.addResource("Wood", 1000);
-    town.addResource("Stone", 1000);
+    town.AddResource("Iron", 1000);
+    town.AddResource("Wood", 1000);
+    town.AddResource("Stone", 1000);
 
     Building build;
-    build.loadTexture("resources/Test/House.png");
-    build.getTranformable().setPosition(400,375);
+    build.LoadTexture("resources/Test/House.png");
+    build.GetTranformable().setPosition(400,375);
 
-    town.addBuilding(build);
+    town.AddBuilding(build);
 
 
     cout << "Game loaded" << endl;
@@ -75,36 +75,36 @@ void GameState::HandleEvent(sf::Event event, const sf::Window& window)
             if(windowOpened == false)
                 transition->Switch(std::shared_ptr<State>(new MenuState));
             else
-                m_CloseWindow();
+                CloseWindow();
         }
 
     if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::T)
     {
         currentWindow = new HUD::WNDBuild;
-        currentWindow->initialize();
+        currentWindow->Initialize();
         windowOpened = true;
     }
 
-    btnMenu.handleEvent(event, localMousePos);
-    btnQuests.handleEvent(event, localMousePos);
-    btnStats.handleEvent(event, localMousePos);
+    btnMenu.HandleEvent(event, localMousePos);
+    btnQuests.HandleEvent(event, localMousePos);
+    btnStats.HandleEvent(event, localMousePos);
 
     if(windowOpened)
-        currentWindow->handleEvent(event,localMousePos);
+        currentWindow->HandleEvent(event,localMousePos);
 }
 
 void GameState::OnUpdate()
 {
-    if(btnMenu.isPressed())
+    if(btnMenu.IsPressed())
         {
             currentWindow = new HUD::WNDMenu;
-            currentWindow->initialize();
+            currentWindow->Initialize();
             windowOpened = true;
         }
     
-    if(btnQuests.isPressed())
+    if(btnQuests.IsPressed())
         cout << "Missions window opened" << endl;
-    if(btnStats.isPressed())
+    if(btnStats.IsPressed())
         cout << "Statistics window opened" << endl;
 
 
@@ -113,21 +113,21 @@ void GameState::OnUpdate()
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
         camera.move(5,0);
 
-    btnMenu.update();
-    btnQuests.update();
-    btnStats.update();
+    btnMenu.Update();
+    btnQuests.Update();
+    btnStats.Update();
 
     if(currentWindow)
         {
-            currentWindow->update();
+            currentWindow->Update();
 
-            if(currentWindow->isOpened() == false)
-                m_CloseWindow();
+            if(currentWindow->IsOpened() == false)
+                CloseWindow();
 
-            if(currentWindow->isButtonPressed())
+            if(currentWindow->IsButtonPressed())
                 {
-                    cout << currentWindow->getPressedButtonCode() << endl;
-                    m_CheckCodes(currentWindow->getPressedButtonCode());
+                    cout << currentWindow->GetPressedButtonCode() << endl;
+                    CheckCodes(currentWindow->GetPressedButtonCode());
                 }
         }
 
@@ -139,8 +139,8 @@ void GameState::Render(sf::RenderTarget& renderTarget)
 {
     renderTarget.setView(camera);
 
-    for(auto b : town.getBuildings())
-        renderTarget.draw(b.getDrawable());
+    for(auto b : town.GetBuildings())
+        renderTarget.draw(b.GetDrawable());
 
     renderTarget.setView(renderTarget.getDefaultView());
 
@@ -157,17 +157,17 @@ void GameState::Render(sf::RenderTarget& renderTarget)
 }  
 
 
-void GameState::m_CloseWindow()
+void GameState::CloseWindow()
 {
     delete currentWindow;
     currentWindow = nullptr;
     windowOpened = false;
 }
 
-void GameState::m_CheckCodes(std::string code)
+void GameState::CheckCodes(std::string code)
 {    
     if(code == "GM1_back")
-        currentWindow->setOpened(false);
+        currentWindow->SetOpened(false);
     if(code == "GM1_menu")
         transition->Switch(std::shared_ptr<State>(new MenuState));
 }

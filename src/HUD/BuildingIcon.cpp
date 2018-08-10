@@ -9,7 +9,7 @@ void HUD::BuildingIcon::OnSetPosition()
     graphic.setPosition(newPosition);
 }
 
-void HUD::BuildingIcon::loadBuildingTexture(const std::string& source)
+void HUD::BuildingIcon::LoadBuildingTexture(const std::string& source)
 {
     this->texture.loadFromFile(source);
     graphic.setTexture(texture);

@@ -8,66 +8,66 @@ void HUD::WNDBuild::OnInitialize()
     left.setTexture(changeTXT);
     right.setTexture(changeTXT);
 
-    right.setPosition(convertToWindowPosition(350,400));
-    left.setPosition(convertToWindowPosition(25,400));
+    right.setPosition(ConvertToWindowPosition(350,400));
+    left.setPosition(ConvertToWindowPosition(25,400));
 
 
     buildingPress.setTexture(optionTXT);
     buildingPress.setOriginToCenter();
-    buildingPress.setPosition(convertToWindowPosition(100,125));
-    buildingPress.loadBuildingTexture("resources/Test/House 64.png");
-    buildingPress.setCode("Build_01");
+    buildingPress.setPosition(ConvertToWindowPosition(100,125));
+    buildingPress.LoadBuildingTexture("resources/Test/House 64.png");
+    buildingPress.SetCode("Build_01");
     options.push_back(buildingPress);
 
-    buildingPress.setPosition(convertToWindowPosition(200,125));
-    buildingPress.setCode("Build_02");
+    buildingPress.setPosition(ConvertToWindowPosition(200,125));
+    buildingPress.SetCode("Build_02");
     options.push_back(buildingPress);
     
-    buildingPress.setPosition(convertToWindowPosition(300,125));
-    buildingPress.setCode("Build_03");
+    buildingPress.setPosition(ConvertToWindowPosition(300,125));
+    buildingPress.SetCode("Build_03");
     options.push_back(buildingPress);
     
-    buildingPress.setPosition(convertToWindowPosition(400,125));
-    buildingPress.setCode("Build_04");
+    buildingPress.setPosition(ConvertToWindowPosition(400,125));
+    buildingPress.SetCode("Build_04");
     options.push_back(buildingPress);
     
-    buildingPress.setPosition(convertToWindowPosition(100,225));
-    buildingPress.setCode("Build_05");
+    buildingPress.setPosition(ConvertToWindowPosition(100,225));
+    buildingPress.SetCode("Build_05");
     options.push_back(buildingPress);
     
-    buildingPress.setPosition(convertToWindowPosition(200,225));
-    buildingPress.setCode("Build_06");
+    buildingPress.setPosition(ConvertToWindowPosition(200,225));
+    buildingPress.SetCode("Build_06");
     options.push_back(buildingPress);
 
-    buildingPress.setPosition(convertToWindowPosition(300,225));
-    buildingPress.setCode("Build_07");
+    buildingPress.setPosition(ConvertToWindowPosition(300,225));
+    buildingPress.SetCode("Build_07");
     options.push_back(buildingPress);
 
-    buildingPress.setPosition(convertToWindowPosition(400,225));
-    buildingPress.setCode("Build_08");
+    buildingPress.setPosition(ConvertToWindowPosition(400,225));
+    buildingPress.SetCode("Build_08");
     options.push_back(buildingPress);
 
-    buildingPress.setPosition(convertToWindowPosition(100,325));
-    buildingPress.setCode("Build_09");
+    buildingPress.setPosition(ConvertToWindowPosition(100,325));
+    buildingPress.SetCode("Build_09");
     options.push_back(buildingPress);
-    buildingPress.setPosition(convertToWindowPosition(200,325));
-    buildingPress.setCode("Build_10");
+    buildingPress.setPosition(ConvertToWindowPosition(200,325));
+    buildingPress.SetCode("Build_10");
     options.push_back(buildingPress);
-    buildingPress.setPosition(convertToWindowPosition(300,325));
-    buildingPress.setCode("Build_11");
+    buildingPress.setPosition(ConvertToWindowPosition(300,325));
+    buildingPress.SetCode("Build_11");
     options.push_back(buildingPress);
-    buildingPress.setPosition(convertToWindowPosition(400,325));
-    buildingPress.setCode("Build_12");
+    buildingPress.setPosition(ConvertToWindowPosition(400,325));
+    buildingPress.SetCode("Build_12");
     options.push_back(buildingPress);
-    buildingPress.setPosition(convertToWindowPosition(100,125));
-    buildingPress.setCode("Build_13");
+    buildingPress.setPosition(ConvertToWindowPosition(100,125));
+    buildingPress.SetCode("Build_13");
     options.push_back(buildingPress);
-    buildingPress.setPosition(convertToWindowPosition(200,125));
-    buildingPress.setCode("Build_14");
+    buildingPress.setPosition(ConvertToWindowPosition(200,125));
+    buildingPress.SetCode("Build_14");
     options.push_back(buildingPress);
 }
 
-void HUD::WNDBuild::update()
+void HUD::WNDBuild::Update()
 {
 
     int limit = maxNumberOfOptions + maxNumberOfOptions * currentPage;
@@ -77,22 +77,22 @@ void HUD::WNDBuild::update()
 
     for(int i = currentPage * maxNumberOfOptions; i < limit; i++)
     {
-        options[i].update();
+        options[i].Update();
     }
 
     int pagesNumber = options.size()/maxNumberOfOptions;
 
-    if(left.isPressed() && currentPage != 0)
+    if(left.IsPressed() && currentPage != 0)
         currentPage--;
 
-    if(right.isPressed() && currentPage != pagesNumber)
+    if(right.IsPressed() && currentPage != pagesNumber)
         currentPage++;
 
-    left.update();
-    right.update();
+    left.Update();
+    right.Update();
 }
 
-void HUD::WNDBuild::handleEvent(sf::Event& event, sf::Vector2f mousePosition)
+void HUD::WNDBuild::HandleEvent(sf::Event& event, sf::Vector2f mousePosition)
 {
     int limit = maxNumberOfOptions + maxNumberOfOptions * currentPage;
 
@@ -101,7 +101,7 @@ void HUD::WNDBuild::handleEvent(sf::Event& event, sf::Vector2f mousePosition)
 
     for(int i = currentPage * maxNumberOfOptions; i < limit; i++)
     {
-        options[i].handleEvent(event,mousePosition);
+        options[i].HandleEvent(event,mousePosition);
     }
 
     int pagesNumber = options.size()/maxNumberOfOptions;
@@ -113,8 +113,8 @@ void HUD::WNDBuild::handleEvent(sf::Event& event, sf::Vector2f mousePosition)
         if(currentPage != 0)
             currentPage--;
 
-    left.handleEvent(event,mousePosition);
-    right.handleEvent(event,mousePosition);
+    left.HandleEvent(event,mousePosition);
+    right.HandleEvent(event,mousePosition);
 }
 
 void HUD::WNDBuild::OnDraw(sf::RenderTarget& target, sf::RenderStates states) const

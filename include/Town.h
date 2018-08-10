@@ -19,24 +19,24 @@ std::vector<Building> buildings;
 
 public:
 
-    void setName(const std::string& name);
-    const std::string& getName();
+    void SetName(const std::string& name);
+    const std::string& GetName();
     
-    void addResource(const std::string& name, int amount);
-    int checkResource(const std::string& name);
+    void AddResource(const std::string& name, int amount);
+    int CheckResource(const std::string& name);
 
-    const std::vector<Building>& getBuildings();
-    void addBuilding(Building building);
+    const std::vector<Building>& GetBuildings();
+    void AddBuilding(Building building);
 
-    void setLevel(int level);
-    int getLevel();
+    void SetLevel(int level);
+    int GetLevel();
 
-    int getMaxAmountOfBuildings();
+    int GetMaxAmountOfBuildings();
 
 private:
 
-    void fixToLevel();
-    void setMaxAmountOfBuildings();
+    void FixToLevel();
+    void SetMaxAmountOfBuildings();
 };
 
 #endif // TOWN_H

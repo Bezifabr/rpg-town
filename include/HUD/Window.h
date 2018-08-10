@@ -16,18 +16,18 @@ namespace HUD
 
     public:
 
-        void setBackground(const std::string& source);
+		void Initialize();
+        void SetBackground(const std::string& source);
 
-		virtual void update() = 0;
-		virtual void handleEvent(sf::Event& event, sf::Vector2f mousePosition) = 0;
-        void initialize();
-        void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+		virtual void Update() = 0;
+		virtual void HandleEvent(sf::Event& event, sf::Vector2f mousePosition) = 0;
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
-        bool isOpened();
-        void setOpened(bool value);
+        bool IsOpened();
+        void SetOpened(bool value);
 
-        bool isButtonPressed();
-        std::string getPressedButtonCode();
+        bool IsButtonPressed();
+        std::string GetPressedButtonCode();
     protected:
         bool lastButtonPressed = false;
         HUD::Button* lastActionButton;
@@ -35,10 +35,10 @@ namespace HUD
         virtual void OnDraw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
         virtual void OnInitialize() = 0;
 
-        sf::Vector2f convertToWindowPosition(sf::Vector2f position);
-        sf::Vector2f convertToWindowPosition(float posX, float posY);
+        sf::Vector2f ConvertToWindowPosition(sf::Vector2f position);
+        sf::Vector2f ConvertToWindowPosition(float posX, float posY);
 
-        sf::Vector2f getCenterPosition();
+        sf::Vector2f GetCenterPosition();
     };
 
 }

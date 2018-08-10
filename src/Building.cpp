@@ -7,18 +7,18 @@ Building::Building(const Building& b)
     sprite.setTexture(texture);
 }
 
-sf::Drawable& Building::getDrawable()
+sf::Drawable& Building::GetDrawable()
 {
     return sprite;
 }
 
-void Building::loadTexture(const std::string& source)
+void Building::LoadTexture(const std::string& source)
 {
     texture.loadFromFile(source);
     sprite.setTexture(texture);
 }
 
-sf::Transformable& Building::getTranformable()
+sf::Transformable& Building::GetTranformable()
 {
     return sprite;
 }

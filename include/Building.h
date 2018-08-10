@@ -12,10 +12,10 @@ public:
     Building(){}
     Building(const Building& b);
 
-    sf::Drawable& getDrawable();
-    sf::Transformable& getTranformable();
+    sf::Drawable& GetDrawable();
+    sf::Transformable& GetTranformable();
 
-    void loadTexture(const std::string& source);
+    void LoadTexture(const std::string& source);
 
 
 };

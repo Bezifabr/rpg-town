@@ -20,8 +20,8 @@ namespace HUD
         HUD::Button back;
 
     public:
-		virtual void update();
-		virtual void handleEvent(sf::Event& event, sf::Vector2f mousePosition);
+		virtual void Update();
+		virtual void HandleEvent(sf::Event& event, sf::Vector2f mousePosition);
     private:
          virtual void OnDraw(sf::RenderTarget& target, sf::RenderStates states) const;
          virtual void OnInitialize();

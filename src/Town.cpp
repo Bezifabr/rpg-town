@@ -5,7 +5,7 @@
 using std::cout;
 using std::endl;
 
-void Town::addResource(const std::string& name, int amount)
+void Town::AddResource(const std::string& name, int amount)
 {
     if(name.empty())
         cout << "Warning [Town::addResources()]: amount of resources is equal 0." << endl;
@@ -15,7 +15,7 @@ void Town::addResource(const std::string& name, int amount)
     resources[name] += amount;
 }
 
-int Town::checkResource(const std::string& name)
+int Town::CheckResource(const std::string& name)
 {
     if(resources.count(name) == 0)
         {
@@ -25,53 +25,53 @@ int Town::checkResource(const std::string& name)
     return resources[name];
 }
 
-const std::vector<Building>& Town::getBuildings()
+const std::vector<Building>& Town::GetBuildings()
 {
     if(buildings.empty())
         cout << "Data error [Town::getBuildings()]: Town " << name << " has no buildings!" << endl;
     return buildings;
 }
 
-void Town::setName(const std::string& name)
+void Town::SetName(const std::string& name)
 {
     if(name.empty())
         cout << "Warning [Town::setName()]: name is empty." << endl;
     this->name = name;
 }
 
-const std::string& Town::getName()
+const std::string& Town::GetName()
 {
     return name;
 }
 
-void Town::addBuilding(Building building)
+void Town::AddBuilding(Building building)
 {
     buildings.push_back(building);
 }
 
-void Town::setLevel(int level)
+void Town::SetLevel(int level)
 {
     this->level = level;
 
-    fixToLevel();
+    FixToLevel();
 }
 
-int Town::getLevel()
+int Town::GetLevel()
 {
     return level;
 }
 
-void Town::fixToLevel()
+void Town::FixToLevel()
 {
-    setMaxAmountOfBuildings();
+    SetMaxAmountOfBuildings();
 }
 
-void Town::setMaxAmountOfBuildings()
+void Town::SetMaxAmountOfBuildings()
 {
     maxNumberOfBuildings = 3 + level * 2;
 }
 
-int Town::getMaxAmountOfBuildings()
+int Town::GetMaxAmountOfBuildings()
 {
     return maxNumberOfBuildings;
 }
