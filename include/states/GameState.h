@@ -6,7 +6,7 @@
 #include "Town.h"
 #include "HUD/Window.h"
 
-class GameState : public State 
+class GameState : public State
 {
 
     sf::Sprite topBar;
@@ -25,7 +25,7 @@ class GameState : public State
     Town town;
 
     bool windowOpened = false;
-    
+
 public:
 
     virtual void HandleEvent(sf::Event event, const sf::Window& window);
