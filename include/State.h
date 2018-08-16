@@ -3,16 +3,21 @@
 
 #include <SFML/Graphics.hpp>
 #include "ViewManager.h"
+#include <EntityContainer.h>
 
 class StateTransition;
 class State {
 public:
+
+// Add Draw() and Refresh() methods
+// Iterate entities from EntityContainer
 	virtual void Load(StateTransition* stateMachine);
-	virtual void Update(sf::Time deltaTime);
 	virtual void Unload();
 
+	virtual void Update(sf::Time deltaTime);
 	virtual void HandleEvent(sf::Event event, const sf::Window& window) = 0;
 	virtual void Render(sf::RenderTarget& renderTarget) = 0;
+	virtual void Refresh() {}
 
 	bool IsGameFinished();
 
@@ -26,6 +31,7 @@ protected:
 
 	ViewManager* view;
 	StateTransition* transition;
+	EntityContainer container;
 	sf::Time deltaTime;
 };
 
