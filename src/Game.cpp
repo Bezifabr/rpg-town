@@ -21,6 +21,8 @@ void Game::RunLoop()
 		if(!updater.IsRunning())
 			window.close();
 
+		updater.Refresh();
+
 		sf::Event event;
 		sf::Time deltaTime;
 		while (window.pollEvent(event))
