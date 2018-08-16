@@ -15,6 +15,7 @@ public:
     void Update(sf::Time elapsedTime);
     void HandleEvent(sf::Event event, const sf::Window& window);
     void Draw(sf::RenderTarget& renderTarget);
+    void Refresh();
 
     bool IsRunning();
 };

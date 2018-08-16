@@ -29,3 +29,8 @@ void StateUpdater::Draw(sf::RenderTarget& renderTarget)
 {
     accessor->Peek()->Render(renderTarget);
 }
+
+void StateUpdater::Refresh()
+{
+    accessor->Peek()->Refresh();
+}
