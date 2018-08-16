@@ -22,7 +22,7 @@ public:
 	void SetFontSize(uint8_t fontSize);
 	void SetColor(sf::Color color);
 
-	virtual void Draw(sf::RenderTarget* target);
+	virtual void Draw(sf::RenderTarget& target) override;
 };
 
 

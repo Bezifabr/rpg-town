@@ -51,7 +51,7 @@ void TextComponent::SetColor(sf::Color color)
 	text.setFillColor(color);
 }
 
-void TextComponent::Draw(sf::RenderTarget * target)
+void TextComponent::Draw(sf::RenderTarget & target)
 {
-	target->draw(text);
+	target.draw(text);
 }
