@@ -11,6 +11,8 @@ namespace HUD
         sf::Texture texture;
 
     public:
+        using Button::Button;
+
         void LoadBuildingTexture(const std::string& source);
 
     private:
