@@ -33,6 +33,7 @@ public:
     Entity(std::string name);
     ~Entity();
 
+    void SetId(std::string name) { this->name = name; }
     EntityId GetId() const {return id; }
     std::string GetName() const { return name; }
     bool IsAlive() const { return alive; }
@@ -80,6 +81,13 @@ private:
         static EntityId id{0u};
         return id++;
     }
+
+protected:
+    virtual void OnUpdate(sf::Time elapsedTime) {}
+    virtual void OnHandleEvent(sf::Event event) {}
+    virtual void OnDraw(sf::RenderTarget& target) {}
+    virtual void OnRefresh() {}
+
 };
 
 #endif // ENTITY_H
