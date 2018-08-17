@@ -1,7 +1,7 @@
 #ifndef BUTTON_H
 #define BUTTON_H
 
-
+#include "Entity.h"
 #include <SFML/Graphics.hpp>
 #include <string>
 #include <vector>
@@ -9,7 +9,7 @@
 namespace HUD
 {
 
-	class Button : public sf::Drawable
+	class Button : public sf::Drawable, public Entity
 	{
 		sf::Text text;
 		sf::Font font;
@@ -19,7 +19,8 @@ namespace HUD
 		bool buttonPressed = false;
 
 	public:
-		Button();
+		Button(const std::string& name = "");
+		Button(const std::string& name, const std::string string, sf::Font& font, sf::Vector2f position);
 		Button(const std::string string, sf::Font& font, sf::Vector2f position);
 
 		bool IsPressed();
@@ -42,18 +43,20 @@ namespace HUD
 
 		void setTexture(const sf::Texture& texture);
 
-		void Update();
 		void HandleEvent(sf::Event& event, sf::Vector2f mousePosition);
 
 		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 	private:
+
 		void Init();
 
 		void SetTextPosition();
 
 	protected:
 		virtual void OnDraw(sf::RenderTarget& target, sf::RenderStates states) const {}
+		virtual void OnUpdate();
+		
 		virtual void OnSetPosition() {}
 	};
 }
