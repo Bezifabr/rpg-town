@@ -9,8 +9,6 @@ class StateTransition;
 class State {
 public:
 
-// Add Draw() and Refresh() methods
-// Iterate entities from EntityContainer
 	virtual void Load(StateTransition* stateMachine);
 	virtual void Unload();
 
