@@ -1,9 +1,8 @@
 #include "HUD/Button.h"
 #include <string>
 
-HUD::Button::Button()
+HUD::Button::Button(const std::string& name)
 {
-	Init();
 }
 
 HUD::Button::Button(const std::string string, sf::Font & font, sf::Vector2f position)
@@ -12,6 +11,12 @@ HUD::Button::Button(const std::string string, sf::Font & font, sf::Vector2f posi
 	setFont(font);
 	setPosition(position);
 	Init();
+}
+
+HUD::Button::Button(const std::string& name, const std::string string, sf::Font& font, sf::Vector2f position)
+{
+	Button(string,font,position);
+
 }
 
 bool HUD::Button::IsPressed()
@@ -61,7 +66,7 @@ void HUD::Button::setTexture(const sf::Texture& texture)
 	sprite.setTexture(texture);;
 }
 
-void HUD::Button::Update()
+void HUD::Button::Update(sf::Time deltaTime)
 {
 	SetTextPosition();
 

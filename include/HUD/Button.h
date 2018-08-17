@@ -1,7 +1,6 @@
 #ifndef BUTTON_H
 #define BUTTON_H
 
-#include "Entity.h"
 #include <SFML/Graphics.hpp>
 #include <string>
 #include <vector>
@@ -9,7 +8,7 @@
 namespace HUD
 {
 
-	class Button : public sf::Drawable, public Entity
+	class Button : public sf::Drawable
 	{
 		sf::Text text;
 		sf::Font font;
@@ -47,6 +46,7 @@ namespace HUD
 
 		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
+		virtual void Update(sf::Time deltaTime);
 	private:
 
 		void Init();
@@ -55,7 +55,6 @@ namespace HUD
 
 	protected:
 		virtual void OnDraw(sf::RenderTarget& target, sf::RenderStates states) const {}
-		virtual void OnUpdate();
 		
 		virtual void OnSetPosition() {}
 	};
