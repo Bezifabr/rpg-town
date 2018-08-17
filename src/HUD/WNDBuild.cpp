@@ -67,7 +67,7 @@ void HUD::WNDBuild::OnInitialize()
     options.push_back(buildingPress);
 }
 
-void HUD::WNDBuild::Update()
+void HUD::WNDBuild::Update(sf::Time deltaTime)
 {
 
     int limit = maxNumberOfOptions + maxNumberOfOptions * currentPage;
@@ -77,7 +77,7 @@ void HUD::WNDBuild::Update()
 
     for(int i = currentPage * maxNumberOfOptions; i < limit; i++)
     {
-        options[i].Update();
+        options[i].Update(deltaTime);
     }
 
     int pagesNumber = options.size()/maxNumberOfOptions;
@@ -88,8 +88,8 @@ void HUD::WNDBuild::Update()
     if(right.IsPressed() && currentPage != pagesNumber)
         currentPage++;
 
-    left.Update();
-    right.Update();
+    left.Update(deltaTime);
+    right.Update(deltaTime);
 }
 
 void HUD::WNDBuild::HandleEvent(sf::Event& event, sf::Vector2f mousePosition)

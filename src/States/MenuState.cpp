@@ -58,9 +58,9 @@ void MenuState::OnUnload()
 
 void MenuState::OnUpdate()
 {
-	btnPlay.Update();
-	btnLoad.Update();
-	btnExit.Update();
+	btnPlay.Update(deltaTime);
+	btnLoad.Update(deltaTime);
+	btnExit.Update(deltaTime);
 
 	if (btnExit.IsPressed())
 	{	

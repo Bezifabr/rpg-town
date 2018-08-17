@@ -51,7 +51,7 @@ void HUD::WNDMenu::OnInitialize()
 
 }
 
-void HUD::WNDMenu::Update()
+void HUD::WNDMenu::Update(sf::Time deltaTime)
 {
     if(close.IsPressed())
         SetOpened(false);
@@ -83,11 +83,11 @@ void HUD::WNDMenu::Update()
         }
 
 
-    save.Update();
-    load.Update();
-    menu.Update();
-    back.Update();
-    options.Update();
+    save.Update(deltaTime);
+    load.Update(deltaTime);
+    menu.Update(deltaTime);
+    back.Update(deltaTime);
+    options.Update(deltaTime);
 }
 
 void HUD::WNDMenu::HandleEvent(sf::Event& event, sf::Vector2f mousePosition)

@@ -113,13 +113,13 @@ void GameState::OnUpdate()
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
         camera.move(5,0);
 
-    btnMenu.Update();
-    btnQuests.Update();
-    btnStats.Update();
+    btnMenu.Update(deltaTime);
+    btnQuests.Update(deltaTime);
+    btnStats.Update(deltaTime);
 
     if(currentWindow)
         {
-            currentWindow->Update();
+            currentWindow->Update(deltaTime);
 
             if(currentWindow->IsOpened() == false)
                 CloseWindow();

@@ -27,11 +27,11 @@ namespace HUD
         std::vector<HUD::BuildingIcon> options;
 
         public:
-	    	virtual void Update();
-	    	virtual void HandleEvent(sf::Event& event, sf::Vector2f mousePosition);
+	    	virtual void Update(sf::Time deltaTime) override;
+	    	virtual void HandleEvent(sf::Event& event, sf::Vector2f mousePosition) override;
         private:
-            virtual void OnDraw(sf::RenderTarget& target, sf::RenderStates states) const;
-            virtual void OnInitialize();
+            virtual void OnDraw(sf::RenderTarget& target, sf::RenderStates states) const override;
+            virtual void OnInitialize() override;
 
     };
 }

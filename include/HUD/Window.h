@@ -19,7 +19,7 @@ namespace HUD
 		void Initialize();
         void SetBackground(const std::string& source);
 
-		virtual void Update() = 0;
+		virtual void Update(sf::Time deltaTime) = 0;
 		virtual void HandleEvent(sf::Event& event, sf::Vector2f mousePosition) = 0;
 		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
