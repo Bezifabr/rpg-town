@@ -5,17 +5,14 @@
 #include <iostream>
 
 class IntroState : public State {
-
-public:
-
-	virtual void HandleEvent(sf::Event event, const sf::Window& window);
-	virtual void Render(sf::RenderTarget& renderTarget);
-
+	
 private:
 
-	virtual void OnUpdate();
-	virtual void OnLoad();
-	virtual void OnUnload();
+	virtual void OnUpdate() override;
+	virtual void OnLoad() override;
+	virtual void OnUnload() override;
+	virtual void OnRender() override;
+	virtual void OnHandleEvent() override;
 };
 
 #endif // !INTRO_STATE_H

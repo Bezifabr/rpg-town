@@ -59,10 +59,10 @@ void GameState::OnUnload()
     cout << "Game unloaded" << endl;
 }
 
-void GameState::HandleEvent(sf::Event event, const sf::Window& window)
+void GameState::OnHandleEvent()
 {
-    sf::Vector2f globalMousePos = view->ConvertToCoordinate(sf::Mouse::getPosition(window));
-    sf::Vector2f localMousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(window));
+    sf::Vector2f globalMousePos = view->ConvertToCoordinate(sf::Mouse::getPosition((*renderWindow)));
+    sf::Vector2f localMousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition((*renderWindow)));
 
     if(event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
        {
@@ -134,26 +134,25 @@ void GameState::OnUpdate()
 
 }
 
-
-void GameState::Render(sf::RenderTarget& renderTarget)
+void GameState::OnRender()
 {
-    renderTarget.setView(camera);
+    renderWindow->setView(camera);
 
     for(auto b : town.GetBuildings())
-        renderTarget.draw(b.GetDrawable());
+		renderWindow->draw(b.GetDrawable());
 
-    renderTarget.setView(renderTarget.getDefaultView());
+	renderWindow->setView(renderWindow->getDefaultView());
 
-    renderTarget.draw(topBar);
+	renderWindow->draw(topBar);
 
-    renderTarget.draw(btnMenu);
-    renderTarget.draw(btnQuests);
-    renderTarget.draw(btnStats);
+    renderWindow->draw(btnMenu);
+    renderWindow->draw(btnQuests);
+    renderWindow->draw(btnStats);
 
     if(windowOpened)
-        renderTarget.draw((*currentWindow));
+		renderWindow->draw((*currentWindow));
 
-    renderTarget.setView(camera);
+    renderWindow->setView(camera);
 }  
 
 

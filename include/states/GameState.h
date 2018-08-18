@@ -26,18 +26,16 @@ class GameState : public State
 
     bool windowOpened = false;
 
-public:
-
-    virtual void HandleEvent(sf::Event event, const sf::Window& window);
-    virtual void Render(sf::RenderTarget& renderTarget);
-
 private:
     void CheckCodes(std::string code);
     void CloseWindow();
 
-    virtual void OnUpdate();
-    virtual void OnLoad();
-    virtual void OnUnload();
+    virtual void OnUpdate() override;
+	virtual void OnHandleEvent() override;
+	virtual void OnRender() override;
+
+    virtual void OnLoad() override;
+    virtual void OnUnload() override;
 };
 
 #endif //GAME_STATE_H

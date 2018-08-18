@@ -2,10 +2,15 @@
 
 void Game::Init(std::shared_ptr<State> state)
 {
+
+
 	window.create(sf::VideoMode(1000, 800), "RPG Town project");
 	window.setFramerateLimit(60);
 	window.setKeyRepeatEnabled(false);
+
     stateMachine.Init(state,&window);
+	stateMachine.ConnectWithRenderWindow(&window);
+
     updater.ConnectWithAccessor(stateMachine);
 }
 

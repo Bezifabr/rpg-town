@@ -74,7 +74,7 @@ void MenuState::OnUpdate()
 
 }
 
-void MenuState::HandleEvent(sf::Event event, const sf::Window& window)
+void MenuState::OnHandleEvent()
 {
 	if (event.type == sf::Event::KeyPressed)
 	{
@@ -82,20 +82,20 @@ void MenuState::HandleEvent(sf::Event event, const sf::Window& window)
 			isGameFinished = true;
 	}
 
-	sf::Vector2f mousePos = view->ConvertToCoordinate(sf::Mouse::getPosition(window));
+	sf::Vector2f mousePos = view->ConvertToCoordinate(sf::Mouse::getPosition((*renderWindow)));
 		btnLoad.HandleEvent(event, mousePos);
 		btnExit.HandleEvent(event, mousePos);
 		btnPlay.HandleEvent(event, mousePos);
 
 }
 
-void MenuState::Render(sf::RenderTarget & renderTarget)
+void MenuState::OnRender()
 {
-		renderTarget.draw(title);
-		renderTarget.draw(author);
-		renderTarget.draw(TBC);
-		renderTarget.draw(btnExit);
-		renderTarget.draw(btnLoad);
-		renderTarget.draw(btnPlay);
+		renderWindow->draw(title);
+		renderWindow->draw(author);
+		renderWindow->draw(TBC);
+		renderWindow->draw(btnExit);
+		renderWindow->draw(btnLoad);
+		renderWindow->draw(btnPlay);
 }
 

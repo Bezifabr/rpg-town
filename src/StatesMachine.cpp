@@ -19,6 +19,11 @@ void StateMachine::Init(std::shared_ptr<State> s, sf::RenderWindow* window)
     view.SetDefaultView();
 }
 
+void StateMachine::ConnectWithRenderWindow(sf::RenderWindow * renderWindow)
+{
+	this->renderWindow = renderWindow;
+}
+
 void StateMachine::Shutdown()
 {
     Peek()->Unload();
@@ -31,7 +36,9 @@ void StateMachine::Push(std::shared_ptr<State> s)
 
     states.push(s);
     states.top()->ConnectWithViewManager(view);
-    states.top()->Load(this);
+	states.top()->ConnectWithRenderWindow(renderWindow);
+	states.top()->ConnectWithStateTransition(this);
+    states.top()->Load();
 }
 
 void StateMachine::Pop()

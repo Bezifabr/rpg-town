@@ -17,16 +17,15 @@ class MenuState : public State {
 	HUD::Button btnExit;
 	sf::Texture texture;
 	sf::Texture buttonTexture;
-public:
-
-	virtual void HandleEvent(sf::Event event, const sf::Window& window);
-	virtual void Render(sf::RenderTarget& renderTarget);
 
 private:
 
-	virtual void OnUpdate();
-	virtual void OnLoad();
-	virtual void OnUnload();
+	virtual void OnUpdate() override;
+	virtual void OnHandleEvent() override;
+	virtual void OnRender() override;
+
+	virtual void OnLoad() override;
+	virtual void OnUnload() override;
 };
 
 #endif // !MENU_STATE_H

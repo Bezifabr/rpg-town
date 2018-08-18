@@ -11,7 +11,6 @@ void IntroState::OnLoad()
     cout << "Intro load" << endl;
 }
 
-
 void IntroState::OnUpdate()
 {
     transition->Switch(std::shared_ptr<State>(new MenuState));
@@ -22,11 +21,11 @@ void IntroState::OnUnload()
     cout << "Intro unload" << endl;
 }
 
-void IntroState::HandleEvent(sf::Event event, const sf::Window& window)
+void IntroState::OnHandleEvent()
 {
 }
 
-void IntroState::Render(sf::RenderTarget& renderTarget)
+void IntroState::OnRender()
 {
     
 }
