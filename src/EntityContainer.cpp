@@ -33,3 +33,9 @@ void EntityContainer::Remove(EntityId id)
 
     }
 }
+
+void EntityContainer::RemoveEntities()
+{
+	entityLookup.clear();
+	entities.clear();
+}
