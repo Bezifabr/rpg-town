@@ -2,6 +2,8 @@
 #include "states/GameState.h"
 #include "StateMachine.h"
 #include <iostream>
+#include "Components/SpriteComponent.h"
+#include "Components/TextComponent.h"
 
 using std::cout;
 using std::endl;
@@ -16,7 +18,6 @@ void MenuState::OnLoad()
 	title.setStyle(sf::Text::Bold);
 	title.setString("RPG Town project");
 	title.setPosition(300, 50);
-
 
 	author.setFont(textFont);
 	author.setCharacterSize(35);
@@ -48,6 +49,12 @@ void MenuState::OnLoad()
 	btnPlay.setFont(textFont);
 	btnPlay.setString("Play");
 	
+	container.Add("BICO_LOAD");
+	auto load = container.GetLastAddedEntity().lock();
+	load->AddComponent<SpriteComponent>("resources/btnText.png");
+	load->GetComponent<SpriteComponent>().sprite.setPosition(350, 300);
+	load->AddComponent<TextComponent>("Load", &textFont, sf::Vector2f(350,300));
+
 	cout << "Menu loaded" << endl;
 }
 
@@ -59,7 +66,7 @@ void MenuState::OnUnload()
 void MenuState::OnUpdate()
 {
 	btnPlay.Update(deltaTime);
-	btnLoad.Update(deltaTime);
+//	btnLoad.Update(deltaTime);
 	btnExit.Update(deltaTime);
 
 	if (btnExit.IsPressed())
@@ -83,7 +90,7 @@ void MenuState::OnHandleEvent()
 	}
 
 	sf::Vector2f mousePos = view->ConvertToCoordinate(sf::Mouse::getPosition((*renderWindow)));
-		btnLoad.HandleEvent(event, mousePos);
+//		btnLoad.HandleEvent(event, mousePos);
 		btnExit.HandleEvent(event, mousePos);
 		btnPlay.HandleEvent(event, mousePos);
 
@@ -95,7 +102,7 @@ void MenuState::OnRender()
 		renderWindow->draw(author);
 		renderWindow->draw(TBC);
 		renderWindow->draw(btnExit);
-		renderWindow->draw(btnLoad);
+//		renderWindow->draw(btnLoad);
 		renderWindow->draw(btnPlay);
 }
 
