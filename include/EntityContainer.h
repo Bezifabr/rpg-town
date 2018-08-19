@@ -14,11 +14,11 @@ class EntityContainer
     EntityVector entities;
     std::unordered_map<EntityId, EntityVectorIndex> entityLookup;
 public:
-    EntityId Add(std::string name);
+    EntityId Create(std::string name);
     std::weak_ptr<Entity> Get(EntityId id);
     void Remove(EntityId id);
 
-	std::weak_ptr<Entity> GetLastAddedEntity();
+	std::weak_ptr<Entity> GetLastCreatedEntity();
 
 	void RemoveEntities();
     const EntityVector & GetEntities() const { return entities; }

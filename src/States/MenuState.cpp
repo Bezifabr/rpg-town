@@ -49,8 +49,8 @@ void MenuState::OnLoad()
 	btnPlay.setFont(textFont);
 	btnPlay.setString("Play");
 	
-	container.Add("BICO_LOAD");
-	auto load = container.GetLastAddedEntity().lock();
+	container.Create("BICO_LOAD");
+	auto load = container.GetLastCreatedEntity().lock();
 	load->AddComponent<SpriteComponent>("resources/btnText.png");
 	load->GetComponent<SpriteComponent>().sprite.setPosition(350, 300);
 	load->AddComponent<TextComponent>("Load", &textFont, sf::Vector2f(350,300));

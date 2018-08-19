@@ -1,6 +1,6 @@
 #include "EntityContainer.h"
 
-EntityId EntityContainer::Add(std::string name)
+EntityId EntityContainer::Create(std::string name)
 {
     std::shared_ptr<Entity> ptr = std::make_shared<Entity>(name);
     entityLookup.insert({ptr->GetId(), entities.size() });
@@ -34,7 +34,7 @@ void EntityContainer::Remove(EntityId id)
     }
 }
 
-std::weak_ptr<Entity> EntityContainer::GetLastAddedEntity()
+std::weak_ptr<Entity> EntityContainer::GetLastCreatedEntity()
 {
 	return entities[entities.size() - 1];
 }
