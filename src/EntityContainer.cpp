@@ -34,6 +34,11 @@ void EntityContainer::Remove(EntityId id)
     }
 }
 
+std::weak_ptr<Entity> EntityContainer::GetLastAddedEntity()
+{
+	return entities[entities.size() - 1];
+}
+
 void EntityContainer::RemoveEntities()
 {
 	entityLookup.clear();

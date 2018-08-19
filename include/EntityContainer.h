@@ -18,6 +18,8 @@ public:
     std::weak_ptr<Entity> Get(EntityId id);
     void Remove(EntityId id);
 
+	std::weak_ptr<Entity> GetLastAddedEntity();
+
 	void RemoveEntities();
     const EntityVector & GetEntities() const { return entities; }
 };
