@@ -40,7 +40,7 @@ void TextComponent::SetPosition(sf::Vector2f pos)
 
 void TextComponent::SetPositionToCenter(sf::FloatRect rect)
 {
-	text.setOrigin(text.getGlobalBounds.width / 2, text.getGlobalBounds().height / 2);
+	text.setOrigin(text.getGlobalBounds().width / 2, text.getGlobalBounds().height / 2);
 	text.setPosition(rect.left + rect.width / 2, rect.top + rect.height / 2 - 10);
 }
 
