@@ -15,6 +15,8 @@ class EntityContainer
     std::unordered_map<EntityId, EntityVectorIndex> entityLookup;
 public:
     EntityId Create(std::string name);
+	EntityId Add(std::shared_ptr<Entity> entity);
+
     std::weak_ptr<Entity> Get(EntityId id);
     void Remove(EntityId id);
 

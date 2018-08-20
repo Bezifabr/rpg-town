@@ -3,9 +3,14 @@
 EntityId EntityContainer::Create(std::string name)
 {
     std::shared_ptr<Entity> ptr = std::make_shared<Entity>(name);
-    entityLookup.insert({ptr->GetId(), entities.size() });
-    entities.push_back(ptr);
-    return ptr->GetId();
+	return Add(ptr);
+}
+
+EntityId EntityContainer::Add(std::shared_ptr<Entity> entity)
+{
+	entityLookup.insert({ entity->GetId(), entities.size() });
+	entities.push_back(entity);
+	return entity->GetId();
 }
 
 std::weak_ptr<Entity> EntityContainer::Get(EntityId id)
