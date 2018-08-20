@@ -9,7 +9,7 @@
 class TextComponent : public Component
 {
 	sf::Text text;
-	sf::Font* font;
+	sf::Font* font = nullptr;
 public:
 	TextComponent(){}
 	TextComponent(const std::string& string, sf::Font* font);

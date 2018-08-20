@@ -1,4 +1,6 @@
 #include "Components/TextComponent.h"
+#include "Entity.h"
+#include <stdexcept>
 
 TextComponent::TextComponent(const std::string & string, sf::Font* font)
 		: font(font)
@@ -53,5 +55,8 @@ void TextComponent::SetColor(sf::Color color)
 
 void TextComponent::Draw(sf::RenderTarget & target)
 {
-	target.draw(text);
+	if (font != nullptr) {} else throw std::runtime_error("Text component from " + entity->GetName() + " has no font!");
+	if (text.getString() != "") {} else throw std::runtime_error("Text component from " + entity->GetName() + " has no string!");
+
+		target.draw(text);
 }
