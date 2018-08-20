@@ -6,11 +6,11 @@
 #include <SFML/Graphics/Font.hpp>
 #include <memory>
 
-class TextComponent : public Component
+struct TextComponent : public Component
 {
 	sf::Text text;
 	sf::Font* font = nullptr;
-public:
+
 	TextComponent(){}
 	TextComponent(const std::string& string, sf::Font* font);
 	TextComponent(const std::string& string, sf::Font* font, sf::Vector2f position);
