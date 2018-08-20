@@ -17,6 +17,7 @@ void HUD::EntityButton::SetPosition(sf::Vector2f position)
 void HUD::EntityButton::SetPosition(float x, float y)
 {
 	GetComponent<SpriteComponent>().sprite.setPosition(x, y);
+	GetComponent<ClickableComponent>().ChangeClickableArea(GetComponent<SpriteComponent>().sprite.getGlobalBounds());
 }
 
 void HUD::EntityButton::CheckIfIsClicked(sf::Event event, sf::Vector2i mousePosition)
