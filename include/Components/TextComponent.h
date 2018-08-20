@@ -11,8 +11,7 @@ struct TextComponent : public Component
 	sf::Text text;
 	sf::Font* font = nullptr;
 
-	TextComponent(){}
-	TextComponent(const std::string& string, sf::Font* font);
+	TextComponent(const std::string& string = "", sf::Font*  = nullptr);
 	TextComponent(const std::string& string, sf::Font* font, sf::Vector2f position);
 	TextComponent(const std::string& string, sf::Font* font, sf::Vector2f position, uint8_t fontSize);
 	TextComponent(const std::string& string, sf::Font* font, sf::Vector2f position, uint8_t fontSize, sf::Color fontColor);
@@ -22,6 +21,8 @@ struct TextComponent : public Component
 	void SetFont(sf::Font* font);
 	void SetFontSize(uint8_t fontSize);
 	void SetColor(sf::Color color);
+
+	void SetPositionToCenter(sf::FloatRect rect = {0,0,0,0});
 
 	virtual void Draw(sf::RenderTarget& target) override;
 };

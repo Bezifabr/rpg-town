@@ -34,7 +34,14 @@ void TextComponent::SetString(const std::string & string)
 
 void TextComponent::SetPosition(sf::Vector2f pos)
 {
+	text.setOrigin(0, 0);
 	text.setPosition(pos);
+}
+
+void TextComponent::SetPositionToCenter(sf::FloatRect rect)
+{
+	text.setOrigin(text.getGlobalBounds.width / 2, text.getGlobalBounds().height / 2);
+	text.setPosition(rect.left + rect.width / 2, rect.top + rect.height / 2 - 10);
 }
 
 void TextComponent::SetFont(sf::Font* font)
