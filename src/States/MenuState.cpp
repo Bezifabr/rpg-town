@@ -5,6 +5,8 @@
 #include "Components/SpriteComponent.h"
 #include "Components/TextComponent.h"
 
+#include "HUD/EntityButton.h"
+
 using std::cout;
 using std::endl;
 
@@ -54,6 +56,11 @@ void MenuState::OnLoad()
 	load->AddComponent<SpriteComponent>("resources/btnText.png");
 	load->GetComponent<SpriteComponent>().sprite.setPosition(350, 300);
 	load->AddComponent<TextComponent>("Load", &textFont, sf::Vector2f(350,300));
+
+	// builder vs factory vs prototype
+	std::shared_ptr<HUD::EntityButton> testBtn(new HUD::EntityButton("TEST", "resources/btnText.png"));
+	testBtn->SetPosition(100, 100);
+	container.Add(testBtn);
 
 	cout << "Menu loaded" << endl;
 }
