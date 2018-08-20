@@ -11,6 +11,7 @@ class TextComponent : public Component
 	sf::Text text;
 	sf::Font* font;
 public:
+	TextComponent(){}
 	TextComponent(const std::string& string, sf::Font* font);
 	TextComponent(const std::string& string, sf::Font* font, sf::Vector2f position);
 	TextComponent(const std::string& string, sf::Font* font, sf::Vector2f position, uint8_t fontSize);
