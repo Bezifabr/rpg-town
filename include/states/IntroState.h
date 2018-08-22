@@ -8,11 +8,11 @@ class IntroState : public State {
 	
 private:
 
+	virtual void OnEnter() override;
+	virtual void OnLeave() override;
+	
 	virtual void OnUpdate() override;
-	virtual void OnLoad() override;
-	virtual void OnUnload() override;
-	virtual void OnRender() override;
-	virtual void OnHandleEvent() override;
+	
 };
 
 #endif // !INTRO_STATE_H
