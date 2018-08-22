@@ -2,43 +2,37 @@
 #define STATE_H
 
 #include <SFML/Graphics.hpp>
-#include "ViewManager.h"
-#include <EntityContainer.h>
+#include <memory>
 
 class StateTransition;
 class State {
 public:
-
-	void ConnectWithStateTransition(StateTransition* transition);
-	void ConnectWithRenderWindow(sf::RenderWindow* renderWindow);
-
-	virtual void Load();
-	virtual void Unload();
-
-	virtual void Update(sf::Time deltaTime);
-	virtual void HandleEvent(sf::Event event);
-	virtual void Render();
-	virtual void Refresh();
+    void ConnectWithStateTransition(StateTransition* transition);
+	void ConnectWithRenderWindow(std::shared_ptr<sf::RenderWindow> renderWindow);
 
 	bool IsGameFinished();
 
-	void ConnectWithViewManager(ViewManager& viewMgr);
+    virtual void OnEnter() = 0;
+    virtual void OnLeave() = 0;
+    virtual void OnShow() {}
+    virtual void OnHide() {}
+
+	void HandleEvent(sf::Event event);
+	void Update(sf::Time deltaTime);
+	void Draw();
+
 protected:
-	virtual void OnUpdate() = 0;
-	virtual void OnLoad() = 0;
-	virtual void OnUnload() = 0;
-	virtual void OnRender() = 0;
-	virtual void OnHandleEvent() = 0;
+    StateTransition* transition;
+	std::shared_ptr<sf::RenderWindow> renderWindow;
 
-	bool isGameFinished = false; 
+	bool isGameFinished = false;
 
-	ViewManager* view;
-	StateTransition* transition;
-	EntityContainer container;
-	
 	sf::Time deltaTime;
 	sf::Event event;
-	sf::RenderWindow* renderWindow;
+
+	virtual void OnHandleEvent() {}
+    virtual void OnUpdate() = 0;
+	virtual void OnDraw() {}
 };
 
 #endif // !STATE_H

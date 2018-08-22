@@ -1,5 +1,4 @@
 #include "StateUpdater.h"
-#include <stdexcept>
 
 void StateUpdater::ConnectWithAccessor(StateAccessor& accessor)
 {
@@ -20,17 +19,12 @@ void StateUpdater::Update(sf::Time deltaTime)
 
 }
 
-void StateUpdater::HandleEvent(sf::Event event, const sf::Window& window)
+void StateUpdater::HandleEvent(sf::Event event)
 {
     accessor->Peek()->HandleEvent(event);
 }
 
-void StateUpdater::Draw(sf::RenderTarget& renderTarget)
+void StateUpdater::Draw()
 {
-    accessor->Peek()->Render();
-}
-
-void StateUpdater::Refresh()
-{
-    accessor->Peek()->Refresh();
+    accessor->Peek()->Draw();
 }

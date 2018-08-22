@@ -1,72 +1,34 @@
 #include "State.h"
 #include <stdexcept>
 
-void State::ConnectWithViewManager(ViewManager& view)
-{
-	this->view = &view;
-}
-
-void State::ConnectWithStateTransition(StateTransition * transition)
+void State::ConnectWithStateTransition(StateTransition* transition)
 {
 	this->transition = transition;
 }
 
-void State::ConnectWithRenderWindow(sf::RenderWindow * renderWindow)
+void State::ConnectWithRenderWindow(std::shared_ptr<sf::RenderWindow> renderWindow)
 {
 	this->renderWindow = renderWindow;
-}
-
-void State::Load()
-{
-	if (!transition) throw std::runtime_error("Cannot find StateTransition object");
-	if (!renderWindow) throw std::runtime_error("Cannot find sf::RenderWindow object");
-
-	OnLoad();
-}
-
-void State::Update(sf::Time deltaTime)
-{
-	this->deltaTime = deltaTime;
-
-	for(auto e : container.GetEntities())
-	{
-		e->Update(deltaTime);
-	}
-
-	OnUpdate();
 }
 
 void State::HandleEvent(sf::Event event)
 {
 	this->event = event;
-
-	for (auto e : container.GetEntities())
-	{
-		e->HandleEvent(event);
-	}
-
 	OnHandleEvent();
 }
 
-void State::Render()
+void State::Update(sf::Time deltaTime)
 {
-	for (auto e : container.GetEntities())
-	{
-		e->Draw((*renderWindow));
-	}
+	if (!transition) throw std::runtime_error("Cannot find StateTransition object");
+	if (!renderWindow) throw std::runtime_error("Cannot find sf::RenderWindow object");
 
-	OnRender();
+	this->deltaTime = deltaTime;
+	OnUpdate();
 }
 
-void State::Refresh()
+void State::Draw()
 {
-	OnRender();
-}
-
-void State::Unload()
-{
-	transition = nullptr;
-	OnUnload();
+	OnDraw();
 }
 
 bool State::IsGameFinished()

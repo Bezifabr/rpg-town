@@ -12,10 +12,9 @@ class StateUpdater
     StateAccessor* accessor = nullptr;
 public:
     void ConnectWithAccessor(StateAccessor& accessor);
+    void HandleEvent(sf::Event event);
     void Update(sf::Time elapsedTime);
-    void HandleEvent(sf::Event event, const sf::Window& window);
-    void Draw(sf::RenderTarget& renderTarget);
-    void Refresh();
+    void Draw();
 
     bool IsRunning();
 };

@@ -1,20 +1,18 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "StateMachine.h"
+#include "StateStack.h"
 #include "StateUpdater.h"
 #include <memory>
 #include <SFML/Graphics/RenderWindow.hpp>
 
 class Game
 {
-    sf::RenderWindow window;
-    StateMachine stateMachine;
+    std::shared_ptr<sf::RenderWindow> renderWindow;
+    StateStack stateStack;
     StateUpdater updater;
 public:
-    void Init(std::shared_ptr<State> state);
-    void Start();
-
+    Game();
 private:
     void RunLoop();
 

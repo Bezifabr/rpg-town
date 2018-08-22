@@ -1,48 +1,46 @@
 #include "Game.h"
+#include "states/IntroState.h"
+#include "config.h"
 
-void Game::Init(std::shared_ptr<State> state)
+Game::Game()
 {
+	const std::string TITLE = RPG_TOWN_TITLE + " " + RPG_TOWN_VERSION_MAJOR + "." + RPG_TOWN_VERSION_MINOR + " " + RPG_TOWN_VERSION_RELEASE;
 
+	renderWindow = std::make_shared<sf::RenderWindow>(sf::VideoMode(1000,800), TITLE);
+	renderWindow->setFramerateLimit(60);
+	renderWindow->setKeyRepeatEnabled(false);
 
-	window.create(sf::VideoMode(1000, 800), "RPG Town project");
-	window.setFramerateLimit(60);
-	window.setKeyRepeatEnabled(false);
+	stateStack.ConnectWithRenderWindow(renderWindow);
+	stateStack.Push(std::unique_ptr<State>(new IntroState()));
+    updater.ConnectWithAccessor(stateStack);
 
-    stateMachine.Init(state,&window);
-	stateMachine.ConnectWithRenderWindow(&window);
+	RunLoop();
 
-    updater.ConnectWithAccessor(stateMachine);
-}
-
-void Game::Start()
-{
-    RunLoop();
 }
 
 void Game::RunLoop()
 {
-    while (window.isOpen())
+	sf::Event event;
+	sf::Time deltaTime;
+
+    while (renderWindow->isOpen())
 	{
 		if(!updater.IsRunning())
-			window.close();
+			renderWindow->close();
 
-		updater.Refresh();
-
-		sf::Event event;
-		sf::Time deltaTime;
-		while (window.pollEvent(event))
+		while (renderWindow->pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
-				window.close();
-			updater.HandleEvent(event, window);
+				renderWindow->close();
+			updater.HandleEvent(event);
 		}
 
 		updater.Update(deltaTime);
 		deltaTime = sf::Time::Zero;
 
-		window.clear();
-		updater.Draw(window);
-		window.display();
+		renderWindow->clear();
+		updater.Draw();
+		renderWindow->display();
 	}
 
 }

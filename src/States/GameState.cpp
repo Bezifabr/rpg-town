@@ -1,172 +1,88 @@
 #include "states/GameState.h"
-#include "states/MenuState.h"
 #include "StateTransition.h"
-#include "HUD/WNDMenu.h"
-#include "HUD/WNDBuild.h"
 #include <iostream>
 
 using std::cout;
 using std::endl;
 
-void GameState::OnLoad()
+
+void GameState::OnEnter()
 {
-    hudButtonTexture.loadFromFile("resources/HUDButton.png");
+	topBarTexture.loadFromFile("resources/Top Bar.png");
+	topBar.setTexture(topBarTexture);
 
-    font.loadFromFile("resources/Text font.ttf");
+    house.texture.loadFromFile("resources/Test/House.png");
+    house.sprite.setTexture(house.texture);
+    house.sprite.setOrigin(256/2,256/2);
 
-    btnMenu.setTexture(hudButtonTexture);
-    btnMenu.setFont(font);
-    btnMenu.setString("Menu");
-    btnMenu.setPosition(5,1);
+    buildingPattern.setSize(sf::Vector2f(256,256));
+    buildingPattern.setFillColor(sf::Color(10,255,10,50));
+    buildingPattern.setPosition(-600,600);
+    buildingPattern.setOrigin(buildingPattern.getSize().x / 2, buildingPattern.getSize().y / 2);
 
-    btnQuests.setTexture(hudButtonTexture);
-    btnQuests.setFont(font);
-    btnQuests.setString("Missions");
-    btnQuests.setPosition(btnMenu.getPosition().x 
-    + btnMenu.getGlobalBounds().width +1,1);
-
-    btnStats.setTexture(hudButtonTexture);
-    btnStats.setFont(font);
-    btnStats.setString("Statistics");
-    btnStats.setPosition(btnQuests.getPosition().x
-     + btnQuests.getGlobalBounds().width +1,1);
-
-    topBarTexture.loadFromFile("resources/Top Bar.png");
-    topBar.setTexture(topBarTexture);
-
-    // Camera Settings
-    camera.setCenter(200,200);
-    camera.setSize(1000,800);
-    view->SetView(camera);
-
-    // Town Settings
-    town.AddResource("Iron", 1000);
-    town.AddResource("Wood", 1000);
-    town.AddResource("Stone", 1000);
-
-    Building build;
-    build.LoadTexture("resources/Test/House.png");
-    build.GetTranformable().setPosition(400,375);
-
-    town.AddBuilding(build);
-
-
-    cout << "Game loaded" << endl;
+	cout << "Game loaded" << endl;
 }
 
-void GameState::OnUnload()
+void GameState::OnLeave()
 {
-    cout << "Game unloaded" << endl;
+	cout << "Game unloaded" << endl;
 }
 
 void GameState::OnHandleEvent()
 {
-    sf::Vector2f globalMousePos = view->ConvertToCoordinate(sf::Mouse::getPosition((*renderWindow)));
+    sf::Vector2f globalMousePos = renderWindow->mapPixelToCoords(sf::Mouse::getPosition((*renderWindow)));
     sf::Vector2f localMousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition((*renderWindow)));
+
+    buildingPattern.setPosition(globalMousePos.x, buildingPattern.getPosition().y);
 
     if(event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
        {
             cout << localMousePos.x << ", " << localMousePos.y << "\n";
             cout << globalMousePos.x << " " << globalMousePos.y << "\n";
+
+        if(DoesItIntersectWithStructures(buildingPattern.getGlobalBounds()) == false)
+            PlaceStructure();
+
        }
 
     if(event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape)
         {
-            if(windowOpened == false)
-                transition->Switch(std::shared_ptr<State>(new MenuState));
-            else
-                CloseWindow();
+            renderWindow->close();
         }
 
-    if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::T)
-    {
-        currentWindow = new HUD::WNDBuild;
-        currentWindow->Initialize();
-        windowOpened = true;
-    }
+    
+    if(DoesItIntersectWithStructures(buildingPattern.getGlobalBounds()))
+        buildingPattern.setFillColor(sf::Color(255,10,10,50));
+    else
+        buildingPattern.setFillColor(sf::Color(10,255,10,50));
 
-    btnMenu.HandleEvent(event, localMousePos);
-    btnQuests.HandleEvent(event, localMousePos);
-    btnStats.HandleEvent(event, localMousePos);
 
-    if(windowOpened)
-        currentWindow->HandleEvent(event,localMousePos);
 }
 
 void GameState::OnUpdate()
 {
-    if(btnMenu.IsPressed())
-        {
-            currentWindow = new HUD::WNDMenu;
-            currentWindow->Initialize();
-            windowOpened = true;
-        }
-    
-    if(btnQuests.IsPressed())
-        cout << "Missions window opened" << endl;
-    if(btnStats.IsPressed())
-        cout << "Statistics window opened" << endl;
-
-
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-        camera.move(-5,0);
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-        camera.move(5,0);
-
-    btnMenu.Update(deltaTime);
-    btnQuests.Update(deltaTime);
-    btnStats.Update(deltaTime);
-
-    if(currentWindow)
-        {
-            currentWindow->Update(deltaTime);
-
-            if(currentWindow->IsOpened() == false)
-                CloseWindow();
-
-            if(currentWindow->IsButtonPressed())
-                {
-                    cout << currentWindow->GetPressedButtonCode() << endl;
-                    CheckCodes(currentWindow->GetPressedButtonCode());
-                }
-        }
-
-
 }
 
-void GameState::OnRender()
+void GameState::OnDraw()
 {
-    renderWindow->setView(camera);
-
-    for(auto b : town.GetBuildings())
-		renderWindow->draw(b.GetDrawable());
-
-	renderWindow->setView(renderWindow->getDefaultView());
-
 	renderWindow->draw(topBar);
 
-    renderWindow->draw(btnMenu);
-    renderWindow->draw(btnQuests);
-    renderWindow->draw(btnStats);
+    renderWindow->draw(buildingPattern);
 
-    if(windowOpened)
-		renderWindow->draw((*currentWindow));
-
-    renderWindow->setView(camera);
-}  
-
-
-void GameState::CloseWindow()
-{
-    delete currentWindow;
-    currentWindow = nullptr;
-    windowOpened = false;
+    for(auto s : structures)
+        renderWindow->draw(s.sprite);
 }
 
-void GameState::CheckCodes(std::string code)
-{    
-    if(code == "GM1_back")
-        currentWindow->SetOpened(false);
-    if(code == "GM1_menu")
-        transition->Switch(std::shared_ptr<State>(new MenuState));
+bool GameState::DoesItIntersectWithStructures(const sf::FloatRect& rect)
+{
+    for(auto s : structures)
+        if(buildingPattern.getGlobalBounds().intersects(s.sprite.getGlobalBounds()))
+            return true;
+    return false;
+}
+
+void GameState::PlaceStructure()
+{
+    house.sprite.setPosition(buildingPattern.getPosition());
+    structures.push_back(house);
 }
