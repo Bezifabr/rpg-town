@@ -13,8 +13,10 @@ project(Rpg-Town)
 set(BINDIR ${PROJECT_BINARY_DIR})
 set(SRCDIR ${PROJECT_SOURCE_DIR})
 
+set(RPG_TOWN_TITLE "Rpg Town")
 set(RPG_TOWN_VERSION_MAJOR 1)
 set(RPG_TOWN_VERSION_MINOR 0)
+set(RPG_TOWN_VERSION_RELEASE pre-alpha)
 
 configure_file(
 	"${SRCDIR}/config.h.in"

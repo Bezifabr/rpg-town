@@ -1,7 +1,11 @@
 #ifndef CONFIG_H
 #define CONFIG_H
+#include <string>
 
-#define RPG_TOWN_VERSION_MAJOR @RPG_TOWN_VERSION_MAJOR@
-#define RPG_TOWN_VERSION_MINOR @RPG_TOWN_VERSION_MINOR@
+const std::string RPG_TOWN_TITLE = "@RPG_TOWN_TITLE@";
+const std::string RPG_TOWN_VERSION_MAJOR = "@RPG_TOWN_VERSION_MAJOR@";
+const std::string RPG_TOWN_VERSION_MINOR = "@RPG_TOWN_VERSION_MINOR@";
+const std::string RPG_TOWN_VERSION_RELEASE = "@RPG_TOWN_VERSION_RELEASE@";
+
 
 #endif // !CONFIG_H

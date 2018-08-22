@@ -4,7 +4,7 @@
 
 Game::Game()
 {
-	const std::string TITLE = "RPG Town project " + RPG_TOWN_VERSION_MAJOR + "." + RPG_TOWN_VERSION_MINOR;
+	const std::string TITLE = RPG_TOWN_TITLE + " " + RPG_TOWN_VERSION_MAJOR + "." + RPG_TOWN_VERSION_MINOR + " " + RPG_TOWN_VERSION_RELEASE;
 
 	renderWindow = std::make_shared<sf::RenderWindow>(sf::VideoMode(1000,800), TITLE);
 	renderWindow->setFramerateLimit(60);
