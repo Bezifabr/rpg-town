@@ -23,6 +23,7 @@ void State::Update(sf::Time deltaTime)
 	if (!renderWindow) throw std::runtime_error("Cannot find sf::RenderWindow object");
 
 	this->deltaTime = deltaTime;
+	OnUpdate();
 }
 
 void State::Draw()
