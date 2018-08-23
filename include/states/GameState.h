@@ -22,6 +22,11 @@ class GameState : public State
 
     IngameMode ingameMode = IngameMode::selecting;
 
+    sf::View view;
+
+    sf::Vector2f globalMousePos;
+    sf::Vector2f localMousePos;
+
 private:
 
     void PlaceStructure();

@@ -21,6 +21,7 @@ Game::Game()
 void Game::RunLoop()
 {
 	sf::Event event;
+	sf::Clock clock;
 	sf::Time deltaTime;
 
     while (renderWindow->isOpen())
@@ -35,8 +36,9 @@ void Game::RunLoop()
 			updater.HandleEvent(event);
 		}
 
+		deltaTime = clock.getElapsedTime();
 		updater.Update(deltaTime);
-		deltaTime = sf::Time::Zero;
+		clock.restart();
 
 		renderWindow->clear();
 		updater.Draw();

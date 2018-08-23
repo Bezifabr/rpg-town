@@ -8,6 +8,8 @@ using std::endl;
 
 void GameState::OnEnter()
 {
+	view = renderWindow->getDefaultView();
+
 	structures.reserve(128);
 
 	topBarTexture.loadFromFile("resources/Top Bar.png");
@@ -32,8 +34,8 @@ void GameState::OnLeave()
 
 void GameState::OnHandleEvent()
 {
-	sf::Vector2f globalMousePos = renderWindow->mapPixelToCoords(sf::Mouse::getPosition((*renderWindow)));
-	sf::Vector2f localMousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition((*renderWindow)));
+	globalMousePos = renderWindow->mapPixelToCoords(sf::Mouse::getPosition((*renderWindow)));
+	localMousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition((*renderWindow)));
 
 
 	if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
@@ -65,13 +67,11 @@ void GameState::OnHandleEvent()
 				RemoveSelectedStructure();
 	}
 
-
 }
 
 void GameState::OnUpdate()
 {
-	auto globalMousePos = renderWindow->mapPixelToCoords(sf::Mouse::getPosition((*renderWindow)));
-
+	
 	buildingPattern.setPosition(globalMousePos.x, buildingPattern.getPosition().y);
 
 	if (IntersectsWithStructures(buildingPattern.getGlobalBounds()) && ingameMode == IngameMode::building)
@@ -81,17 +81,24 @@ void GameState::OnUpdate()
 
 	if (selected == true && ingameMode != IngameMode::selecting)
 		UnselectStructure();
+		
+	if(localMousePos.x >= renderWindow->getSize().x - 50) view.move(350 * deltaTime.asSeconds(), 0);
+	if(localMousePos.x <= 50) view.move(-350 * deltaTime.asSeconds(), 0);
+
+
 }
 
 void GameState::OnDraw()
 {
+	renderWindow->setView(view);
+
 	renderWindow->draw(topBar);
 
 	if (ingameMode == IngameMode::building)
 		renderWindow->draw(buildingPattern);
 
 	for (auto s : structures)
-		renderWindow->draw(s.sprite);
+			renderWindow->draw(s.sprite);
 }
 
 void GameState::ChangeIngameMode()
