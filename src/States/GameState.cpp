@@ -17,13 +17,14 @@ void GameState::OnEnter()
 
 	player.texture.loadFromFile("resources/PlayerTex.png");
 	player.sprite.setTexture(player.texture);
-	player.sprite.setPosition(0,600);
-	player.sprite.setTextureRect(sf::IntRect(0,0,128,256));
+	player.sprite.setPosition(0, 600);
+	player.sprite.setTextureRect(sf::IntRect(0, 0, 128, 256));
 	player.SetSpeed(25);
 
 	house.texture.loadFromFile("resources/Test/House.png");
 	house.sprite.setTexture(house.texture);
 	house.sprite.setOrigin(256 / 2, 256 / 2);
+	house.SetType(StructureType::main);
 
 	buildingPattern.setSize(sf::Vector2f(256, 256));
 	buildingPattern.setFillColor(sf::Color(10, 255, 10, 50));
@@ -87,11 +88,37 @@ void GameState::OnUpdate()
 
 	if (selected == true && ingameMode != IngameMode::selecting)
 		UnselectStructure();
-		
-	if(localMousePos.x >= renderWindow->getSize().x - 50) view.move(350 * deltaTime.asSeconds(), 0);
-	if(localMousePos.x <= 50) view.move(-350 * deltaTime.asSeconds(), 0);
-	player.Move(deltaTime);
 
+	if (localMousePos.x >= renderWindow->getSize().x - 50) view.move(350 * deltaTime.asSeconds(), 0);
+	if (localMousePos.x <= 50) view.move(-350 * deltaTime.asSeconds(), 0);
+
+	player.SetStructureType(StructureType::nothing);
+	for (auto s : structures)
+		if (player.sprite.getGlobalBounds().contains(s.sprite.getPosition()))
+		{
+			player.SetStructureType(s.GetType());
+			break;
+		}
+
+	if(player.GetStructureType() == StructureType::main)
+		player.SetMoving(false);
+
+	switch(player.GetStructureType())
+	{
+	case StructureType::main:
+		player.SetMoving(false);
+		break;
+	case StructureType::nothing:
+		player.SetMoving(true);
+		break;
+	}
+
+
+	if (player.IsMoving())
+	{
+		player.Move(deltaTime);
+
+	}
 
 }
 
@@ -99,15 +126,15 @@ void GameState::OnDraw()
 {
 	renderWindow->setView(view);
 
-	renderWindow->draw(player.sprite);
-
-	renderWindow->draw(topBar);
-
 	if (ingameMode == IngameMode::building)
 		renderWindow->draw(buildingPattern);
 
 	for (auto s : structures)
-			renderWindow->draw(s.sprite);
+		renderWindow->draw(s.sprite);
+
+	renderWindow->draw(player.sprite);
+
+	renderWindow->draw(topBar);
 }
 
 void GameState::ChangeIngameMode()
