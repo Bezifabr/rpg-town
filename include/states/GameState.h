@@ -28,6 +28,8 @@ private:
     bool DoesItIntersectWithStructures(const sf::FloatRect& rect);
     bool IsItContainedByStructure(const sf::Vector2f& point);
 
+    void ChangeIngameMode();
+
     void UnselectStructure();
 
 	virtual void OnHandleEvent() override;

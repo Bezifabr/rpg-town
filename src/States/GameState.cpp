@@ -35,7 +35,6 @@ void GameState::OnHandleEvent()
 	sf::Vector2f globalMousePos = renderWindow->mapPixelToCoords(sf::Mouse::getPosition((*renderWindow)));
 	sf::Vector2f localMousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition((*renderWindow)));
 
-	buildingPattern.setPosition(globalMousePos.x, buildingPattern.getPosition().y);
 
 	if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
 	{
@@ -64,20 +63,8 @@ void GameState::OnHandleEvent()
 
 	if (event.type == sf::Event::KeyReleased)
 	{
-		switch (event.key.code)
-		{
-		case sf::Keyboard::Escape:
-			renderWindow->close();
-			break;
-		case sf::Keyboard::A:
-			ingameMode = IngameMode::selecting;
-			break;
-		case sf::Keyboard::S:
-			ingameMode = IngameMode::building;
-			break;
-		}
+		ChangeIngameMode();
 	}
-
 
 
 }
@@ -85,6 +72,8 @@ void GameState::OnHandleEvent()
 void GameState::OnUpdate()
 {
 	auto globalMousePos = renderWindow->mapPixelToCoords(sf::Mouse::getPosition((*renderWindow)));
+
+	buildingPattern.setPosition(globalMousePos.x, buildingPattern.getPosition().y);
 
 	if (DoesItIntersectWithStructures(buildingPattern.getGlobalBounds()) && ingameMode == IngameMode::building)
 		buildingPattern.setFillColor(sf::Color(255, 10, 10, 50));
@@ -104,6 +93,24 @@ void GameState::OnDraw()
 
 	for (auto s : structures)
 		renderWindow->draw(s.sprite);
+}
+
+void GameState::ChangeIngameMode()
+{
+	switch (event.key.code)
+	{
+	case sf::Keyboard::Escape:
+		renderWindow->close();
+		break;
+	case sf::Keyboard::A:
+		ingameMode = IngameMode::selecting;
+		break;
+	case sf::Keyboard::S:
+		ingameMode = IngameMode::building;
+		break;
+	}
+
+
 }
 
 void GameState::UnselectStructure()
