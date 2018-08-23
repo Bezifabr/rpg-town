@@ -3,6 +3,7 @@
 
 #include "State.h"
 #include "Structure.h"
+#include "IngameMode.h"
 #include <vector>
 
 class GameState : public State
@@ -15,11 +16,17 @@ class GameState : public State
     sf::RectangleShape buildingPattern;
 
     std::vector<Structure> structures;
+    
+    std::vector<Structure>::iterator selStructure;
+    bool selected = false;
+
+    IngameMode ingameMode = IngameMode::select;
 
 private:
 
     void PlaceStructure();
     bool DoesItIntersectWithStructures(const sf::FloatRect& rect);
+    bool IsItContainedByStructure(const sf::Vector2f& point);
 
 	virtual void OnHandleEvent() override;
     virtual void OnUpdate() override;
