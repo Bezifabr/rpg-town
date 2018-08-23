@@ -25,12 +25,14 @@ class GameState : public State
 private:
 
     void PlaceStructure();
-    bool DoesItIntersectWithStructures(const sf::FloatRect& rect);
-    bool IsItContainedByStructure(const sf::Vector2f& point);
+    bool IntersectsWithStructures(const sf::FloatRect& rect);
+    bool ContainedByStructure(const sf::Vector2f& point);
 
     void ChangeIngameMode();
 
     void RemoveSelectedStructure();
+
+    void SelectStructure(std::vector<Structure>::iterator itr);
     void UnselectStructure();
 
 	virtual void OnHandleEvent() override;

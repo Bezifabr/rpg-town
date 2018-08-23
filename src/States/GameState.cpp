@@ -41,7 +41,7 @@ void GameState::OnHandleEvent()
 		cout << localMousePos.x << ", " << localMousePos.y << "\n";
 		cout << globalMousePos.x << " " << globalMousePos.y << "\n";
 
-		if (ingameMode == IngameMode::building && DoesItIntersectWithStructures(buildingPattern.getGlobalBounds()) == false)
+		if (ingameMode == IngameMode::building && IntersectsWithStructures(buildingPattern.getGlobalBounds()) == false)
 			PlaceStructure();
 
 		if (selected == true && !selStructure->sprite.getGlobalBounds().contains(globalMousePos))
@@ -50,12 +50,10 @@ void GameState::OnHandleEvent()
 		if (ingameMode == IngameMode::selecting)
 			for (auto itr = structures.begin(); itr != structures.end(); itr++)
 				if (itr->sprite.getGlobalBounds().contains(globalMousePos))
-					{
-						selStructure = itr;
-						itr->sprite.setColor(sf::Color(200, 200, 200, 255));
-						selected = true;
-						break;
-					}
+				{
+					SelectStructure(itr);
+					break;
+				}
 	}
 
 	if (event.type == sf::Event::KeyReleased)
@@ -76,7 +74,7 @@ void GameState::OnUpdate()
 
 	buildingPattern.setPosition(globalMousePos.x, buildingPattern.getPosition().y);
 
-	if (DoesItIntersectWithStructures(buildingPattern.getGlobalBounds()) && ingameMode == IngameMode::building)
+	if (IntersectsWithStructures(buildingPattern.getGlobalBounds()) && ingameMode == IngameMode::building)
 		buildingPattern.setFillColor(sf::Color(255, 10, 10, 50));
 	else
 		buildingPattern.setFillColor(sf::Color(10, 255, 10, 50));
@@ -120,13 +118,20 @@ void GameState::RemoveSelectedStructure()
 	structures.erase(selStructure);
 }
 
+void GameState::SelectStructure(std::vector<Structure>::iterator itr)
+{
+	selStructure = itr;
+	itr->sprite.setColor(sf::Color(200, 200, 200, 255));
+	selected = true;
+}
+
 void GameState::UnselectStructure()
 {
 	selected = false;
 	selStructure->sprite.setColor(sf::Color(255, 255, 255, 255));
 }
 
-bool GameState::DoesItIntersectWithStructures(const sf::FloatRect& rect)
+bool GameState::IntersectsWithStructures(const sf::FloatRect& rect)
 {
 	for (auto s : structures)
 		if (rect.intersects(s.sprite.getGlobalBounds()))
@@ -134,7 +139,7 @@ bool GameState::DoesItIntersectWithStructures(const sf::FloatRect& rect)
 	return false;
 }
 
-bool GameState::IsItContainedByStructure(const sf::Vector2f& point)
+bool GameState::ContainedByStructure(const sf::Vector2f& point)
 {
 	for (auto s : structures)
 		if (s.sprite.getGlobalBounds().contains(point))
