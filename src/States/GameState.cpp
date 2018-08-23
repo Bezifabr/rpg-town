@@ -44,26 +44,27 @@ void GameState::OnHandleEvent()
 		if (ingameMode == IngameMode::building && DoesItIntersectWithStructures(buildingPattern.getGlobalBounds()) == false)
 			PlaceStructure();
 
+		if (selected == true && !selStructure->sprite.getGlobalBounds().contains(globalMousePos))
+			UnselectStructure();
+
 		if (ingameMode == IngameMode::selecting)
 			for (auto itr = structures.begin(); itr != structures.end(); itr++)
 				if (itr->sprite.getGlobalBounds().contains(globalMousePos))
-					if (selected == false)
 					{
 						selStructure = itr;
 						itr->sprite.setColor(sf::Color(200, 200, 200, 255));
 						selected = true;
 						break;
 					}
-
-		if (selected == true && !selStructure->sprite.getGlobalBounds().contains(globalMousePos))
-			UnselectStructure();
-
-
 	}
 
 	if (event.type == sf::Event::KeyReleased)
 	{
 		ChangeIngameMode();
+
+		if (ingameMode == IngameMode::selecting)
+			if (event.key.code == sf::Keyboard::Delete && selected == true)
+				RemoveSelectedStructure();
 	}
 
 
@@ -111,6 +112,12 @@ void GameState::ChangeIngameMode()
 	}
 
 
+}
+
+void GameState::RemoveSelectedStructure()
+{
+	selected = false;
+	structures.erase(selStructure);
 }
 
 void GameState::UnselectStructure()

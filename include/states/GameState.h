@@ -30,6 +30,7 @@ private:
 
     void ChangeIngameMode();
 
+    void RemoveSelectedStructure();
     void UnselectStructure();
 
 	virtual void OnHandleEvent() override;
