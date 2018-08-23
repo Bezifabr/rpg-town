@@ -3,6 +3,7 @@
 
 #include "State.h"
 #include "Structure.h"
+#include "IngameMode.h"
 #include <vector>
 
 class GameState : public State
@@ -16,10 +17,23 @@ class GameState : public State
 
     std::vector<Structure> structures;
 
+    std::vector<Structure>::iterator selStructure;
+    bool selected = false;
+
+    IngameMode ingameMode = IngameMode::selecting;
+
 private:
 
     void PlaceStructure();
-    bool DoesItIntersectWithStructures(const sf::FloatRect& rect);
+    bool IntersectsWithStructures(const sf::FloatRect& rect);
+    bool ContainedByStructure(const sf::Vector2f& point);
+
+    void ChangeIngameMode();
+
+    void RemoveSelectedStructure();
+
+    void SelectStructure(std::vector<Structure>::iterator itr);
+    void UnselectStructure();
 
 	virtual void OnHandleEvent() override;
     virtual void OnUpdate() override;
