@@ -4,6 +4,7 @@
 #include "State.h"
 #include "Structure.h"
 #include "IngameMode.h"
+#include "PlayerCharacter.h"
 #include <vector>
 
 class GameState : public State
@@ -26,6 +27,8 @@ class GameState : public State
 
     sf::Vector2f globalMousePos;
     sf::Vector2f localMousePos;
+
+    PlayerCharacter player;
 
 private:
 

@@ -15,6 +15,12 @@ void GameState::OnEnter()
 	topBarTexture.loadFromFile("resources/Top Bar.png");
 	topBar.setTexture(topBarTexture);
 
+	player.texture.loadFromFile("resources/PlayerTex.png");
+	player.sprite.setTexture(player.texture);
+	player.sprite.setPosition(0,600);
+	player.sprite.setTextureRect(sf::IntRect(0,0,128,256));
+	player.SetSpeed(25);
+
 	house.texture.loadFromFile("resources/Test/House.png");
 	house.sprite.setTexture(house.texture);
 	house.sprite.setOrigin(256 / 2, 256 / 2);
@@ -71,7 +77,7 @@ void GameState::OnHandleEvent()
 
 void GameState::OnUpdate()
 {
-	
+
 	buildingPattern.setPosition(globalMousePos.x, buildingPattern.getPosition().y);
 
 	if (IntersectsWithStructures(buildingPattern.getGlobalBounds()) && ingameMode == IngameMode::building)
@@ -84,6 +90,7 @@ void GameState::OnUpdate()
 		
 	if(localMousePos.x >= renderWindow->getSize().x - 50) view.move(350 * deltaTime.asSeconds(), 0);
 	if(localMousePos.x <= 50) view.move(-350 * deltaTime.asSeconds(), 0);
+	player.Move(deltaTime);
 
 
 }
@@ -91,6 +98,8 @@ void GameState::OnUpdate()
 void GameState::OnDraw()
 {
 	renderWindow->setView(view);
+
+	renderWindow->draw(player.sprite);
 
 	renderWindow->draw(topBar);
 
