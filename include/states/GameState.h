@@ -16,17 +16,19 @@ class GameState : public State
     sf::RectangleShape buildingPattern;
 
     std::vector<Structure> structures;
-    
+
     std::vector<Structure>::iterator selStructure;
     bool selected = false;
 
-    IngameMode ingameMode = IngameMode::select;
+    IngameMode ingameMode = IngameMode::selecting;
 
 private:
 
     void PlaceStructure();
     bool DoesItIntersectWithStructures(const sf::FloatRect& rect);
     bool IsItContainedByStructure(const sf::Vector2f& point);
+
+    void UnselectStructure();
 
 	virtual void OnHandleEvent() override;
     virtual void OnUpdate() override;

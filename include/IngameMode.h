@@ -3,7 +3,7 @@
 
 enum class IngameMode
 {
-    select,
+    selecting,
     building
 };
 

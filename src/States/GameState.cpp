@@ -45,7 +45,7 @@ void GameState::OnHandleEvent()
 		if (ingameMode == IngameMode::building && DoesItIntersectWithStructures(buildingPattern.getGlobalBounds()) == false)
 			PlaceStructure();
 
-		if (ingameMode == IngameMode::select)
+		if (ingameMode == IngameMode::selecting)
 			for (auto itr = structures.begin(); itr != structures.end(); itr++)
 				if (itr->sprite.getGlobalBounds().contains(globalMousePos))
 					if (selected == false)
@@ -57,10 +57,7 @@ void GameState::OnHandleEvent()
 					}
 
 		if (selected == true && !selStructure->sprite.getGlobalBounds().contains(globalMousePos))
-		{
-			selected = false;
-			selStructure->sprite.setColor(sf::Color(255, 255, 255, 255));
-		}
+			UnselectStructure();
 
 
 	}
@@ -73,7 +70,7 @@ void GameState::OnHandleEvent()
 			renderWindow->close();
 			break;
 		case sf::Keyboard::A:
-			ingameMode = IngameMode::select;
+			ingameMode = IngameMode::selecting;
 			break;
 		case sf::Keyboard::S:
 			ingameMode = IngameMode::building;
@@ -93,7 +90,9 @@ void GameState::OnUpdate()
 		buildingPattern.setFillColor(sf::Color(255, 10, 10, 50));
 	else
 		buildingPattern.setFillColor(sf::Color(10, 255, 10, 50));
-	}
+
+	if (selected == true && ingameMode != IngameMode::selecting)
+		UnselectStructure();
 }
 
 void GameState::OnDraw()
@@ -105,6 +104,12 @@ void GameState::OnDraw()
 
 	for (auto s : structures)
 		renderWindow->draw(s.sprite);
+}
+
+void GameState::UnselectStructure()
+{
+	selected = false;
+	selStructure->sprite.setColor(sf::Color(255, 255, 255, 255));
 }
 
 bool GameState::DoesItIntersectWithStructures(const sf::FloatRect& rect)
