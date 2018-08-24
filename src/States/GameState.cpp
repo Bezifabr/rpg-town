@@ -1,6 +1,7 @@
 #include "states/GameState.h"
 #include "StateTransition.h"
 #include <iostream>
+#include "Animation.h"
 
 using std::cout;
 using std::endl;
@@ -31,6 +32,8 @@ void GameState::OnEnter()
 	buildingPattern.setPosition(-600, 600);
 	buildingPattern.setOrigin(buildingPattern.getSize().x / 2, buildingPattern.getSize().y / 2);
 
+	CreateAnimationTester();
+
 	cout << "Game loaded" << endl;
 }
 
@@ -43,7 +46,6 @@ void GameState::OnHandleEvent()
 {
 	globalMousePos = renderWindow->mapPixelToCoords(sf::Mouse::getPosition((*renderWindow)));
 	localMousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition((*renderWindow)));
-
 
 	if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
 	{
@@ -68,12 +70,12 @@ void GameState::OnHandleEvent()
 	if (event.type == sf::Event::KeyReleased)
 	{
 		ChangeIngameMode();
+		TestAnimations();
 
 		if (ingameMode == IngameMode::selecting)
 			if (event.key.code == sf::Keyboard::Delete && selected == true)
 				RemoveSelectedStructure();
 	}
-
 }
 
 void GameState::OnUpdate()
@@ -89,8 +91,10 @@ void GameState::OnUpdate()
 	if (selected == true && ingameMode != IngameMode::selecting)
 		UnselectStructure();
 
-	if (localMousePos.x >= renderWindow->getSize().x - 50) view.move(350 * deltaTime.asSeconds(), 0);
-	if (localMousePos.x <= 50) view.move(-350 * deltaTime.asSeconds(), 0);
+	if (localMousePos.x >= renderWindow->getSize().x - 50)
+		view.move(350 * deltaTime.asSeconds(), 0);
+	if (localMousePos.x <= 50)
+		view.move(-350 * deltaTime.asSeconds(), 0);
 
 	player.SetStructureType(StructureType::nothing);
 	for (auto s : structures)
@@ -100,10 +104,10 @@ void GameState::OnUpdate()
 			break;
 		}
 
-	if(player.GetStructureType() == StructureType::main)
+	if (player.GetStructureType() == StructureType::main)
 		player.SetMoving(false);
 
-	switch(player.GetStructureType())
+	switch (player.GetStructureType())
 	{
 	case StructureType::main:
 		player.SetMoving(false);
@@ -113,13 +117,12 @@ void GameState::OnUpdate()
 		break;
 	}
 
-
 	if (player.IsMoving())
 	{
 		player.Move(deltaTime);
-
 	}
 
+	aniSprite.Update(deltaTime);
 }
 
 void GameState::OnDraw()
@@ -133,6 +136,7 @@ void GameState::OnDraw()
 		renderWindow->draw(s.sprite);
 
 	renderWindow->draw(player.sprite);
+	renderWindow->draw(aniSprite);
 
 	renderWindow->draw(topBar);
 }
@@ -151,8 +155,6 @@ void GameState::ChangeIngameMode()
 		ingameMode = IngameMode::building;
 		break;
 	}
-
-
 }
 
 void GameState::RemoveSelectedStructure()
@@ -174,7 +176,7 @@ void GameState::UnselectStructure()
 	selStructure->sprite.setColor(sf::Color(255, 255, 255, 255));
 }
 
-bool GameState::IntersectsWithStructures(const sf::FloatRect& rect)
+bool GameState::IntersectsWithStructures(const sf::FloatRect &rect)
 {
 	for (auto s : structures)
 		if (rect.intersects(s.sprite.getGlobalBounds()))
@@ -182,7 +184,7 @@ bool GameState::IntersectsWithStructures(const sf::FloatRect& rect)
 	return false;
 }
 
-bool GameState::ContainedByStructure(const sf::Vector2f& point)
+bool GameState::ContainedByStructure(const sf::Vector2f &point)
 {
 	for (auto s : structures)
 		if (s.sprite.getGlobalBounds().contains(point))
@@ -194,4 +196,53 @@ void GameState::PlaceStructure()
 {
 	house.sprite.setPosition(buildingPattern.getPosition());
 	structures.push_back(house);
+}
+
+void GameState::CreateAnimationTester()
+{
+	Animation stand;
+	stand.AddFrame(sf::IntRect(704, 0, 176, 176));
+	stand.AddFrame(sf::IntRect(704, 176, 176, 176));
+	stand.SetDelay(sf::seconds(0.5f));
+
+	Animation walk;
+	walk.AddFrame(sf::IntRect(880, 0, 176, 176));
+	walk.AddFrame(sf::IntRect(880, 176, 176, 176));
+	walk.SetDelay(sf::seconds(0.4f));
+
+	Animation jump;
+	jump.AddFrame(sf::IntRect(176, 0, 176, 176));
+	jump.AddFrame(sf::IntRect(176, 0, 176, 176));
+	jump.SetDelay(sf::seconds(0.01f));
+
+	Animation punch;
+	punch.AddFrame(sf::IntRect(528, 0, 176, 176));
+	punch.AddFrame(sf::IntRect(528, 0, 176, 176));
+	punch.SetDelay(sf::seconds(1));
+
+	aniSprite.setTexture(player.texture);
+	aniSprite.AddAnimation("stand", stand);
+	aniSprite.AddAnimation("walk", walk);
+	aniSprite.AddAnimation("jump", jump);
+	aniSprite.AddAnimation("punch", punch);
+	aniSprite.SetCurrentAnimation("stand");
+}
+
+void GameState::TestAnimations()
+{
+	switch (event.key.code)
+	{
+	case sf::Keyboard::Q:
+		aniSprite.SetCurrentAnimation("stand");
+		break;
+	case sf::Keyboard::W:
+		aniSprite.SetCurrentAnimation("jump");
+		break;
+	case sf::Keyboard::E:
+		aniSprite.SetCurrentAnimation("walk");
+		break;
+	case sf::Keyboard::R:
+		aniSprite.SetCurrentAnimation("punch");
+		break;
+	}
 }

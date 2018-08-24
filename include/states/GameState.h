@@ -6,6 +6,7 @@
 #include "IngameMode.h"
 #include "PlayerCharacter.h"
 #include <vector>
+#include "AnimatedSprite.h"
 
 class GameState : public State
 {
@@ -30,6 +31,8 @@ class GameState : public State
 
     PlayerCharacter player;
 
+	AnimatedSprite aniSprite;
+
 private:
 
     void PlaceStructure();
@@ -49,6 +52,9 @@ private:
 
     virtual void OnEnter() override;
     virtual void OnLeave() override;
+
+    void CreateAnimationTester();
+    void TestAnimations();
 };
 
 #endif //GAME_STATE_H
