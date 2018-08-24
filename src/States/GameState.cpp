@@ -138,6 +138,8 @@ void GameState::OnDraw()
 	renderWindow->draw(player.sprite);
 	renderWindow->draw(aniSprite);
 
+	renderWindow->setView(renderWindow->getDefaultView());
+
 	renderWindow->draw(topBar);
 }
 
