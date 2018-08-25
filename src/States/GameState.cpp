@@ -141,6 +141,8 @@ void GameState::OnDraw()
 	renderWindow->setView(renderWindow->getDefaultView());
 
 	renderWindow->draw(topBar);
+
+	renderWindow->setView(view);
 }
 
 void GameState::ChangeIngameMode()
