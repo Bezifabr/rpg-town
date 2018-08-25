@@ -19,7 +19,6 @@ void GameState::OnEnter()
 	player.texture.loadFromFile("resources/PlayerTex.png");
 	player.sprite.setTexture(player.texture);
 	player.sprite.setPosition(0, 600);
-	player.sprite.setTextureRect(sf::IntRect(0, 0, 128, 256));
 	player.SetSpeed(25);
 
 	house.texture.loadFromFile("resources/Test/House.png");
@@ -111,9 +110,11 @@ void GameState::OnUpdate()
 	{
 	case StructureType::main:
 		player.SetMoving(false);
+		player.sprite.SetCurrentAnimation(AnimationType::stand);
 		break;
 	case StructureType::nothing:
 		player.SetMoving(true);
+		player.sprite.SetCurrentAnimation(AnimationType::walk);
 		break;
 	}
 
@@ -123,6 +124,7 @@ void GameState::OnUpdate()
 	}
 
 	aniSprite.Update(deltaTime);
+	player.sprite.Update(deltaTime);
 }
 
 void GameState::OnDraw()
@@ -224,6 +226,10 @@ void GameState::CreateAnimationTester()
 	aniSprite.AddAnimation(AnimationType::walk, walk);
 	aniSprite.AddAnimation(AnimationType::jump, jump);
 	aniSprite.SetCurrentAnimation(AnimationType::stand);
+
+	player.sprite.AddAnimation(AnimationType::stand,stand);
+	player.sprite.AddAnimation(AnimationType::walk, walk);
+	player.sprite.SetCurrentAnimation(AnimationType::stand);
 }
 
 void GameState::TestAnimations()

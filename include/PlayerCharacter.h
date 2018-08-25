@@ -5,6 +5,7 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include "StructureType.h"
+#include "AnimatedSprite.h"
 
 class PlayerCharacter
 {
@@ -13,7 +14,7 @@ class PlayerCharacter
 
     bool isMoving = true;
 public:
-    sf::Sprite sprite;
+    AnimatedSprite sprite;
     sf::Texture texture;
 
     void SetSpeed(int speed);
