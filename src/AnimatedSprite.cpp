@@ -1,12 +1,12 @@
 #include "AnimatedSprite.h"
 #include <stdexcept>
 
-void AnimatedSprite::AddAnimation(const std::string& id, Animation ani)
+void AnimatedSprite::AddAnimation(AnimationType id, Animation ani)
 {
 	animations.emplace(id, ani);
 }
 
-Animation* AnimatedSprite::GetAnimation(const std::string& id)
+Animation* AnimatedSprite::GetAnimation(AnimationType id)
 {
 	if (animations.count(id) <= 0) throw std::runtime_error("Undefined Animation id");
 	return &animations[id];
@@ -19,7 +19,7 @@ void AnimatedSprite::Update(sf::Time deltaTime)
     setTextureRect(currentAnim->GetCurrentFrame());
 }
 
-void AnimatedSprite::SetCurrentAnimation(const std::string& id)
+void AnimatedSprite::SetCurrentAnimation(AnimationType id)
 {
 	if (animations.count(id) <= 0) throw std::runtime_error("Undefined Animation id");
 	currentAnim = &animations[id];

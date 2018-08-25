@@ -217,17 +217,11 @@ void GameState::CreateAnimationTester()
 	jump.AddFrame(sf::IntRect(176, 0, 176, 176));
 	jump.SetDelay(sf::seconds(0.01f));
 
-	Animation punch;
-	punch.AddFrame(sf::IntRect(528, 0, 176, 176));
-	punch.AddFrame(sf::IntRect(528, 0, 176, 176));
-	punch.SetDelay(sf::seconds(1));
-
 	aniSprite.setTexture(player.texture);
-	aniSprite.AddAnimation("stand", stand);
-	aniSprite.AddAnimation("walk", walk);
-	aniSprite.AddAnimation("jump", jump);
-	aniSprite.AddAnimation("punch", punch);
-	aniSprite.SetCurrentAnimation("stand");
+	aniSprite.AddAnimation(AnimationType::stand, stand);
+	aniSprite.AddAnimation(AnimationType::walk, walk);
+	aniSprite.AddAnimation(AnimationType::jump, jump);
+	aniSprite.SetCurrentAnimation(AnimationType::stand);
 }
 
 void GameState::TestAnimations()
@@ -235,16 +229,13 @@ void GameState::TestAnimations()
 	switch (event.key.code)
 	{
 	case sf::Keyboard::Q:
-		aniSprite.SetCurrentAnimation("stand");
+		aniSprite.SetCurrentAnimation(AnimationType::stand);
 		break;
 	case sf::Keyboard::W:
-		aniSprite.SetCurrentAnimation("jump");
+		aniSprite.SetCurrentAnimation(AnimationType::jump);
 		break;
 	case sf::Keyboard::E:
-		aniSprite.SetCurrentAnimation("walk");
-		break;
-	case sf::Keyboard::R:
-		aniSprite.SetCurrentAnimation("punch");
+		aniSprite.SetCurrentAnimation(AnimationType::walk);
 		break;
 	}
 }
