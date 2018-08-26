@@ -177,6 +177,7 @@ void GameState::RemoveSelectedStructure()
 {
 	selected = false;
 	structures.erase(selStructure);
+	cash += 5;
 }
 
 void GameState::SelectStructure(std::vector<Structure>::iterator itr)
