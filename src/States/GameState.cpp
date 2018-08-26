@@ -59,7 +59,8 @@ void GameState::OnHandleEvent()
 		cout << globalMousePos.x << " " << globalMousePos.y << "\n";
 
 		if (ingameMode == IngameMode::building && IntersectsWithStructures(buildingPattern.getGlobalBounds()) == false)
-			PlaceStructure();
+			if(cash >= 10)
+				PlaceStructure();
 
 		if (selected == true && !selStructure->sprite.getGlobalBounds().contains(globalMousePos))
 			UnselectStructure();
@@ -89,7 +90,7 @@ void GameState::OnUpdate()
 
 	buildingPattern.setPosition(globalMousePos.x, buildingPattern.getPosition().y);
 
-	if (IntersectsWithStructures(buildingPattern.getGlobalBounds()) && ingameMode == IngameMode::building)
+	if ((IntersectsWithStructures(buildingPattern.getGlobalBounds()) || cash < 10) && ingameMode == IngameMode::building)
 		buildingPattern.setFillColor(sf::Color(255, 10, 10, 50));
 	else
 		buildingPattern.setFillColor(sf::Color(10, 255, 10, 50));
