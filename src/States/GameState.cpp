@@ -1,6 +1,7 @@
 #include "states/GameState.h"
 #include "StateTransition.h"
 #include <iostream>
+#include <string>
 #include "Animation.h"
 
 using std::cout;
@@ -32,6 +33,12 @@ void GameState::OnEnter()
 	buildingPattern.setOrigin(buildingPattern.getSize().x / 2, buildingPattern.getSize().y / 2);
 
 	CreateAnimationTester();
+
+	font.loadFromFile("resources/Text font.ttf");
+
+	cash = 100;
+	cashText.setString(std::to_string(cash));
+	cashText.setFont(font);
 
 	cout << "Game loaded" << endl;
 }
@@ -125,6 +132,8 @@ void GameState::OnUpdate()
 
 	aniSprite.Update(deltaTime);
 	player.sprite.Update(deltaTime);
+
+	cashText.setString(std::to_string(cash));
 }
 
 void GameState::OnDraw()
@@ -143,6 +152,7 @@ void GameState::OnDraw()
 	renderWindow->setView(renderWindow->getDefaultView());
 
 	renderWindow->draw(topBar);
+	renderWindow->draw(cashText);
 
 	renderWindow->setView(view);
 }
@@ -201,6 +211,7 @@ bool GameState::ContainedByStructure(const sf::Vector2f &point)
 void GameState::PlaceStructure()
 {
 	house.sprite.setPosition(buildingPattern.getPosition());
+	cash -= 10;
 	structures.push_back(house);
 }
 

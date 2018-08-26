@@ -7,6 +7,7 @@
 #include "PlayerCharacter.h"
 #include <vector>
 #include "AnimatedSprite.h"
+#include <SFML/Graphics/Text.hpp>
 
 class GameState : public State
 {
@@ -32,6 +33,12 @@ class GameState : public State
     PlayerCharacter player;
 
 	AnimatedSprite aniSprite;
+
+    int cash;
+
+    sf::Font font;
+
+    sf::Text cashText;
 
 private:
 
