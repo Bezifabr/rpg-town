@@ -66,3 +66,9 @@ const std::string& PlayerCharacter::GetNick()
 {
     return nickText.getString();
 }
+
+void PlayerCharacter::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+    target.draw(sprite, states);
+    target.draw(nickText, states);
+}

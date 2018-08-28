@@ -148,9 +148,8 @@ void GameState::OnDraw()
 	for (auto s : structures)
 		renderWindow->draw(s.sprite);
 
-	renderWindow->draw(player.sprite);
+	renderWindow->draw(player);
 	renderWindow->draw(aniSprite);
-	renderWindow->draw(player.nickText);
 
 	renderWindow->setView(renderWindow->getDefaultView());
 
