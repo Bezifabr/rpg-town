@@ -23,6 +23,8 @@ void GameState::OnEnter()
 	player.sprite.setTexture(player.texture);
 	player.sprite.setPosition(0, 600);
 	player.SetSpeed(25);
+	player.SetNick("Player");
+	player.SetFont(font);
 
 	house.texture.loadFromFile("resources/Test/House.png");
 	house.sprite.setTexture(house.texture);
@@ -128,10 +130,7 @@ void GameState::OnUpdate()
 		break;
 	}
 
-	if (player.IsMoving())
-	{
-		player.Move(deltaTime);
-	}
+	player.Update(deltaTime);
 
 	aniSprite.Update(deltaTime);
 	player.sprite.Update(deltaTime);
@@ -151,6 +150,7 @@ void GameState::OnDraw()
 
 	renderWindow->draw(player.sprite);
 	renderWindow->draw(aniSprite);
+	renderWindow->draw(player.nickText);
 
 	renderWindow->setView(renderWindow->getDefaultView());
 
