@@ -40,6 +40,8 @@ class GameState : public State
 
     sf::Text cashText;
 
+    int sizeOfTown;
+
 private:
 
     void PlaceStructure();

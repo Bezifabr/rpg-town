@@ -14,6 +14,8 @@ void GameState::OnEnter()
 
 	structures.reserve(128);
 
+	sizeOfTown = 1000;
+
 	topBarTexture.loadFromFile("resources/Top Bar.png");
 	topBar.setTexture(topBarTexture);
 
@@ -98,9 +100,9 @@ void GameState::OnUpdate()
 	if (selected == true && ingameMode != IngameMode::selecting)
 		UnselectStructure();
 
-	if (localMousePos.x >= renderWindow->getSize().x - 50)
+	if (localMousePos.x >= renderWindow->getSize().x - 50 && view.getCenter().x <= sizeOfTown)
 		view.move(350 * deltaTime.asSeconds(), 0);
-	if (localMousePos.x <= 50)
+	if (localMousePos.x <= 50 && view.getCenter().x >= sizeOfTown * -1)
 		view.move(-350 * deltaTime.asSeconds(), 0);
 
 	player.SetStructureType(StructureType::nothing);
