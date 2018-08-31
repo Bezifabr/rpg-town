@@ -131,6 +131,9 @@ void GameState::OnUpdate()
 		break;
 	}
 
+	if(player.sprite.getPosition().x >= sizeOfTown) player.SetSpeed(player.GetSpeed() * -1);
+	if(player.sprite.getPosition().x <= sizeOfTown*-1) player.SetSpeed(player.GetSpeed() * -1);
+
 	player.Update(deltaTime);
 
 	aniSprite.Update(deltaTime);
