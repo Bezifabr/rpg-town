@@ -15,6 +15,7 @@ void GameState::OnEnter()
 	structures.reserve(128);
 
 	sizeOfTown = 1000;
+	limitOfStructures = 5;
 
 	topBarTexture.loadFromFile("resources/Top Bar.png");
 	topBar.setTexture(topBarTexture);
@@ -22,7 +23,7 @@ void GameState::OnEnter()
 	player.texture.loadFromFile("resources/PlayerTex.png");
 	player.sprite.setTexture(player.texture);
 	player.sprite.setPosition(0, 600);
-	player.SetSpeed(25);
+	player.SetSpeed(50);
 	player.SetNick("Player");
 	player.SetFont(font);
 
@@ -63,7 +64,7 @@ void GameState::OnHandleEvent()
 		cout << globalMousePos.x << " " << globalMousePos.y << "\n";
 
 		if (ingameMode == IngameMode::building && IntersectsWithStructures(buildingPattern.getGlobalBounds()) == false)
-			if(cash >= 10)
+			if(cash >= 10 && structures.size() < limitOfStructures)
 				PlaceStructure();
 
 		if (selected == true && !selStructure->sprite.getGlobalBounds().contains(globalMousePos))

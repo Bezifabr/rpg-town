@@ -41,6 +41,7 @@ class GameState : public State
     sf::Text cashText;
 
     int sizeOfTown;
+    int limitOfStructures;
 
 private:
 
