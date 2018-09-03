@@ -130,15 +130,14 @@ void GameState::OnUpdate()
 			break;
 		}
 
-	if (player.GetStructureType() == StructureType::main)
-		player.SetMoving(false);
-
 	switch (player.GetStructureType())
 	{
 	case StructureType::main:
 		player.SetMoving(false);
 		player.sprite.SetCurrentAnimation(AnimationType::stand);
+		player.SetMoving(false);
 		break;
+
 	case StructureType::nothing:
 		player.SetMoving(true);
 		player.sprite.SetCurrentAnimation(AnimationType::walk);
