@@ -27,15 +27,26 @@ void GameState::OnEnter()
 	player.SetNick("Player");
 	player.SetFont(font);
 
-	house.texture.loadFromFile("resources/Test/House.png");
-	house.sprite.setTexture(house.texture);
-	house.sprite.setOrigin(256 / 2, 256 / 2);
-	house.SetType(StructureType::main);
+	bld_hut.texture.loadFromFile("resources/Test/hut.png");
+	bld_hut.sprite.setTexture(bld_hut.texture);
+	bld_hut.sprite.setOrigin(256 / 2, 256 / 2);
+	bld_hut.SetType(StructureType::hut);
+	bld_hut.sprite.setColor(sf::Color(255, 255, 255, 100));
 
-	buildingPattern.setSize(sf::Vector2f(256, 256));
-	buildingPattern.setFillColor(sf::Color(10, 255, 10, 50));
-	buildingPattern.setPosition(-600, 600);
-	buildingPattern.setOrigin(buildingPattern.getSize().x / 2, buildingPattern.getSize().y / 2);
+	bld_main.texture.loadFromFile("resources/Test/main.png");
+	bld_main.sprite.setTexture(bld_main.texture);
+	bld_main.sprite.setOrigin(256 / 2, 256 / 2);
+	bld_main.SetType(StructureType::main);
+	bld_main.sprite.setColor(sf::Color(255, 255, 255, 100));
+
+	bld_shop.texture.loadFromFile("resources/Test/shop.png");
+	bld_shop.sprite.setTexture(bld_shop.texture);
+	bld_shop.sprite.setOrigin(256 / 2, 256 / 2);
+	bld_shop.SetType(StructureType::shop);
+	bld_shop.sprite.setColor(sf::Color(255, 255, 255, 100));
+
+	currentStructureType = StructureType::hut;
+	previewStructure = &bld_hut;
 
 	CreateAnimationTester();
 
@@ -63,7 +74,7 @@ void GameState::OnHandleEvent()
 		cout << localMousePos.x << ", " << localMousePos.y << "\n";
 		cout << globalMousePos.x << " " << globalMousePos.y << "\n";
 
-		if (ingameMode == IngameMode::building && IntersectsWithStructures(buildingPattern.getGlobalBounds()) == false)
+		if (ingameMode == IngameMode::building && IntersectsWithStructures(previewStructure->sprite.getGlobalBounds()) == false)
 			if(cash >= 10 && structures.size() < limitOfStructures)
 				PlaceStructure();
 
@@ -87,18 +98,21 @@ void GameState::OnHandleEvent()
 		if (ingameMode == IngameMode::selecting)
 			if (event.key.code == sf::Keyboard::Delete && selected == true)
 				RemoveSelectedStructure();
+
+		if (ingameMode == IngameMode::building)
+			ChangeCurrentStructure();
 	}
 }
 
 void GameState::OnUpdate()
 {
 
-	buildingPattern.setPosition(globalMousePos.x, buildingPattern.getPosition().y);
+	previewStructure->sprite.setPosition(globalMousePos.x, 600);
 
-	if ((IntersectsWithStructures(buildingPattern.getGlobalBounds()) || cash < 10) && ingameMode == IngameMode::building)
-		buildingPattern.setFillColor(sf::Color(255, 10, 10, 50));
+	if ((IntersectsWithStructures(previewStructure->sprite.getGlobalBounds()) || cash < 10) && ingameMode == IngameMode::building)
+		previewStructure->sprite.setColor(sf::Color(255, 10, 10, 50));
 	else
-		buildingPattern.setFillColor(sf::Color(10, 255, 10, 50));
+		previewStructure->sprite.setColor(sf::Color(255, 255, 255, 50));
 
 	if (selected == true && ingameMode != IngameMode::selecting)
 		UnselectStructure();
@@ -147,7 +161,7 @@ void GameState::OnDraw()
 	renderWindow->setView(view);
 
 	if (ingameMode == IngameMode::building)
-		renderWindow->draw(buildingPattern);
+		renderWindow->draw(previewStructure->sprite);
 
 	for (auto s : structures)
 		renderWindow->draw(s.sprite);
@@ -175,6 +189,25 @@ void GameState::ChangeIngameMode()
 		break;
 	case sf::Keyboard::S:
 		ingameMode = IngameMode::building;
+		break;
+	}
+}
+
+void GameState::ChangeCurrentStructure()
+{
+	switch (event.key.code)
+	{
+	case sf::Keyboard::Num1:
+		currentStructureType = StructureType::hut;
+		previewStructure = &bld_hut;
+		break;
+	case sf::Keyboard::Num2:
+		currentStructureType = StructureType::main;
+		previewStructure = &bld_main;
+		break;
+	case sf::Keyboard::Num3:
+		currentStructureType = StructureType::shop;
+		previewStructure = &bld_shop;
 		break;
 	}
 }
@@ -217,9 +250,27 @@ bool GameState::ContainedByStructure(const sf::Vector2f &point)
 
 void GameState::PlaceStructure()
 {
-	house.sprite.setPosition(buildingPattern.getPosition());
+
 	cash -= 10;
-	structures.push_back(house);
+
+	switch (currentStructureType)
+	{
+	case StructureType::main:
+		bld_main.sprite.setColor(sf::Color(255, 255, 255, 255));
+		structures.push_back(bld_main);
+		bld_main.sprite.setColor(sf::Color(255, 255, 255, 100));
+		break;
+	case StructureType::hut:
+		bld_hut.sprite.setColor(sf::Color(255, 255, 255, 255));
+		structures.push_back(bld_hut);
+		bld_hut.sprite.setColor(sf::Color(255, 255, 255, 100));
+		break;
+	case StructureType::shop:
+		bld_shop.sprite.setColor(sf::Color(255, 255, 255, 255));
+		structures.push_back(bld_shop);
+		bld_shop.sprite.setColor(sf::Color(255, 255, 255, 100));
+		break;
+	}
 }
 
 void GameState::CreateAnimationTester()

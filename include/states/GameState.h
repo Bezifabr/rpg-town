@@ -11,12 +11,16 @@
 
 class GameState : public State
 {
-    Structure house;
+    Structure bld_hut;
+    Structure bld_main;
+    Structure bld_shop;
+
+	StructureType currentStructureType;
 
     sf::Sprite topBar;
     sf::Texture topBarTexture;
 
-    sf::RectangleShape buildingPattern;
+	Structure* previewStructure;
 
     std::vector<Structure> structures;
 
@@ -29,6 +33,7 @@ class GameState : public State
 
     sf::Vector2f globalMousePos;
     sf::Vector2f localMousePos;
+
 
     PlayerCharacter player;
 
@@ -49,6 +54,7 @@ private:
     bool IntersectsWithStructures(const sf::FloatRect& rect);
     bool ContainedByStructure(const sf::Vector2f& point);
 
+	void ChangeCurrentStructure();
     void ChangeIngameMode();
 
     void RemoveSelectedStructure();
