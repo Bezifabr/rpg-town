@@ -127,8 +127,17 @@ void GameState::OnUpdate()
 		if (player.sprite.getGlobalBounds().contains(s.sprite.getPosition()))
 		{
 			player.SetStructureType(s.GetType());
+			if(player.IsInsideStructure() == false)
+				{
+					if(s.GetType() == StructureType::hut) cash -= 5;
+					else if(s.GetType() == StructureType::shop) cash += 5;
+					
+				player.SetCurrentStructureBounds(s.sprite.getGlobalBounds());
+				}
+							
 			break;
 		}
+		
 
 	switch (player.GetStructureType())
 	{
@@ -137,7 +146,6 @@ void GameState::OnUpdate()
 		player.sprite.SetCurrentAnimation(AnimationType::stand);
 		player.SetMoving(false);
 		break;
-
 	case StructureType::nothing:
 		player.SetMoving(true);
 		player.sprite.SetCurrentAnimation(AnimationType::walk);

@@ -20,6 +20,8 @@ class PlayerCharacter : public sf::Drawable
     sf::Text nickText;
 
     bool isMoving = true;
+
+    sf::FloatRect currentStructureBounds;
 public:
     PlayerCharacter();
 
@@ -42,6 +44,11 @@ public:
     const sf::Font* GetFont();
 
     void Update(sf::Time deltaTime);
+
+    bool IsInsideStructure();
+
+    void SetCurrentStructureBounds(const sf::FloatRect& rect);
+
 
 private:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;

@@ -72,3 +72,13 @@ void PlayerCharacter::draw(sf::RenderTarget& target, sf::RenderStates states) co
     target.draw(sprite, states);
     target.draw(nickText, states);
 }
+
+bool PlayerCharacter::IsInsideStructure()
+{
+	return currentStructureBounds.intersects(sprite.getGlobalBounds());
+}
+
+void PlayerCharacter::SetCurrentStructureBounds(const sf::FloatRect& currentBounds)
+{
+    this->currentStructureBounds = currentBounds;
+}
