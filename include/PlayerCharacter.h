@@ -26,7 +26,6 @@ public:
     PlayerCharacter();
 
     AnimatedSprite sprite;
-    sf::Texture texture;
 
     void SetSpeed(int speed);
     int GetSpeed();

@@ -10,7 +10,6 @@ class Structure
     StructureType type;
 public:
     sf::Sprite sprite;
-    sf::Texture texture;
 
     void SetType(StructureType type);
     StructureType GetType();

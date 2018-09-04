@@ -17,30 +17,31 @@ void GameState::OnEnter()
 	sizeOfTown = 1000;
 	limitOfStructures = 5;
 
-	topBarTexture.loadFromFile("resources/Top Bar.png");
-	topBar.setTexture(topBarTexture);
+	textures.LoadTexture("GUI_TopBar","Top Bar");
+	textures.LoadTexture("CHAR_Player", "PlayerTex");
+	textures.LoadTexture("BLD_Hut","Test/hut");
+	textures.LoadTexture("BLD_Main","Test/main");
+	textures.LoadTexture("BLD_Shop","Test/shop");
 
-	player.texture.loadFromFile("resources/PlayerTex.png");
-	player.sprite.setTexture(player.texture);
+	topBar.setTexture(textures.GetTexture("GUI_TopBar"));
+
+	player.sprite.setTexture(textures.GetTexture("CHAR_Player"));
 	player.sprite.setPosition(0, 600);
 	player.SetSpeed(50);
 	player.SetNick("Player");
 	player.SetFont(font);
 
-	bld_hut.texture.loadFromFile("resources/Test/hut.png");
-	bld_hut.sprite.setTexture(bld_hut.texture);
+	bld_hut.sprite.setTexture(textures.GetTexture("BLD_Hut"));
 	bld_hut.sprite.setOrigin(256 / 2, 256 / 2);
 	bld_hut.SetType(StructureType::hut);
 	bld_hut.sprite.setColor(sf::Color(255, 255, 255, 100));
 
-	bld_main.texture.loadFromFile("resources/Test/main.png");
-	bld_main.sprite.setTexture(bld_main.texture);
+	bld_main.sprite.setTexture(textures.GetTexture("BLD_Main"));
 	bld_main.sprite.setOrigin(256 / 2, 256 / 2);
 	bld_main.SetType(StructureType::main);
 	bld_main.sprite.setColor(sf::Color(255, 255, 255, 100));
 
-	bld_shop.texture.loadFromFile("resources/Test/shop.png");
-	bld_shop.sprite.setTexture(bld_shop.texture);
+	bld_shop.sprite.setTexture(textures.GetTexture("BLD_Shop"));
 	bld_shop.sprite.setOrigin(256 / 2, 256 / 2);
 	bld_shop.SetType(StructureType::shop);
 	bld_shop.sprite.setColor(sf::Color(255, 255, 255, 100));
@@ -174,7 +175,6 @@ void GameState::OnDraw()
 		renderWindow->draw(s.sprite);
 
 	renderWindow->draw(player);
-	renderWindow->draw(aniSprite);
 
 	renderWindow->setView(renderWindow->getDefaultView());
 
@@ -297,7 +297,7 @@ void GameState::CreateAnimationTester()
 	jump.AddFrame(sf::IntRect(176, 0, 176, 176));
 	jump.SetDelay(sf::seconds(0.01f));
 
-	aniSprite.setTexture(player.texture);
+	aniSprite.setTexture(textures.GetTexture("CHAR_Player"));
 	aniSprite.AddAnimation(AnimationType::stand, stand);
 	aniSprite.AddAnimation(AnimationType::walk, walk);
 	aniSprite.AddAnimation(AnimationType::jump, jump);

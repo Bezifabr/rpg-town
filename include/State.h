@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <memory>
+#include "TextureHolder.h"
 
 class StateTransition;
 class State {
@@ -24,6 +25,7 @@ public:
 protected:
     StateTransition* transition;
 	std::shared_ptr<sf::RenderWindow> renderWindow;
+	TextureHolder textures;
 
 	bool isGameFinished = false;
 
