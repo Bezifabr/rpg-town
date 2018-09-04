@@ -99,7 +99,6 @@ void GameState::OnHandleEvent()
 	if (event.type == sf::Event::KeyReleased)
 	{
 		ChangeIngameMode();
-		TestAnimations();
 
 		if (ingameMode == IngameMode::selecting)
 			if (event.key.code == sf::Keyboard::Delete && selected == true)
@@ -115,7 +114,7 @@ void GameState::OnUpdate()
 
 	previewStructure->sprite.setPosition(globalMousePos.x, 600);
 
-	if ((IntersectsWithStructures(previewStructure->sprite.getGlobalBounds()) || cash < 10) && ingameMode == IngameMode::building)
+	if ((IntersectsWithStructures(previewStructure->sprite.getGlobalBounds()) || cash < previewStructure->GetCost()) && ingameMode == IngameMode::building)
 		previewStructure->sprite.setColor(sf::Color(255, 10, 10, 50));
 	else
 		previewStructure->sprite.setColor(sf::Color(255, 255, 255, 50));
@@ -127,6 +126,7 @@ void GameState::OnUpdate()
 		view.move(350 * deltaTime.asSeconds(), 0);
 	if (localMousePos.x <= 50 && view.getCenter().x >= sizeOfTown * -1)
 		view.move(-350 * deltaTime.asSeconds(), 0);
+
 
 	player.SetStructureType(StructureType::nothing);
 	for (auto s : structures)
@@ -150,7 +150,6 @@ void GameState::OnUpdate()
 	case StructureType::main:
 		player.SetMoving(false);
 		player.sprite.SetCurrentAnimation(AnimationType::stand);
-		player.SetMoving(false);
 		break;
 	case StructureType::nothing:
 		player.SetMoving(true);
@@ -163,7 +162,6 @@ void GameState::OnUpdate()
 
 	player.Update(deltaTime);
 
-	aniSprite.Update(deltaTime);
 	player.sprite.Update(deltaTime);
 
 	cashText.setString(std::to_string(cash));
@@ -227,8 +225,8 @@ void GameState::ChangeCurrentStructure()
 void GameState::RemoveSelectedStructure()
 {
 	selected = false;
+	cash += selStructure->GetCost()/2;
 	structures.erase(selStructure);
-	cash += 5;
 }
 
 void GameState::SelectStructure(std::vector<Structure>::iterator itr)
@@ -262,27 +260,10 @@ bool GameState::ContainedByStructure(const sf::Vector2f &point)
 
 void GameState::PlaceStructure()
 {
-
 	cash -= previewStructure->GetCost();
-
-	switch (currentStructureType)
-	{
-	case StructureType::main:
-		bld_main.sprite.setColor(sf::Color(255, 255, 255, 255));
-		structures.push_back(bld_main);
-		bld_main.sprite.setColor(sf::Color(255, 255, 255, 100));
-		break;
-	case StructureType::hut:
-		bld_hut.sprite.setColor(sf::Color(255, 255, 255, 255));
-		structures.push_back(bld_hut);
-		bld_hut.sprite.setColor(sf::Color(255, 255, 255, 100));
-		break;
-	case StructureType::shop:
-		bld_shop.sprite.setColor(sf::Color(255, 255, 255, 255));
-		structures.push_back(bld_shop);
-		bld_shop.sprite.setColor(sf::Color(255, 255, 255, 100));
-		break;
-	}
+	previewStructure->sprite.setColor(sf::Color(255,255,255,255));
+	structures.push_back(*previewStructure);
+	previewStructure->sprite.setColor(sf::Color(255,255,255,100));
 }
 
 void GameState::CreateAnimationTester()
@@ -302,29 +283,7 @@ void GameState::CreateAnimationTester()
 	jump.AddFrame(sf::IntRect(176, 0, 176, 176));
 	jump.SetDelay(sf::seconds(0.01f));
 
-	aniSprite.setTexture(textures.GetTexture("CHAR_Player"));
-	aniSprite.AddAnimation(AnimationType::stand, stand);
-	aniSprite.AddAnimation(AnimationType::walk, walk);
-	aniSprite.AddAnimation(AnimationType::jump, jump);
-	aniSprite.SetCurrentAnimation(AnimationType::stand);
-
 	player.sprite.AddAnimation(AnimationType::stand,stand);
 	player.sprite.AddAnimation(AnimationType::walk, walk);
 	player.sprite.SetCurrentAnimation(AnimationType::stand);
-}
-
-void GameState::TestAnimations()
-{
-	switch (event.key.code)
-	{
-	case sf::Keyboard::Q:
-		aniSprite.SetCurrentAnimation(AnimationType::stand);
-		break;
-	case sf::Keyboard::W:
-		aniSprite.SetCurrentAnimation(AnimationType::jump);
-		break;
-	case sf::Keyboard::E:
-		aniSprite.SetCurrentAnimation(AnimationType::walk);
-		break;
-	}
 }

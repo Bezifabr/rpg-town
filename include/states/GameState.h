@@ -34,10 +34,7 @@ class GameState : public State
     sf::Vector2f globalMousePos;
     sf::Vector2f localMousePos;
 
-
     PlayerCharacter player;
-
-	AnimatedSprite aniSprite;
 
     int cash;
 
@@ -70,7 +67,6 @@ private:
     virtual void OnLeave() override;
 
     void CreateAnimationTester();
-    void TestAnimations();
 };
 
 #endif //GAME_STATE_H
