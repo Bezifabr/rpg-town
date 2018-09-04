@@ -22,6 +22,7 @@ void GameState::OnEnter()
 	textures.LoadTexture("BLD_Hut","Test/hut");
 	textures.LoadTexture("BLD_Main","Test/main");
 	textures.LoadTexture("BLD_Shop","Test/shop");
+	font.loadFromFile("resources/Text font.ttf");
 
 	topBar.setTexture(textures.GetTexture("GUI_TopBar"));
 
@@ -35,23 +36,25 @@ void GameState::OnEnter()
 	bld_hut.sprite.setOrigin(256 / 2, 256 / 2);
 	bld_hut.SetType(StructureType::hut);
 	bld_hut.sprite.setColor(sf::Color(255, 255, 255, 100));
+	bld_hut.SetCost(10);
 
 	bld_main.sprite.setTexture(textures.GetTexture("BLD_Main"));
 	bld_main.sprite.setOrigin(256 / 2, 256 / 2);
 	bld_main.SetType(StructureType::main);
 	bld_main.sprite.setColor(sf::Color(255, 255, 255, 100));
+	bld_main.SetCost(50);
 
 	bld_shop.sprite.setTexture(textures.GetTexture("BLD_Shop"));
 	bld_shop.sprite.setOrigin(256 / 2, 256 / 2);
 	bld_shop.SetType(StructureType::shop);
 	bld_shop.sprite.setColor(sf::Color(255, 255, 255, 100));
+	bld_shop.SetCost(10);
 
 	currentStructureType = StructureType::hut;
 	previewStructure = &bld_hut;
 
 	CreateAnimationTester();
 
-	font.loadFromFile("resources/Text font.ttf");
 
 	cash = 100;
 	cashText.setString(std::to_string(cash));
@@ -72,11 +75,13 @@ void GameState::OnHandleEvent()
 
 	if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
 	{
+		// DEBUG
 		cout << localMousePos.x << ", " << localMousePos.y << "\n";
 		cout << globalMousePos.x << " " << globalMousePos.y << "\n";
+		/* *** */
 
 		if (ingameMode == IngameMode::building && IntersectsWithStructures(previewStructure->sprite.getGlobalBounds()) == false)
-			if(cash >= 10 && structures.size() < limitOfStructures)
+			if(cash >= previewStructure->GetCost() && structures.size() < limitOfStructures)
 				PlaceStructure();
 
 		if (selected == true && !selStructure->sprite.getGlobalBounds().contains(globalMousePos))
@@ -258,7 +263,7 @@ bool GameState::ContainedByStructure(const sf::Vector2f &point)
 void GameState::PlaceStructure()
 {
 
-	cash -= 10;
+	cash -= previewStructure->GetCost();
 
 	switch (currentStructureType)
 	{
