@@ -66,7 +66,7 @@ private:
     virtual void OnEnter() override;
     virtual void OnLeave() override;
 
-    void CreateAnimationTester();
+    void SetupPlayer();
 };
 
 #endif //GAME_STATE_H

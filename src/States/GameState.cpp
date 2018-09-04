@@ -26,11 +26,6 @@ void GameState::OnEnter()
 
 	topBar.setTexture(textures.GetTexture("GUI_TopBar"));
 
-	player.sprite.setTexture(textures.GetTexture("CHAR_Player"));
-	player.sprite.setPosition(0, 600);
-	player.SetSpeed(50);
-	player.SetNick("Player");
-	player.SetFont(font);
 
 	bld_hut.sprite.setTexture(textures.GetTexture("BLD_Hut"));
 	bld_hut.sprite.setOrigin(256 / 2, 256 / 2);
@@ -53,7 +48,7 @@ void GameState::OnEnter()
 	currentStructureType = StructureType::hut;
 	previewStructure = &bld_hut;
 
-	CreateAnimationTester();
+	SetupPlayer();
 
 
 	cash = 100;
@@ -266,8 +261,14 @@ void GameState::PlaceStructure()
 	previewStructure->sprite.setColor(sf::Color(255,255,255,100));
 }
 
-void GameState::CreateAnimationTester()
+void GameState::SetupPlayer()
 {
+	player.sprite.setTexture(textures.GetTexture("CHAR_Player"));
+	player.sprite.setPosition(0, 600);
+	player.SetSpeed(50);
+	player.SetNick("Player");
+	player.SetFont(font);
+	
 	Animation stand;
 	stand.AddFrame(sf::IntRect(704, 0, 176, 176));
 	stand.AddFrame(sf::IntRect(704, 176, 176, 176));
