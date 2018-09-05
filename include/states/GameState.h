@@ -8,19 +8,13 @@
 #include <vector>
 #include "AnimatedSprite.h"
 #include <SFML/Graphics/Text.hpp>
+#include "StructureMold.h"
 
 class GameState : public State
 {
-    Structure bld_hut;
-    Structure bld_main;
-    Structure bld_shop;
-
-	StructureType currentStructureType;
+    StructureMold structureMold;
 
     sf::Sprite topBar;
-    sf::Texture topBarTexture;
-
-	Structure* previewStructure;
 
     std::vector<Structure> structures;
 
@@ -51,7 +45,6 @@ private:
     bool IntersectsWithStructures(const sf::FloatRect& rect);
     bool ContainedByStructure(const sf::Vector2f& point);
 
-	void ChangeCurrentStructure();
     void ChangeIngameMode();
 
     void RemoveSelectedStructure();

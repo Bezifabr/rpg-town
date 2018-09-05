@@ -19,34 +19,13 @@ void GameState::OnEnter()
 
 	textures.LoadTexture("GUI_TopBar","Top Bar");
 	textures.LoadTexture("CHAR_Player", "PlayerTex");
-	textures.LoadTexture("BLD_Hut","Test/hut");
-	textures.LoadTexture("BLD_Main","Test/main");
-	textures.LoadTexture("BLD_Shop","Test/shop");
+	structureMold.LoadTextures(textures);
 	font.loadFromFile("resources/Text font.ttf");
 
 	topBar.setTexture(textures.GetTexture("GUI_TopBar"));
 
+	structureMold.Change(sf::Keyboard::Num1);
 
-	bld_hut.sprite.setTexture(textures.GetTexture("BLD_Hut"));
-	bld_hut.sprite.setOrigin(256 / 2, 256 / 2);
-	bld_hut.SetType(StructureType::hut);
-	bld_hut.sprite.setColor(sf::Color(255, 255, 255, 100));
-	bld_hut.SetCost(10);
-
-	bld_main.sprite.setTexture(textures.GetTexture("BLD_Main"));
-	bld_main.sprite.setOrigin(256 / 2, 256 / 2);
-	bld_main.SetType(StructureType::main);
-	bld_main.sprite.setColor(sf::Color(255, 255, 255, 100));
-	bld_main.SetCost(50);
-
-	bld_shop.sprite.setTexture(textures.GetTexture("BLD_Shop"));
-	bld_shop.sprite.setOrigin(256 / 2, 256 / 2);
-	bld_shop.SetType(StructureType::shop);
-	bld_shop.sprite.setColor(sf::Color(255, 255, 255, 100));
-	bld_shop.SetCost(10);
-
-	currentStructureType = StructureType::hut;
-	previewStructure = &bld_hut;
 
 	SetupPlayer();
 
@@ -75,8 +54,8 @@ void GameState::OnHandleEvent()
 		cout << globalMousePos.x << " " << globalMousePos.y << "\n";
 		/* *** */
 
-		if (ingameMode == IngameMode::building && IntersectsWithStructures(previewStructure->sprite.getGlobalBounds()) == false)
-			if(cash >= previewStructure->GetCost() && structures.size() < limitOfStructures)
+		if (ingameMode == IngameMode::building && IntersectsWithStructures(structureMold.sprite.getGlobalBounds()) == false)
+			if(cash >= structureMold.GetCost() && structures.size() < limitOfStructures)
 				PlaceStructure();
 
 		if (selected == true && !selStructure->sprite.getGlobalBounds().contains(globalMousePos))
@@ -100,19 +79,19 @@ void GameState::OnHandleEvent()
 				RemoveSelectedStructure();
 
 		if (ingameMode == IngameMode::building)
-			ChangeCurrentStructure();
+			structureMold.Change(event.key.code);
 	}
 }
 
 void GameState::OnUpdate()
 {
 
-	previewStructure->sprite.setPosition(globalMousePos.x, 600);
+	structureMold.sprite.setPosition(globalMousePos.x, 600);
 
-	if ((IntersectsWithStructures(previewStructure->sprite.getGlobalBounds()) || cash < previewStructure->GetCost()) && ingameMode == IngameMode::building)
-		previewStructure->sprite.setColor(sf::Color(255, 10, 10, 50));
+	if ((IntersectsWithStructures(structureMold.sprite.getGlobalBounds()) || cash < structureMold.GetCost()) && ingameMode == IngameMode::building)
+		structureMold.sprite.setColor(sf::Color(255, 10, 10, 50));
 	else
-		previewStructure->sprite.setColor(sf::Color(255, 255, 255, 50));
+		structureMold.sprite.setColor(sf::Color(255, 255, 255, 50));
 
 	if (selected == true && ingameMode != IngameMode::selecting)
 		UnselectStructure();
@@ -167,7 +146,7 @@ void GameState::OnDraw()
 	renderWindow->setView(view);
 
 	if (ingameMode == IngameMode::building)
-		renderWindow->draw(previewStructure->sprite);
+		renderWindow->draw(structureMold.sprite);
 
 	for (auto s : structures)
 		renderWindow->draw(s.sprite);
@@ -194,25 +173,6 @@ void GameState::ChangeIngameMode()
 		break;
 	case sf::Keyboard::S:
 		ingameMode = IngameMode::building;
-		break;
-	}
-}
-
-void GameState::ChangeCurrentStructure()
-{
-	switch (event.key.code)
-	{
-	case sf::Keyboard::Num1:
-		currentStructureType = StructureType::hut;
-		previewStructure = &bld_hut;
-		break;
-	case sf::Keyboard::Num2:
-		currentStructureType = StructureType::main;
-		previewStructure = &bld_main;
-		break;
-	case sf::Keyboard::Num3:
-		currentStructureType = StructureType::shop;
-		previewStructure = &bld_shop;
 		break;
 	}
 }
@@ -255,10 +215,10 @@ bool GameState::ContainedByStructure(const sf::Vector2f &point)
 
 void GameState::PlaceStructure()
 {
-	cash -= previewStructure->GetCost();
-	previewStructure->sprite.setColor(sf::Color(255,255,255,255));
-	structures.push_back(*previewStructure);
-	previewStructure->sprite.setColor(sf::Color(255,255,255,100));
+	cash -= structureMold.GetCost();
+	structureMold.sprite.setColor(sf::Color(255,255,255,255));
+	structures.push_back(structureMold);
+	structureMold.sprite.setColor(sf::Color(255,255,255,100));
 }
 
 void GameState::SetupPlayer()
