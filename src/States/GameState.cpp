@@ -19,6 +19,7 @@ void GameState::OnEnter()
 
 	textures.LoadTexture("GUI_TopBar","Top Bar");
 	textures.LoadTexture("CHAR_Player", "PlayerTex");
+	textures.LoadTexture("GUI_Btn", "btnTex");
 	structureMold.LoadTextures(textures);
 	font.loadFromFile("resources/Text font.ttf");
 
@@ -26,6 +27,8 @@ void GameState::OnEnter()
 
 	structureMold.Change(sf::Keyboard::Num1);
 
+	btn.SetTexture(textures.GetTexture("GUI_Btn"));
+	btn.SetPosition(250,50);
 
 	SetupPlayer();
 
@@ -47,11 +50,13 @@ void GameState::OnHandleEvent()
 	globalMousePos = renderWindow->mapPixelToCoords(sf::Mouse::getPosition((*renderWindow)));
 	localMousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition((*renderWindow)));
 
+	btn.HandleClick(event);
+
 	if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
 	{
 		// DEBUG
-		cout << localMousePos.x << ", " << localMousePos.y << "\n";
-		cout << globalMousePos.x << " " << globalMousePos.y << "\n";
+		cout << "Local: " << localMousePos.x << ", " << localMousePos.y << "\n";
+		cout << "Global: " << globalMousePos.x << " " << globalMousePos.y << "\n";
 		/* *** */
 
 		if (ingameMode == IngameMode::building && IntersectsWithStructures(structureMold.sprite.getGlobalBounds()) == false)
@@ -85,6 +90,8 @@ void GameState::OnHandleEvent()
 
 void GameState::OnUpdate()
 {
+	if(btn.IsClicked())
+		cout << "Clicked" << endl;
 
 	structureMold.sprite.setPosition(globalMousePos.x, 600);
 
@@ -156,6 +163,7 @@ void GameState::OnDraw()
 	renderWindow->setView(renderWindow->getDefaultView());
 
 	renderWindow->draw(topBar);
+	renderWindow->draw(btn);
 	renderWindow->draw(cashText);
 
 	renderWindow->setView(view);
