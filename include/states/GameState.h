@@ -9,13 +9,13 @@
 #include "AnimatedSprite.h"
 #include <SFML/Graphics/Text.hpp>
 #include "StructureMold.h"
-#include "Button.h"
+#include "TextButton.h"
 
 class GameState : public State
 {
     StructureMold structureMold;
 
-    Button btn;
+    TextButton btn;
 
     sf::Sprite topBar;
 

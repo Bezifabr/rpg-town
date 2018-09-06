@@ -28,6 +28,8 @@ void GameState::OnEnter()
 	structureMold.Change(sf::Keyboard::Num1);
 
 	btn.SetTexture(textures.GetTexture("GUI_Btn"));
+	btn.SetTextFont(font);
+	btn.SetTextString("Test");
 	btn.SetPosition(250,50);
 
 	SetupPlayer();
