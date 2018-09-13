@@ -6,7 +6,7 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 # add c++11 standard to compiler
-add_compile_options(-std=c++11)
+add_compile_options(-std=c++17)
 
 project(Rpg-Town)
 
