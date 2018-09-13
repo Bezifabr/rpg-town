@@ -6,7 +6,12 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 # add c++11 standard to compiler
-add_compile_options(-std=c++17)
+
+if(MSVC)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++17")
+else()
+add_compile_options(-std=c++11)
+endif(MSVC)
 
 project(Rpg-Town)
 
