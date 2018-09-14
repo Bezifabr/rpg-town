@@ -10,14 +10,14 @@
 #include <SFML/Graphics/Text.hpp>
 #include "StructureMold.h"
 #include "gui/TextButton.h"
-#include "ButtonFunctionConnector.h"
+#include "gui/Window.h"
 #include "gui/TextButtonFactory.h"
 
 class GameState : public State
 {
     StructureMold structureMold;
 
-	ButtonFunctionConnector buttonFunctionConnector;
+	gui::Window window;
 
     sf::Sprite topBar;
 

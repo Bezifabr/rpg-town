@@ -20,6 +20,7 @@ void GameState::OnEnter()
 	textures.LoadTexture("GUI_TopBar","Top Bar");
 	textures.LoadTexture("CHAR_Player", "PlayerTex");
 	textures.LoadTexture("GUI_Btn", "btnTex");
+	textures.LoadTexture("GUI_WND_BGR", "ingameWindow");
 	structureMold.LoadTextures(textures);
 	font.loadFromFile("resources/Text font.ttf");
 
@@ -40,9 +41,11 @@ void GameState::OnEnter()
 	cashText.setString(std::to_string(cash));
 	cashText.setFont(font);
 
-	buttonFunctionConnector.Add(tbf.Create("Test", 250, 50), [] { cout << "Test" << endl;  });
-	buttonFunctionConnector.Add(tbf.Create("Test2", 250, 250), [] { cout << "Test2" << endl;  });
-	buttonFunctionConnector.Add(tbf.Create("Test3", 250, 450), [] { cout << "Test3" << endl;  });
+	window.SetBackgroundTexture(textures.GetTexture("GUI_WND_BGR"));
+
+	window.Add(tbf.Create("Test", 250, 50), [] { cout << "Test" << endl;  });
+	window.Add(tbf.Create("Test2", 250, 250), [] { cout << "Test2" << endl;  });
+	window.Add(tbf.Create("Test3", 250, 450), [] { cout << "Test3" << endl;  });
 
 	cout << "Game loaded" << endl;
 }
@@ -57,7 +60,7 @@ void GameState::OnHandleEvent()
 	globalMousePos = renderWindow->mapPixelToCoords(sf::Mouse::getPosition((*renderWindow)));
 	localMousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition((*renderWindow)));
 
-	buttonFunctionConnector.HandleEvent(event);
+	window.HandleEvent(event);
 
 	if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
 	{
@@ -97,7 +100,7 @@ void GameState::OnHandleEvent()
 
 void GameState::OnUpdate()
 {
-	buttonFunctionConnector.Update(deltaTime);
+	window.Update(deltaTime);
 
 	structureMold.sprite.setPosition(globalMousePos.x, 600);
 
@@ -169,8 +172,7 @@ void GameState::OnDraw()
 	renderWindow->setView(renderWindow->getDefaultView());
 
 	renderWindow->draw(topBar);
-//	renderWindow->draw(btn);
-	buttonFunctionConnector.Draw(renderWindow);
+	window.Draw(renderWindow);
 
 	renderWindow->draw(cashText);
 
