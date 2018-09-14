@@ -1,5 +1,5 @@
-#ifndef BUTTON_H
-#define BUTTON_H
+#ifndef GUI_BUTTON_H
+#define GUI_BUTTON_H
 
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Window/Event.hpp>
@@ -29,4 +29,4 @@ namespace gui {
 		sf::Sprite sprite;
 	};
 }
-#endif // BUTTON_H
+#endif // GUI_BUTTON_H

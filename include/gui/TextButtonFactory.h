@@ -1,5 +1,5 @@
-#ifndef TEXT_BUTTON_FACTORY_H
-#define TEXT_BUTTON_FACTORY_H
+#ifndef GUI_TEXT_BUTTON_FACTORY_H
+#define GUI_TEXT_BUTTON_FACTORY_H
 
 #include "gui/TextButton.h"
 #include <memory>
@@ -16,4 +16,4 @@ namespace gui {
 	};
 }
 
-#endif // !TEXT_BUTTON_FACTORY_H
+#endif // GUI_TEXT_BUTTON_FACTORY_H

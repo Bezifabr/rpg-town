@@ -1,5 +1,5 @@
-#ifndef TEXT_BUTTON_H
-#define TEXT_BUTTON_H
+#ifndef GUI_TEXT_BUTTON_H
+#define GUI_TEXT_BUTTON_H
 
 #include <SFML/Graphics/Text.hpp>
 #include "Button.h"
@@ -23,4 +23,4 @@ namespace gui {
 
 	};
 }
-#endif // TEXT_BUTTON_H
+#endif // GUI_TEXT_BUTTON_H
