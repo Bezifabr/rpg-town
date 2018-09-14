@@ -30,8 +30,8 @@ void GameState::OnEnter()
 	gui::TextButton btn;
 	btn.SetTexture(textures.GetTexture("GUI_Btn"));
 	btn.SetTextFont(font);
-	btn.SetTextString("Test");
-	btn.SetPosition(250,50);
+
+	gui::TextButtonFactory tbf(btn);
 
 	SetupPlayer();
 
@@ -40,7 +40,9 @@ void GameState::OnEnter()
 	cashText.setString(std::to_string(cash));
 	cashText.setFont(font);
 
-	buttonFunctionConnector.Add(std::make_unique<gui::TextButton>(std::move(btn)), [] { cout << "Test" << endl;  });
+	buttonFunctionConnector.Add(tbf.Create("Test", 250, 50), [] { cout << "Test" << endl;  });
+	buttonFunctionConnector.Add(tbf.Create("Test2", 250, 250), [] { cout << "Test2" << endl;  });
+	buttonFunctionConnector.Add(tbf.Create("Test3", 250, 450), [] { cout << "Test3" << endl;  });
 
 	cout << "Game loaded" << endl;
 }

@@ -11,6 +11,7 @@
 #include "StructureMold.h"
 #include "gui/TextButton.h"
 #include "ButtonFunctionConnector.h"
+#include "gui/TextButtonFactory.h"
 
 class GameState : public State
 {
