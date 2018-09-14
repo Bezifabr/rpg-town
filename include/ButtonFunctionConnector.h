@@ -16,7 +16,7 @@ class ButtonFunctionConnector
 public:
 	ButtonFunctionConnector();
 
-	void Add(std::shared_ptr<gui::Button> btn, std::function<void()> function);
+	void Add(std::unique_ptr<gui::Button> btn, std::function<void()> function);
 
 	void HandleEvent(sf::Event event);
 	void Update(sf::Time deltaTime);

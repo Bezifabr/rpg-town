@@ -6,9 +6,9 @@ ButtonFunctionConnector::ButtonFunctionConnector()
 	functionsCallback.ConnectWithPressedButtons(&pressedButtons);
 }
 
-void ButtonFunctionConnector::Add(std::shared_ptr<gui::Button> btn, std::function<void()> function)
+void ButtonFunctionConnector::Add(std::unique_ptr<gui::Button> btn, std::function<void()> function)
 {
-	buttonsHandler.AddButton(btn);
+	buttonsHandler.AddButton(std::move(btn));
 	functionsCallback.AddFunction(function);
 }
 

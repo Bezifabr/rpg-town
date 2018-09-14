@@ -40,7 +40,7 @@ void GameState::OnEnter()
 	cashText.setString(std::to_string(cash));
 	cashText.setFont(font);
 
-	buttonFunctionConnector.Add(std::make_shared<gui::TextButton>(std::move(btn)), [] { cout << "Test" << endl;  });
+	buttonFunctionConnector.Add(std::make_unique<gui::TextButton>(std::move(btn)), [] { cout << "Test" << endl;  });
 
 	cout << "Game loaded" << endl;
 }

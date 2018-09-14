@@ -5,9 +5,9 @@ void ButtonsHandler::ConnectWithPressedButtons(std::list<int>* pressedButtons)
 	this->pressedButtons = pressedButtons;
 }
 
-void ButtonsHandler::AddButton(std::shared_ptr<gui::Button> button)
+void ButtonsHandler::AddButton(std::unique_ptr<gui::Button> button)
 {
-	buttons.emplace_back(button);
+	buttons.emplace_back(std::move(button));
 }
 
 void ButtonsHandler::Clear()
@@ -27,6 +27,6 @@ void ButtonsHandler::HandleEvent(sf::Event event)
 
 void ButtonsHandler::Draw(std::shared_ptr<sf::RenderWindow>& renderWindow)
 {
-	for (auto btn : buttons)
+	for (auto& btn : buttons)
 		renderWindow->draw(*btn);
 }
