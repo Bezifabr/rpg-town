@@ -1,4 +1,4 @@
-#include "TextButton.h"
+#include "gui/TextButton.h"
 
 namespace gui {
 	void TextButton::SetPosition(sf::Vector2f pos)

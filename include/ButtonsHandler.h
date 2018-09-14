@@ -5,7 +5,7 @@
 #include <vector>
 #include <memory>
 #include <string>
-#include "Button.h"
+#include "gui/Button.h"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 

@@ -9,7 +9,7 @@
 #include "AnimatedSprite.h"
 #include <SFML/Graphics/Text.hpp>
 #include "StructureMold.h"
-#include "TextButton.h"
+#include "gui/TextButton.h"
 #include "ButtonFunctionConnector.h"
 
 class GameState : public State
