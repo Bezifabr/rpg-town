@@ -27,7 +27,7 @@ void GameState::OnEnter()
 
 	structureMold.Change(sf::Keyboard::Num1);
 
-	TextButton btn;
+	gui::TextButton btn;
 	btn.SetTexture(textures.GetTexture("GUI_Btn"));
 	btn.SetTextFont(font);
 	btn.SetTextString("Test");
@@ -40,7 +40,7 @@ void GameState::OnEnter()
 	cashText.setString(std::to_string(cash));
 	cashText.setFont(font);
 
-	buttonFunctionConnector.Add(std::make_shared<TextButton>(std::move(btn)), [] { cout << "Test" << endl;  });
+	buttonFunctionConnector.Add(std::make_shared<gui::TextButton>(std::move(btn)), [] { cout << "Test" << endl;  });
 
 	cout << "Game loaded" << endl;
 }

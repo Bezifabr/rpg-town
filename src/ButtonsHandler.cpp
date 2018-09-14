@@ -5,7 +5,7 @@ void ButtonsHandler::ConnectWithPressedButtons(std::list<int>* pressedButtons)
 	this->pressedButtons = pressedButtons;
 }
 
-void ButtonsHandler::AddButton(std::shared_ptr<Button> button)
+void ButtonsHandler::AddButton(std::shared_ptr<gui::Button> button)
 {
 	buttons.emplace_back(button);
 }

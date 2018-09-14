@@ -11,12 +11,12 @@
 
 class ButtonsHandler
 {
-	std::vector<std::shared_ptr<Button>> buttons;
+	std::vector<std::shared_ptr<gui::Button>> buttons;
 	std::list<int>* pressedButtons;
 public:
 	void ConnectWithPressedButtons(std::list<int>* pressedButtons);
 
-	void AddButton(std::shared_ptr<Button> button);
+	void AddButton(std::shared_ptr<gui::Button> button);
 	void Clear();
 
 	void HandleEvent(sf::Event event);
