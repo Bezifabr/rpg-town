@@ -8,22 +8,24 @@
 
 class Button : public sf::Drawable
 {
-    bool clicked = false;
-    bool pressed = false;
+	bool clicked = false;
+	bool pressed = false;
 
-  public:
-    bool HandleClick(sf::Event event);
-    bool IsClicked();
+public:
+	virtual ~Button() {}
 
-    virtual void SetPosition(sf::Vector2f pos);
-    virtual void SetPosition(float x, float y);
+	bool HandleClick(sf::Event event);
+	void Refresh();
 
-    void SetTexture(const sf::Texture &texture);
+	virtual void SetPosition(sf::Vector2f pos);
+	virtual void SetPosition(float x, float y);
 
-    virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+	void SetTexture(const sf::Texture &texture);
 
-  protected:
-    sf::Sprite sprite;
+	virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+
+protected:
+	sf::Sprite sprite;
 };
 
 #endif // BUTTON_H

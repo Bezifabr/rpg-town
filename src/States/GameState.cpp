@@ -27,6 +27,7 @@ void GameState::OnEnter()
 
 	structureMold.Change(sf::Keyboard::Num1);
 
+	TextButton btn;
 	btn.SetTexture(textures.GetTexture("GUI_Btn"));
 	btn.SetTextFont(font);
 	btn.SetTextString("Test");
@@ -38,6 +39,8 @@ void GameState::OnEnter()
 	cash = 100;
 	cashText.setString(std::to_string(cash));
 	cashText.setFont(font);
+
+	buttonFunctionConnector.Add(std::make_shared<TextButton>(std::move(btn)), [] { cout << "Test" << endl;  });
 
 	cout << "Game loaded" << endl;
 }
@@ -52,7 +55,7 @@ void GameState::OnHandleEvent()
 	globalMousePos = renderWindow->mapPixelToCoords(sf::Mouse::getPosition((*renderWindow)));
 	localMousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition((*renderWindow)));
 
-	btn.HandleClick(event);
+	buttonFunctionConnector.HandleEvent(event);
 
 	if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
 	{
@@ -92,8 +95,7 @@ void GameState::OnHandleEvent()
 
 void GameState::OnUpdate()
 {
-	if(btn.IsClicked())
-		cout << "Clicked" << endl;
+	buttonFunctionConnector.Update(deltaTime);
 
 	structureMold.sprite.setPosition(globalMousePos.x, 600);
 
@@ -165,7 +167,9 @@ void GameState::OnDraw()
 	renderWindow->setView(renderWindow->getDefaultView());
 
 	renderWindow->draw(topBar);
-	renderWindow->draw(btn);
+//	renderWindow->draw(btn);
+	buttonFunctionConnector.Draw(renderWindow);
+
 	renderWindow->draw(cashText);
 
 	renderWindow->setView(view);

@@ -9,7 +9,6 @@ bool Button::HandleClick(sf::Event event)
     {
         if (event.type == sf::Event::MouseButtonPressed)
         {
-            cout << event.mouseButton.x << " " << event.mouseButton.y << endl;
             pressed = true;
         }
 
@@ -24,12 +23,9 @@ bool Button::HandleClick(sf::Event event)
     return clicked;
 }
 
-bool Button::IsClicked()
+void Button::Refresh()
 {
-    if(clicked == true)
-        clicked = false;
-    else return false;
-    return true;
+	clicked = false;
 }
 
 void Button::draw(sf::RenderTarget &target, sf::RenderStates states) const
