@@ -41,8 +41,10 @@ void GameState::OnEnter()
 	cashText.setString(std::to_string(cash));
 	cashText.setFont(font);
 
-	window.SetBackgroundTexture(textures.GetTexture("GUI_WND_BGR"));
+	sf::Sprite background;
+	background.setTexture(textures.GetTexture("GUI_WND_BGR"));
 
+	window.Add(std::make_shared<sf::Sprite>(background));
 	window.Add(tbf.Create("Test", 250, 50), [] { cout << "Test" << endl;  });
 	window.Add(tbf.Create("Test2", 250, 250), [] { cout << "Test2" << endl;  });
 	window.Add(tbf.Create("Test3", 250, 450), [] { cout << "Test3" << endl;  });

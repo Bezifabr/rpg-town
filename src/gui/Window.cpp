@@ -1,14 +1,16 @@
 #include "gui\Window.h"
 
 namespace gui {
-	void Window::SetBackgroundTexture(const sf::Texture & texture)
+	void Window::Add(std::shared_ptr<sf::Drawable> sprite)
 	{
-		this->background.setTexture(texture);
+		sprites.emplace_back(sprite);
 	}
 
 	void Window::Draw(std::shared_ptr<sf::RenderWindow> renderWindow)
 	{
-		renderWindow->draw(background);
+		for (std::shared_ptr<sf::Drawable> sprite : sprites)
+			renderWindow->draw(*sprite);
+
 		ButtonFunctionConnector::Draw(renderWindow);
 	}
 }
