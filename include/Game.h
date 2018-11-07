@@ -1,7 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "StateStack.h"
+#include "StateMachine.h"
 #include "StateUpdater.h"
 #include <memory>
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -9,7 +9,7 @@
 class Game
 {
     std::shared_ptr<sf::RenderWindow> renderWindow;
-    StateStack stateStack;
+    StateMachine stateStack;
     StateUpdater updater;
 public:
     Game();

@@ -7,7 +7,7 @@
 #include "StateAccessor.h"
 #include <SFML/Graphics/RenderWindow.hpp>
 
-class StateStack : public StateTransition, public StateAccessor
+class StateMachine : public StateTransition, public StateAccessor
 {
     std::stack<std::shared_ptr<State>> states;
 	std::shared_ptr<sf::RenderWindow> renderWindow;
